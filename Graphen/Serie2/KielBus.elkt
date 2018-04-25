@@ -1,62 +1,133 @@
+
 /*
  * Busplan der Kieler Linien 6,61,62,81,50,60S
  * In Fahrtrichtung von OS75 Richtung OS40
 */
 
 // Haltestellen Linie 6 
-node HasseeKlonnenweg
+node Busplan{
+
+node HasseeKlonnenweg{
+	label "Hasse, Klonnenweg"
+}
 node Waldeck
-node MelsdorferStrasse
+node MelsdorferStrasse{
+	label "Melsdorfer Str."
+}
 node Waldesruh
-node RusseerWeg
-node AltMetternhof
-node KoenigsfoerderWeg
-node MaxTauSchule
-node Stavangerstrasse
-node KurtSchumacherPlatz
+node RusseerWeg{
+	label "Russer Weg"
+}
+node AltMettenhof{
+	label "Alt Mettenhof"
+}
+node KoenigsfoerderWeg{
+	label "Königsförder Weg"
+}
+node MaxTauSchule{
+	label "Max-Tau-Schule"
+}
+node Stavangerstrasse{
+	label "Stavangerstr."
+}
+node KurtSchumacherPlatz{
+	label "Kurt-Schumacher-Platz"
+}
 node Bergenring
-node Stockholmstrasse
-node Goeteborgring
-node AmForsthaus
+node Stockholmstrasse{
+	label "Stockholmstr."
+}
+node Goeteborgring{
+	label "Göteborgring"
+}
+node AmForsthaus{
+	label "Am Forsthaus"
+}
 node Heischberg
-node RathausKronshagen
-node BruederGrimmSchule
-node BundeswehrKrankenhaus
-node JohannFleckStrasse
+node RathausKronshagen{
+	label "Rathaus Kronshagen"
+}
+node BruederGrimmSchule{
+	label "Brüder-Grimm-Schule"
+}
+node BundeswehrKrankenhaus{
+	label "Bundeswehr-Krankenhaus"
+}
+node JohannFleckStrasse{
+	label "Johann-Fleck-Str."
+}
 node Bremerskamp
-node Leibnizstrasse
-node UniSportstaetten
-node IPN
-node Universitaet
-node UniversitaetWestringNord
-node Rankenstrasse
+node Leibnizstrasse{
+	label "Leibnizstr."
+}
+node UniSportstaetten{
+	label "Uni-Sportstätten"
+}
+node IPN{
+	label "I.P.N."
+}
+node Universitaet{
+	label "Universität"
+}
+node UniversitaetWestringNord{
+	label "Universität/Westring(Nord)"
+}
+node Rankestrasse{
+	label "Rankestr."
+}
 node Nordfriedhof
 node Belvedere
-node Hanssenstrasse
+node Hanssenstrasse{
+	label "Hansenstr."
+}
 node Elendsredder
-node Knorrstrasse
+node Knorrstrasse{
+	label "Knorrstr."
+}
 node Petruskirche
-node WikHerthastrasse
+node WikHerthastrasse{
+	label "Wik, Herthastr."
+}
 
 // Haltestellen der Linie 50
-node BotanischerGarten
-node Universitaetsbibliothek
+node BotanischerGarten{
+	label "Botanischer Garten"
+}
+node Universitaetsbibliothek{
+	label "Universitätbibliothek"
+}
 //   Unisprotstaetten
 //   Universitaet
-node Samwerstrasse
-node Alsenstrasse
+node Samwerstrasse{
+	label "Samwerstr."
+}
+node Alsenstrasse{
+	label "Alsenstr."
+}
 node Lehmberg
 node Kunsthochschule
-node Dammstrasse
+node Dammstrasse{
+	label "Dammstr."
+}
 node Ziegelteich
-node KielHbf
+node KielHbf{
+	label "Kiel Hbf"
+}
 node Kirchhofallee
-node Harmstrasse
-node Suedfriedhof
-node Lantziusstrasse
+node Harmstrasse{
+	label "Harmstr."
+}
+node Suedfriedhof{
+	label "Südfriedhof"
+}
+node Lantziusstrasse{
+	label "Lantziusstr."
+}
 node Stadtrade
 node Uhlenkrog
-node Baerenkrog
+node Baerenkrog{
+	label "Bärenkrog"
+}
 //HasseKollenweg
 
 // Haltestellen der Lienie 60S
@@ -64,17 +135,29 @@ node Baerenkrog
 //   Universitaetsbibliothek
 //   UniSportstaetten
 //   Universitaet
-node WaitzstrasseHolenauerStrasse
-node Schauenburgstrasse
+node WaitzstrasseHolenauerStrasse{
+	label "Waitzstr./Holtenauer Str."
+}
+node Schauenburgstrasse{
+	label "Schauenburgstr."
+}
 node Dreiecksplatz
-node AndreasGaykStrasse
+node AndreasGaykStrasse{
+	label "Andreas-Gayk-Str."
+}
 //   KielHbf
 node Hummelwiese
-node KVG_Btf_Werftstrasse
+node KVG_Btf_Werftstrasse{
+	label "KVG Btf. Werftstr."
+}
 node HDW
 node Seefischmarkt
-node Grenzstrasse
-node Swentinestrasse
+node Grenzstrasse{
+	label "Grenzstr."
+}
+node Swentinestrasse{
+	label "Swentinestr."
+}
 
 // Haltestellen der Linie 81
 //   BotanischerGarten
@@ -83,13 +166,23 @@ node Swentinestrasse
 //   UniSportstaetten
 //   IPN
 //   Universitaet
-node UniversitaetWestringSued
+node UniversitaetWestringSued{
+	label "Universität/Westring(Süd)"
+}
 node Goetheschule
 node Hauptfeuerwache
-node ProfessorPetersPlatz
-node Kronshagenerweg
-node Hasseldieksdammerweg
-node BeruflicheSchulen
+node ProfessorPetersPlatz{
+	label "Professor-Peters-Platz"
+}
+node Kronshagenerweg{
+	label "Kronshagener Weg"
+}
+node Hasseldieksdammerweg{
+	label "Hasseldieksdammer Weg"
+}
+node BeruflicheSchulen{
+	label "Berufliche Schulen"
+}
 node IKEA
 //   Lantziusstrasse
 //   Suedfriedhof
@@ -101,17 +194,33 @@ node Schwedenkai
 //   Dreicecksplatz
 //   Lehmberg
 node Hansastrasse
-node ChristianKruseStrasse
-node Eichhofstrasse
-node NordmarkSportfeld
-node KopperpahlerTeich
+node ChristianKruseStrasse{
+	label "Christian-Kruse-Str."
+}
+node Eichhofstrasse{
+	label "Eichhofstr."
+}
+node NordmarkSportfeld{
+	label "Nordmark-Sportfeld"
+}
+node KopperpahlerTeich{
+	label "Kopperpahler Teich"
+}
 //   JohannFleckstrasse
 node Vulkanweg
-node BahnhofSuchsdorf
+node BahnhofSuchsdorf{
+	label "Bahnhof Suchsdorf"
+}
 node Schneiderkamp
-node NienbrueggerWeg
-node SylterBogen
-node SuchsdorfRungholtplatz
+node NienbrueggerWeg{
+	label "Nienbrügger Weg"
+}
+node SylterBogen{
+	label "Sylter Bogen"
+}
+node SuchsdorfRungholtplatz{
+	label "Suchsdorf, Rungholtplatz"
+}
 
 // Haltestellen der Linie 61
 //   SuchsdorfRungholtplatz
@@ -120,7 +229,9 @@ node SuchsdorfRungholtplatz
 //   Schneiderkamp
 node Rehbenitzwinkel
 node Torfende
-node Mangoldstrasse
+node Mangoldtstrasse{
+	label "Mangoldtstr."
+}
 //   Bremerskamp
 //   Leibnitzstrasse
 //   Unisportstaetten
@@ -128,44 +239,82 @@ node Mangoldstrasse
 //   Universitaet
 //   Samwerstrasse
 //   WaitzstrasseHolenauerStrasse
-node FeldstrasseWaitzstrasse
-node UniKliniken
-node Hospitalstrasse
-node Schlossgarten
-node SeegartenOstseekai
+node FeldstrasseWaitzstrasse{
+	label "Feldstr./Waitzstr."
+}
+node UniKliniken{
+	label "Uni-Kliniken"
+}
+node Hospitalstrasse{
+	label "Hospitalstr."
+}
+node Schlossgarten{
+	label "Schloßgarten"
+}
+node SeegartenOstseekai{
+	label "Seegarten, Ostseekai"
+}
 //   AndreasGykStrasse
 //   KielHbf
 //   Hummelwiese
 node Rondeel
 node Waldwiese
-node Diesterwegstrasse
-node Schleswigerstrasse
-node Gaertnerstrasse
+node Diesterwegstrasse{
+	label "Diesterwegstr."
+}
+node Schleswigerstrasse{
+	label "Schleswiger Str."
+}
+node Gaertnerstrasse{
+	label "Gärtnerstr."
+}
 node Streitkamp
-node Hasseerstrasse
-node HasseeMarienlust
+node Hasseerstrasse{
+	label "Hasseer Str."
+}
+node HasseeMarienlust{
+	label "Hassee, Marienlust"
+}
 node Strucksdiek
 node Rutkamp
 node Redderkamp
 node Gatowweg
 node Dahmeweg
-node Koepenickstrasse
-node MelsdorferFeldweg
+node Koepenickerstrasse{
+	label "Köpenicker Str."
+}
+node MelsdorferFeldweg{
+	label "Melsdorfer Feldweg"
+}
 //   RusseerWeg
-node AmWohld
-node Malmoeweg
+node AmWohld{
+	label "Am Wohld"
+}
+node Malmoeweg{
+	label "Malmöweg"
+}
 //   Goeteborgring
 //   Stockholmstrasse
 //   Bergenring
 //   KurtSchumacherPlatz
 //   Stavangerstrasse
-node MettenhofAalborgring
+node MettenhofAalborgring{
+	label "Mettenhof, Aalborgring"
+}
 
 // Haltestellen der Linie 62
-node ProjensdorfWoltersweg
-node Gurlittstrasse
-node SteenbekerWeg
-node KlinikLubinus
+node ProjensdorfWoltersweg{
+	label "Projensdorf, Woltersweg"
+}
+node Gurlittstrasse{
+	label "Gurlittstr."
+}
+node SteenbekerWeg{
+	label "Steenbeker Weg"
+}
+node KlinikLubinus{
+	label "Klinik Lubinus"
+}
 //   Torfende
 //   Mangoldstrasse
 //   Bremerskamp
@@ -198,17 +347,21 @@ node KlinikLubinus
 //   Dahmeweg
 //   Koepenickstrasse
 node Hofkoppel
-node RusseeKirche
+node RusseeKirche{
+	label "Russee, Kirche"
+}
 node Ihlkatenweg
-node RusseeSchiefeHorn
+node RusseeSchiefeHorn{
+	label "Schiefe Horn"
+}
 
 //Kanten Linie 6
 edge HasseeKlonnenweg -> Waldeck
 edge Waldeck -> MelsdorferStrasse
 edge MelsdorferStrasse -> Waldesruh
 edge Waldesruh -> RusseerWeg
-edge RusseerWeg -> AltMetternhof
-edge AltMetternhof -> KoenigsfoerderWeg
+edge RusseerWeg -> AltMettenhof
+edge AltMettenhof -> KoenigsfoerderWeg
 edge KoenigsfoerderWeg -> MaxTauSchule
 edge MaxTauSchule ->  Stavangerstrasse
 edge Stavangerstrasse -> KurtSchumacherPlatz
@@ -227,8 +380,8 @@ edge Leibnizstrasse -> UniSportstaetten
 edge UniSportstaetten -> IPN
 edge IPN -> Universitaet
 edge Universitaet -> UniversitaetWestringNord
-edge UniversitaetWestringNord -> Rankenstrasse
-edge Rankenstrasse -> Nordfriedhof
+edge UniversitaetWestringNord -> Rankestrasse
+edge Rankestrasse -> Nordfriedhof
 edge Nordfriedhof -> Belvedere
 edge Belvedere -> Hanssenstrasse
 edge Hanssenstrasse -> Elendsredder
@@ -314,8 +467,8 @@ edge SylterBogen                  -> NienbrueggerWeg
 edge NienbrueggerWeg              -> Schneiderkamp
 edge Schneiderkamp                -> Rehbenitzwinkel
 edge Rehbenitzwinkel              -> Torfende
-edge Torfende                     -> Mangoldstrasse
-edge Mangoldstrasse               -> Bremerskamp
+edge Torfende                     -> Mangoldtstrasse
+edge Mangoldtstrasse               -> Bremerskamp
 edge Bremerskamp                  -> Leibnizstrasse
 edge Leibnizstrasse               -> UniSportstaetten
 edge UniSportstaetten             -> IPN
@@ -343,8 +496,8 @@ edge Strucksdiek                  -> Rutkamp
 edge Rutkamp                      -> Redderkamp
 edge Redderkamp                   -> Gatowweg
 edge Gatowweg                     -> Dahmeweg
-edge Dahmeweg                     -> Koepenickstrasse
-edge Koepenickstrasse             -> MelsdorferFeldweg
+edge Dahmeweg                     -> Koepenickerstrasse
+edge Koepenickerstrasse             -> MelsdorferFeldweg
 edge MelsdorferFeldweg            -> RusseerWeg
 edge RusseerWeg                   -> AmWohld
 edge AmWohld                      -> Malmoeweg
@@ -361,8 +514,8 @@ edge ProjensdorfWoltersweg        -> Gurlittstrasse
 edge Gurlittstrasse               -> SteenbekerWeg
 edge SteenbekerWeg                -> KlinikLubinus
 edge KlinikLubinus                -> Torfende
-edge Torfende                     -> Mangoldstrasse
-edge Mangoldstrasse               -> Bremerskamp
+edge Torfende                     -> Mangoldtstrasse
+edge Mangoldtstrasse               -> Bremerskamp
 edge Bremerskamp                  -> Leibnizstrasse
 edge Leibnizstrasse               -> UniSportstaetten
 edge UniSportstaetten             -> IPN
@@ -390,9 +543,10 @@ edge Strucksdiek                  -> Rutkamp
 edge Rutkamp                      -> Redderkamp
 edge Redderkamp                   -> Gatowweg
 edge Gatowweg                     -> Dahmeweg
-edge Dahmeweg                     -> Koepenickstrasse
-edge Koepenickstrasse             -> Hofkoppel
+edge Dahmeweg                     -> Koepenickerstrasse
+edge Koepenickerstrasse             -> Hofkoppel
 edge Hofkoppel                    -> RusseeKirche
 edge RusseeKirche                 -> Ihlkatenweg
 edge Ihlkatenweg                  -> RusseeSchiefeHorn
 
+}
