@@ -1,0 +1,75 @@
+package de.webtwob.adg.s2.layouts
+
+import de.webtowb.agd.s2.layouts.FruchtermanReingoldLayoutProvider
+import de.webtowb.agd.s2.layouts.RepulsionEnum
+import org.eclipse.elk.core.math.KVector
+import de.webtowb.agd.s2.layouts.InitialLayoutEnum
+
+bundle{
+    metadataClass options.FruchtmanReingoldMetaDataProvider
+    idPrefix de.webtwob.agd.s2.layouts
+}
+
+output option displacementVector : KVector{
+    label "Move Node by Vector"
+    description "The direction and distance to move this node in this iteration"
+
+    default  = new KVector()
+
+    targets nodes
+
+}
+
+output option gridSection : KVector{
+    label "Grid Section"
+    description "The Grid Section a Node is in."
+
+    default  = new KVector
+
+    targets nodes
+
+}
+
+option repulsionMode:RepulsionEnum{
+    
+    default = RepulsionEnum.RADIUS2K
+    
+    targets parents
+}
+
+option initLayout : InitialLayoutEnum{
+    default = InitialLayoutEnum.CIRCLE
+    
+    targets parents
+}
+
+option CParameter : double {
+    default = 1
+    targets parents
+}
+
+option Iterations : int {
+    default = 50
+    targets parents
+}
+
+option skipLayout : boolean {
+    default = false
+    targets parents
+}
+    
+algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
+      label "Fruchterman/Reingold Force Directed Layout"
+      
+      metadataClass options.FruchtermanReingoldOptions
+      
+      supports displacementVector
+      supports gridSection
+      supports repulsionMode
+      supports initLayout
+      supports CParameter
+      supports Iterations
+      supports skipLayout
+
+}
+

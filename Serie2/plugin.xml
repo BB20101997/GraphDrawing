@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.elk.core.layoutProviders">
       <provider
-            class="de.webtwob.adg.s2.layouts.meta.de.webtwob.adg.s2.layouts.meta.FruchtmanReingoldMetaDataProvider">
+            class="de.webtwob.adg.s2.layouts.options.FruchtmanReingoldMetaDataProvider">
       </provider>
    </extension>
 
