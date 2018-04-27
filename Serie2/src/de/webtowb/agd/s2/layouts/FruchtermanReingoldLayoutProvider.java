@@ -21,8 +21,8 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     InitialLayoutEnum initLayout = InitialLayoutEnum.CIRCLE;
     double C = 1;
     int iterations = 50;
-    int width = 10000;// TODO find out where to get the real values from
-    int height = 10000;// TODO if no real values exist make these options
+    int width = 1000;// TODO find out where to get the real values from
+    int height = 1000;// TODO if no real values exist make these options
     Random rand = new Random();
 
     private long getArea() {
@@ -39,6 +39,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         initLayout = layoutGraph.getProperty(FruchtermanReingoldOptions.INIT_LAYOUT);
         C = layoutGraph.getProperty(FruchtermanReingoldOptions.C_PARAMETER);
         iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.ITERATIONS);
+        int earlyStop = layoutGraph.getProperty(FruchtermanReingoldOptions.STOP_EARLY);
 
         // kGrid the section size for the grid
         double kGrid = Math.sqrt(getArea() / layoutGraph.getChildren().size());
@@ -61,7 +62,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         if (!layoutGraph.getProperty(FruchtermanReingoldOptions.SKIP_LAYOUT)) {
             IElkProgressMonitor subTask;
             int iterationSize = layoutGraph.getChildren().size() * 2 + layoutGraph.getContainedEdges().size();
-            for (int i = 0; i < iterations; i++) {
+            for (int i = 0; i < iterations-earlyStop; i++) {
                 subTask = progressMonitor.subTask(1);
                 subTask.begin(String.format("Iteration %d", i), iterationSize);
 
@@ -304,7 +305,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         // TODO option for cooling function selection
         // temperature cools down over time/iterations e.g. inverse linear function e.g. initial temperature 1/10 of
         // the frames shorter side
-        return Math.min(width, height) / 10 - iteration / iterations;
+        return (Math.min(width, height) / 10) * (1  - iteration/iterations);
     }
 
 }

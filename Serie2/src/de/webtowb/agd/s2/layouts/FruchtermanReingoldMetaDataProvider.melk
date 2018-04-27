@@ -57,6 +57,11 @@ option skipLayout : boolean {
     default = false
     targets parents
 }
+
+option stopEarly : int {
+    default = 0
+    targets parents
+}
     
 algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       label "Fruchterman/Reingold Force Directed Layout"
@@ -70,6 +75,7 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       supports CParameter
       supports Iterations
       supports skipLayout
+      supports stopEarly
 
 }
 
