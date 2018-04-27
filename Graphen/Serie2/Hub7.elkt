@@ -1,7 +1,9 @@
 node hub7 {
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
-	de.webtwob.agd.s2.layouts.Iterations: 100
-	
+	//algorithm: stress 
+	de.webtwob.agd.s2.layouts.Iterations: 50
+	de.webtwob.agd.s2.layouts.CParameter: 0.125
+	//de.webtwob.agd.s2.layouts.initLayout: RANDOM_NON_DETERMANISTIC
 	
 	node center
 	node n1

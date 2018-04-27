@@ -9,9 +9,9 @@ node Busplan {
 	
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
 	
-	//de.webtwob.agd.s2.layouts.initLayout: RANDOM_NON_DETERMANISTIC
+	de.webtwob.agd.s2.layouts.initLayout: RANDOM_NON_DETERMANISTIC
 	//de.webtwob.agd.s2.layouts.CParameter: 10
-	//de.webtwob.agd.s2.layouts.Iterations: 50
+	de.webtwob.agd.s2.layouts.Iterations: 500
 	//de.webtwob.agd.s2.layouts.repulsionMode: GRID3X3
 	//de.webtwob.agd.s2.layouts.skipLayout: true
 	

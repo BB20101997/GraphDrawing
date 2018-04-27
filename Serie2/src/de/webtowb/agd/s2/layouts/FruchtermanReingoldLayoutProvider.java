@@ -21,8 +21,8 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     InitialLayoutEnum initLayout = InitialLayoutEnum.CIRCLE;
     double C = 1;
     int iterations = 50;
-    int width = 1000;// TODO find out where to get the real values from
-    int height = 1000;// TODO if no real values exist make these options
+    int width = 10000;// TODO find out where to get the real values from
+    int height = 10000;// TODO if no real values exist make these options
     Random rand = new Random();
 
     private long getArea() {
