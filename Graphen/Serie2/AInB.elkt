@@ -1,0 +1,28 @@
+algorithm: FruchtmanReingold
+
+Iterations: 400
+
+frameWidth: 4000
+frameHeight: 4000
+
+repulsionMode: RADIUS2K
+
+node a{
+	algorithm: FruchtmanReingold
+	node a1
+	node a2
+	node a3
+	edge a1 -> a2	
+}
+
+node b {
+	algorithm: FruchtmanReingold
+	node b1
+	node b2
+	node b3
+	edge b2 -> b1
+}
+
+node c
+
+edge a -> b

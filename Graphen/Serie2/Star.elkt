@@ -1,6 +1,7 @@
-node hub7 {
+node Stra {
+
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
-	
+
 	Iterations: 400
 	
 	node center
@@ -10,13 +11,6 @@ node hub7 {
 	node n4
 	node n5
 	node n6
-
-	edge n1 -> n6
-	edge n2 -> n1
-	edge n3 -> n2
-	edge n4 -> n3
-	edge n5 -> n4
-	edge n6 -> n5
 
 	edge center -> n1
 	edge center -> n2
