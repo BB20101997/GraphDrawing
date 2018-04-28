@@ -30,7 +30,7 @@ public enum CoolingFunctionEnum {
             }else {
                 //simmer, constant low
                 //TODO add option
-                return 10;
+                return layoutGraph.getProperty(FruchtermanReingoldOptions.SIMMER_VALUE);
             }
         }
         

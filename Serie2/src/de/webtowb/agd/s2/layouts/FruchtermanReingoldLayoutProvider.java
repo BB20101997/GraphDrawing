@@ -21,12 +21,17 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     InitialLayoutEnum initLayout = InitialLayoutEnum.CIRCLE;
     double C = 1;
     int iterations = 50;
-    double width = 1000;// TODO find out where to get the real values from
-    double height = 1000;// TODO if no real values exist make these options
+    // TODO find out where to get the real values from
+    double width = 1000;
+    // TODO if no real values exist make these options
+    double height = 1000;
 
     CoolingFunctionEnum coolingFunction = CoolingFunctionEnum.QUENCH_AND_SIMMER;
 
+    //used for random ness
     Random rand = new Random();
+    
+    Random detRand = new Random(42);
 
     private double getArea() {
         return width * height;
@@ -46,6 +51,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         width = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_WIDTH);
         height = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_HEIGHT);
         coolingFunction = layoutGraph.getProperty(FruchtermanReingoldOptions.COOLING_FUNCTION);
+        detRand.setSeed(layoutGraph.getProperty(FruchtermanReingoldOptions.SEED));
 
         // kGrid the section size for the grid
         double kGrid = Math.sqrt(getArea() / layoutGraph.getChildren().size());
@@ -84,10 +90,27 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
             }
         }
 
+        
+        positionGraph(layoutGraph);
+      
+
+        // TODO edge routing
+
+        progressMonitor.done();
+    }
+
+    /**
+     * Resized the parent to fit our result graph and centers the result graph in it's parent
+     * */
+    private void positionGraph(ElkNode layoutGraph) {
         // Determine the size the parent should have and center the subgraph
 
         double maxX = 0, maxY = 0, minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY;
         for (ElkNode node : layoutGraph.getChildren()) {
+            if (Double.isNaN(node.getX()) || Double.isNaN(node.getY())) {
+                System.err.println("At last one Coordinat of a Node where Nan!");
+                continue; // TODO find out where NaN comes from
+            }
             minX = Math.min(minX, node.getX());
             minY = Math.min(minY, node.getY());
             maxX = Math.max(maxX, node.getX() + node.getWidth());
@@ -104,10 +127,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         }
 
         layoutGraph.setDimensions(radius * 2, radius * 2);
-
-        // TODO edge routing
-
-        progressMonitor.done();
+        
     }
 
     private void initSetup(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid, double kGrid) {
@@ -188,7 +208,13 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                         ElkNode u = (ElkNode) s1;
                         ElkNode v = (ElkNode) s2;
                         KVector dist = difference(v, u);
+                        //act as if we have a small offset if we are at diatsnce 0
+                        if(dist.length()==0) {
+                            dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
+                            dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
+                        }
                         double force = atractionForce(dist.length(), kC);
+                       
                         dist.normalize().scale(force);
                         v.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR).sub(dist);
                         u.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR).add(dist);
@@ -209,9 +235,15 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         for (ElkNode node : layoutGraph.getChildren()) {
             KVector nodeDisp = node.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR);
             getNodesInVecinity(node, grid, kGrid).forEach(neighbour -> {
-                KVector dist = difference(node, neighbour);
+                KVector dist = difference(node, neighbour);  
+                //act as if we have a small offset if we are at diatsnce 0
+                if(dist.length()==0) {
+                    dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
+                    dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
+                }
                 double force = repulsionForce(dist.length(), kC);
-                nodeDisp.add(dist.normalize().scale(force));
+                dist.normalize().scale(force);
+                nodeDisp.add(dist);
                 subTask.worked(1);
             });
         }

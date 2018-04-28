@@ -11,6 +11,7 @@ bundle{
     idPrefix de.webtwob.agd.s2.layouts
 }
 
+//used to calculate the displacement on a Node
 output option displacementVector : KVector{
     label "Move Node by Vector"
     description "The direction and distance to move this node in this iteration"
@@ -21,11 +22,12 @@ output option displacementVector : KVector{
 
 }
 
+//used to store a nodes current grid section
 output option gridSection : KVector{
     label "Grid Section"
     description "The Grid Section a Node is in."
 
-    default  = new KVector
+    default  = new KVector()
 
     targets nodes
 
@@ -58,7 +60,7 @@ option coolingFunction : CoolingFunctionEnum{
     
 }
 //TODO add label and description, to not cause null pointer exceptions in Layout view
-option CParameter : double {
+advanced option CParameter : double {
     default = 1
     targets parents
 }
@@ -74,7 +76,7 @@ option skipLayout : boolean {
     targets parents
 }
 
-option stopEarly : int {
+advanced option stopEarly : int {
     default = 0
     targets parents
     
@@ -94,11 +96,30 @@ option frameHeight : double {
     
     lowerBound = 0.0
 }
+
+option seed: long{
+    default = 42
+    targets parents
+}
+
+advanced option simmerValue: double {
+    default = 10
+    targets parents
+    
+    lowerBound = 0.0
+    
+    requires coolingFunction == CoolingFunctionEnum.QUENCH_AND_SIMMER
+
+}
     
 algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       label "Fruchterman/Reingold Force Directed Layout"
       
       metadataClass options.FruchtermanReingoldOptions
+      
+      category org.eclipse.elk.force
+      
+      description "This is an implementation of the algorithm described in \"Graph Drawing by Force-directed Placement\" by Fruchterman and Reingold"
       
       supports displacementVector
       supports gridSection
@@ -111,6 +132,8 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       supports frameHeight
       supports frameWidth
       supports coolingFunction
+      supports simmerValue
+      supports seed
 
 }
 
