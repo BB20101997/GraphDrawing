@@ -4,6 +4,7 @@ import de.webtowb.agd.s2.layouts.FruchtermanReingoldLayoutProvider
 import de.webtowb.agd.s2.layouts.RepulsionEnum
 import org.eclipse.elk.core.math.KVector
 import de.webtowb.agd.s2.layouts.InitialLayoutEnum
+import de.webtowb.agd.s2.layouts.CoolingFunctionEnum
 
 bundle{
     metadataClass options.FruchtmanReingoldMetaDataProvider
@@ -31,6 +32,8 @@ output option gridSection : KVector{
 }
 
 option repulsionMode:RepulsionEnum{
+    label "Repulsion Mode"
+    description "Changes whether a node is Repulsed by all nodes, all nodes in a 3x3 grid, all nodes in a 2k radius."
     
     default = RepulsionEnum.RADIUS2K
     
@@ -38,11 +41,23 @@ option repulsionMode:RepulsionEnum{
 }
 
 option initLayout : InitialLayoutEnum{
+    label "Initial Layout"
+    description "Decides how to place the Nodes initially e.g. Random or on the edge of a circle."
+    
     default = InitialLayoutEnum.CIRCLE
     
     targets parents
 }
 
+option coolingFunction : CoolingFunctionEnum{
+    label "Cooling Function"
+    description "Changes the cooling Function used to limit the node movement"
+    
+    default = CoolingFunctionEnum.QUENCH_AND_SIMMER
+    targets parents
+    
+}
+//TODO add label and description, to not cause null pointer exceptions in Layout view
 option CParameter : double {
     default = 1
     targets parents
@@ -51,6 +66,7 @@ option CParameter : double {
 option Iterations : int {
     default = 50
     targets parents
+    lowerBound = 0
 }
 
 option skipLayout : boolean {
@@ -61,6 +77,22 @@ option skipLayout : boolean {
 option stopEarly : int {
     default = 0
     targets parents
+    
+    lowerBound = 0
+}
+
+option frameWidth : double {
+    default = 1000
+    targets parents
+    
+    lowerBound = 0.0
+}
+
+option frameHeight : double {
+    default = 1000
+    targets parents
+    
+    lowerBound = 0.0
 }
     
 algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
@@ -76,6 +108,9 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       supports Iterations
       supports skipLayout
       supports stopEarly
+      supports frameHeight
+      supports frameWidth
+      supports coolingFunction
 
 }
 
