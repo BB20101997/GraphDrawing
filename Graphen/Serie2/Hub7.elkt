@@ -1,7 +1,7 @@
 node hub7 {
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
 	
-	Iterations: 400
+	Iterations: 80 //übergang 80 <-> 890 interresant
 	
 	node center
 	node n1

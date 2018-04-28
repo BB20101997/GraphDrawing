@@ -1,0 +1,69 @@
+node Figure16a {
+	algorithm: FruchtmanReingold
+	Iterations: 200
+
+	node s1
+	node s2
+	node s3
+	node s4
+
+	node o1
+	node o2
+	node o3
+	node o4
+
+	edge s1 -> s2
+	edge s2 -> s3
+	edge s3 -> s4
+	edge s4 -> s1
+
+	edge s1 -> o1
+	edge s2 -> o2
+	edge s3 -> o3
+	edge s4 -> o4
+
+}
+
+node Figure16b {
+	algorithm: FruchtmanReingold
+	Iterations: 400
+
+	node t11
+	node t12
+	node t13
+
+	node t21
+	node t22
+	node t23
+
+	edge t11 -> t21
+
+	edge t11 -> t12
+	edge t12 -> t13
+	edge t13 -> t11
+
+	edge t21 -> t22
+	edge t22 -> t23
+	edge t23 -> t21
+
+}
+
+node Figure16c {
+	algorithm: FruchtmanReingold
+	Iterations: 400
+
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n5
+	edge n5 -> n6
+	edge n6 -> n1
+
+}

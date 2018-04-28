@@ -1,0 +1,31 @@
+node Figure20{
+	
+	
+	//graph identical to Figure19
+	
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 100
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	
+	edge n1 -> n2
+	edge n1 -> n3
+	edge n1 -> n4
+	
+	edge n2 -> n5
+	edge n2 -> n6
+	
+	edge n3 -> n5
+	edge n3 -> n6
+	
+	edge n4 -> n5
+	edge n4 -> n6
+	
+}

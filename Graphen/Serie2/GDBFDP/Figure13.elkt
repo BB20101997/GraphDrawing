@@ -1,0 +1,34 @@
+node Figure13 {
+	
+	//graph identical to Figure12
+	
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+
+	Iterations: 80
+	
+	node center
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n5
+	edge n5 -> n1
+
+	edge n1 -> n3
+	edge n2 -> n4
+	edge n3 -> n5
+	edge n4 -> n1
+	edge n5 -> n2
+	
+	edge n1 -> center
+	edge n2 -> center
+	edge n3 -> center
+	edge n4 -> center
+	edge n5 -> center
+
+}

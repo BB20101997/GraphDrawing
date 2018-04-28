@@ -8,8 +8,7 @@
 node Busplan {
 	
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
-	Iterations: 4
-	//algorithm: stress
+	Iterations: 1000
 	
 	node HasseeKlonnenweg {
 		label "Hasse, Klonnenweg"

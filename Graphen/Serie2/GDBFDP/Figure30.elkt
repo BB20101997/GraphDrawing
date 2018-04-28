@@ -1,0 +1,117 @@
+node Figure30a{
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 150
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node n7
+	node n8
+	node n9
+	node n10
+	
+	edge n1 -> n2
+	
+	edge n2 -> n3
+	edge n2 -> n5
+	edge n2 -> n8
+	
+	edge n3 -> n5
+	edge n3 -> n4
+	edge n3 -> n6
+	
+	edge n4 -> n6
+	
+	edge n5 -> n9
+	
+	edge n6 -> n7
+	edge n6 -> n10
+	
+	edge n8 -> n9
+	
+	edge n9 -> n10
+	
+	
+}
+
+node Figure30b{
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 100
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node n7
+	
+	edge n1 -> n2
+	edge n1 -> n3
+	
+	edge n2 -> n4
+	edge n3 -> n4
+	
+	edge n4 -> n5
+	edge n4 -> n6
+	edge n4 -> n7
+	
+	edge n6 -> n7
+	
+	
+	
+}
+
+node Figure30c{
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 300
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node n7
+	node n8
+	node n9
+	node n10
+	node n11
+	node n12
+	
+	edge n1 -> n2
+	
+	edge n2 -> n3
+	edge n2 -> n4
+	
+	edge n3 -> n5
+	
+	edge n4 -> n6
+	edge n4 -> n7
+	
+	edge n5 -> n8
+	
+	edge n6 -> n7
+	edge n6 -> n9
+	
+	edge n8 -> n10
+	edge n8 -> n11
+	edge n8 -> n12
+	
+	edge n9 -> n5
+	
+	edge n11 -> n12
+	
+	
+	
+	
+}

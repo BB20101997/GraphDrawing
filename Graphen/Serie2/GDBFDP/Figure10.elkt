@@ -1,0 +1,25 @@
+node Figure10 {
+	
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+
+	Iterations: 80 // 70 <-> 80
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n5
+	edge n5 -> n1
+
+	edge n1 -> n3
+	edge n2 -> n4
+	edge n3 -> n5
+	edge n4 -> n1
+	edge n5 -> n2
+
+}

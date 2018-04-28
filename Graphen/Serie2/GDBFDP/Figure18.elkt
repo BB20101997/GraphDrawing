@@ -1,0 +1,68 @@
+node Figure18 {
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 100
+	
+	node nc1
+	node nc2
+	node nc3
+	node nc4
+
+	edge nc1 -> nc2
+	edge nc2 -> nc3
+	edge nc3 -> nc4
+	edge nc4 -> nc1
+
+	edge nc1 -> nc3
+	edge nc2 -> nc4
+	
+	node n12
+	node n13
+	node n14
+
+	edge nc1 -> n12
+	edge n12 -> n13
+	edge n13 -> n14
+	edge n14 -> nc1
+
+	edge nc1 -> n13
+	edge n12 -> n14
+	
+	node n22
+	node n23
+	node n24
+
+	edge nc2 -> n22
+	edge n22 -> n23
+	edge n23 -> n24
+	edge n24 -> nc2
+
+	edge nc2 -> n23
+	edge n22 -> n24
+	
+	node n32
+	node n33
+	node n34
+
+	edge nc3 -> n32
+	edge n32 -> n33
+	edge n33 -> n34
+	edge n34 -> nc3
+
+	edge nc3 -> n33
+	edge n32 -> n34
+	
+	node n42
+	node n43
+	node n44
+
+	edge nc4 -> n42
+	edge n42 -> n43
+	edge n43 -> n44
+	edge n44 -> nc4
+
+	edge nc4 -> n43
+	edge n42 -> n44
+
+}

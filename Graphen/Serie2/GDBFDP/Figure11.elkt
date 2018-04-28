@@ -1,0 +1,20 @@
+node Figure11 {
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 70
+	
+	node n1
+	node n2
+	node n3
+	node n4
+
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n1
+
+	edge n1 -> n3
+	edge n2 -> n4
+
+}

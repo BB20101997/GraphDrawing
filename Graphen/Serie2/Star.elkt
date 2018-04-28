@@ -1,8 +1,8 @@
 node Stra {
 
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
-
-	Iterations: 400
+	
+	Iterations: 100
 	
 	node center
 	node n1

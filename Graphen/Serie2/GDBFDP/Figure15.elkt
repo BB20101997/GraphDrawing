@@ -1,0 +1,8 @@
+node Figure15{
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+	
+	node n1
+	node n2
+	
+	edge n1 -> n2
+}
