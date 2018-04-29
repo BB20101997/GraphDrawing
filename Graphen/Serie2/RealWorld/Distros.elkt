@@ -16,10 +16,10 @@ node Distributionen {
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
 	
 	settings.Iterations: 5000
-	settings.CParameter: 0.125
+	settings.CParameter: 0.7
 	
-	settings.frameHeight: 100000
-	settings.frameWidth: 100000
+	settings.frameHeight: 5000
+	settings.frameWidth: 5000
 
 	node Debian
 	node Libranet
