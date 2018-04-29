@@ -1,0 +1,50 @@
+node Figure74 {
+	
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+
+	Iterations: 1000
+	
+	frameHeight: 2000
+	frameWidth: 2000
+	
+	CParameter: 0.5 
+	
+	node n11
+	node n12
+	node n13
+	node n14
+	node n15
+          
+	edge n11 -> n12
+	edge n12 -> n13
+	edge n13 -> n14
+	edge n14 -> n15
+	edge n15 -> n11
+                 
+	edge n11 -> n13
+	edge n12 -> n14
+	edge n13 -> n15
+	edge n14 -> n11
+	edge n15 -> n12
+	
+	node n21
+	node n22
+	node n23
+	node n24
+	node n25
+          
+	edge n21 -> n22
+	edge n22 -> n23
+	edge n23 -> n24
+	edge n24 -> n25
+	edge n25 -> n21
+                 
+	edge n21 -> n23
+	edge n22 -> n24
+	edge n23 -> n25
+	edge n24 -> n21
+	edge n25 -> n22
+	
+	edge n11 -> n21
+
+}
