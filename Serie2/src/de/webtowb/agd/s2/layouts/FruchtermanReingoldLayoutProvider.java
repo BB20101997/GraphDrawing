@@ -51,17 +51,14 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         coolingFunction = layoutGraph.getProperty(FruchtermanReingoldOptions.COOLING_FUNCTION);
         detRand.setSeed(layoutGraph.getProperty(FruchtermanReingoldOptions.SEED));
 
-        // kGrid the section size for the grid
-        double kGrid = Math.sqrt(getArea() / layoutGraph.getChildren().size());
-        // optimal distance k = C sqrt(area/|vertices|) ,C found experimentally
-        double kC = C * kGrid;
-
+        // k optimal vertex distance
+        double k = C * Math.sqrt(getArea() / layoutGraph.getChildren().size());
         List<ElkNode>[][] grid = null;
 
-        grid = (LinkedList<ElkNode>[][]) new LinkedList<?>[(int) (width / (2 * kGrid)) + 1][(int) (height / (2 * kGrid))
+        grid = (LinkedList<ElkNode>[][]) new LinkedList<?>[(int) (width / (2 * k)) + 1][(int) (height / (2 * k))
                 + 1];
 
-        initSetup(layoutGraph, progressMonitor.subTask(1), grid, kGrid);
+        initSetup(layoutGraph, progressMonitor.subTask(1), grid, k);
 
         /*
          * Neighbors attract divide into grid boxes, gridBoxes = |V|/4 gridbox side length = 2k = 2 sqrt(WL/|V|) all in
@@ -80,10 +77,10 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                 layoutGraph.getChildren().stream()
                         .forEach(n -> n.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).reset());
 
-                calculateRepulsion(layoutGraph, subTask.subTask(layoutGraph.getChildren().size()), grid, kC, kGrid);
-                calculateAttraction(layoutGraph, subTask.subTask(layoutGraph.getContainedEdges().size()), grid, kC);
+                calculateRepulsion(layoutGraph, subTask.subTask(layoutGraph.getChildren().size()), grid, k);
+                calculateAttraction(layoutGraph, subTask.subTask(layoutGraph.getContainedEdges().size()), grid, k);
                 performMovement(layoutGraph, subTask.subTask(layoutGraph.getChildren().size()), temperature);
-                calculateGrid(layoutGraph, grid, kGrid);
+                calculateGrid(layoutGraph, grid, k);
                 subTask.done();
             }
         }
@@ -128,7 +125,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         
     }
 
-    private void initSetup(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid, double kGrid) {
+    private void initSetup(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid, double k) {
         subTask.begin("InitPosition", layoutGraph.getChildren().size());
         for (List<ElkNode>[] sub : grid) {
             Arrays.setAll(sub, notUsed -> new LinkedList<ElkNode>());
@@ -156,17 +153,17 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
             break;
         }
 
-        calculateGrid(layoutGraph, grid, kGrid);
+        calculateGrid(layoutGraph, grid, k);
 
         subTask.done();
     }
 
-    private void calculateGrid(ElkNode layoutGraph, List<ElkNode>[][] grid, double kGrid) {
+    private void calculateGrid(ElkNode layoutGraph, List<ElkNode>[][] grid, double k) {
         KVector p;
         for (ElkNode node : layoutGraph.getChildren()) {
             p = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_GRID_SECTION);
             grid[(int) p.x][(int) p.y].remove(node);
-            grid[(int) (p.x = node.getX() / (2 * kGrid))][(int) (p.y = node.getY() / (2 * kGrid))].add(node);
+            grid[(int) (p.x = node.getX() / (2 * k))][(int) (p.y = node.getY() / (2 * k))].add(node);
         }
     }
 
@@ -195,7 +192,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
      * Calculate the repulsion for each edge and adds it to the displacement vector of the nodes
      */
     private void calculateAttraction(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid,
-            double kC) {
+            double k) {
         subTask.begin("Calculating Attraction", layoutGraph.getContainedEdges().size());
 
         for (ElkEdge edge : layoutGraph.getContainedEdges()) {
@@ -206,12 +203,12 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                         ElkNode u = (ElkNode) s1;
                         ElkNode v = (ElkNode) s2;
                         KVector dist = difference(v, u);
-                        //act as if we have a small offset if we are at diatsnce 0
+                        //act as if we have a small offset if we are at distance 0
                         if(dist.length()==0) {
                             dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                             dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                         }
-                        double force = atractionForce(dist.length(), kC);
+                        double force = atractionForce(dist.length(), k);
                        
                         dist.normalize().scale(force);
                         v.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).sub(dist);
@@ -227,19 +224,18 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     /**
      * For each node resets displacement vector and than calculates repulsion summed up into displacement vector
      */
-    private void calculateRepulsion(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid, double kC,
-            double kGrid) {
+    private void calculateRepulsion(ElkNode layoutGraph, IElkProgressMonitor subTask, List<ElkNode>[][] grid, double k) {
         subTask.begin("Calculating Repulsion", layoutGraph.getChildren().size());
         for (ElkNode node : layoutGraph.getChildren()) {
             KVector nodeDisp = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR);
-            getNodesInVecinity(node, grid, kGrid).forEach(neighbour -> {
+            getNodesInVecinity(node, grid, k).forEach(neighbour -> {
                 KVector dist = difference(node, neighbour);  
-                //act as if we have a small offset if we are at diatsnce 0
+                //act as if we have a small offset if we are at distance 0
                 if(dist.length()==0) {
                     dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                     dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                 }
-                double force = repulsionForce(dist.length(), kC);
+                double force = repulsionForce(dist.length(), k);
                 dist.normalize().scale(force);
                 nodeDisp.add(dist);
                 subTask.worked(1);
@@ -251,31 +247,31 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     /**
      * @param distance
      *            the distance for which to calculate the repulsion
-     * @param kC
+     * @param k
      *            the optimal distance for which to calculate the repulsion
      * 
      * @return the absolute force of the repulsion based on length and k
      */
-    private double repulsionForce(double distance, double kC) {
+    private double repulsionForce(double distance, double k) {
         // TODO option for a selection of repulsion functions
 
         // f_r(d) = -k²/d
-        return kC * kC / distance;
+        return k * k / distance;
     }
 
     /**
      * @param distance
      *            the distance for wich to calculate the attraction
-     * @param kC
+     * @param k
      *            the optimal distance for which to calculate the attraction
      * 
      * @return the absolute force of the repulsion based on length and k
      */
-    private double atractionForce(double distance, double kC) {
+    private double atractionForce(double distance, double k) {
         // TODO option for a selection of attraction functions
 
         // f_a(d) = d²/k
-        return distance * distance / kC;
+        return distance * distance / k;
     }
 
     /**
@@ -291,7 +287,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
      * 
      * @return all nodes node gets repulsed from
      */
-    private Stream<ElkNode> getNodesInVecinity(ElkNode node, List<ElkNode>[][] grid, double kGrid) {
+    private Stream<ElkNode> getNodesInVecinity(ElkNode node, List<ElkNode>[][] grid, double k) {
 
         switch (repulsionMode) {
         case RADIUS2K:
@@ -314,7 +310,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
 
             if (repulsionMode == RepulsionEnum.RADIUS2K) {
                 // filter nodes that are further from node than 2k
-                tmp = tmp.filter(n -> difference(node, n).length() <= 2 * kGrid);
+                tmp = tmp.filter(n -> difference(node, n).length() <= 2 * k);
             }
 
             return tmp;
