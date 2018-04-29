@@ -1,0 +1,1149 @@
+node Distributionen {
+	
+	/**
+	 *   Source: http://futurist.se/gldt/
+	 * 	 
+	 * 	 Original Licens Text:
+	 *   
+	 *   GNU/Linux distribution timeline data sheet
+	 *   Copyright (C) 2010-2012 Donjan Rodic, Andreas Lundqvist, Mohammed A. Mustafa
+	 *   Permission is granted to copy, distribute and/or modify this document
+	 *   under the terms of the GNU Free Documentation License, Version 1.3
+	 *   or any later version published by the Free Software Foundation;
+	 *   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+	 */	
+	 
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+	
+	settings.Iterations: 5000
+	settings.CParameter: 0.125
+	
+	settings.frameHeight: 100000
+	settings.frameWidth: 100000
+
+	node Debian
+	node Libranet
+	node Corel
+	node Storm
+	node Omoikane {
+		label "Omoikane (Arma)"
+	}
+	node Knoppix
+	node Kurumin
+	node Dizinha
+	node NeoDizinha
+	node Kalango
+	node Poseidon
+	node Quantian
+	node Damn_Small_Linux
+	node Hikarunix
+	node DSL_N {
+		label "DSL-N"
+	}
+	node Damn_Vulnerable_Linux
+	node Morphix
+	node Hiwix
+	node Aquamorph
+	node ZoneCD
+	node Dreamlinux
+	node Danix
+	node Shabdix
+	node INSERT
+	node KnoppMyth
+	node Medialinux
+	node Kanotix
+	node Auditor_Security_Linux
+	node Parsix
+	node Feather
+	node Bioknoppix
+	node Joatha
+	node MAX
+	node B2D
+	node Kaella
+	node Whoppix
+	node Symphony_OS
+	node ParallelKnoppix
+	node Musix
+	node Gibraltar
+	node LEAF
+	node Progeny
+	node Skolelinux
+	node DeMuDi
+	node _64Studio {
+		label "64Studio"
+	}
+	node Lindows
+	node Freespire
+	node gnuLiNex
+	node Lihuen
+	node Rxart
+	node BlackRhino
+	node miniwoody
+	node MEPIS
+	node antiX
+	node Swift
+	node ASLinux
+	node Impi
+	node Xebian
+	node Bluewall
+	node Amber
+	node K_DEMar {
+		label "K-DEmar"
+	}
+	node Guadalinex
+	node Euronode
+	node DRBL
+	node DeadCD
+	node Clonezilla_Live
+	node Underground_Desktop
+	node grml
+	node UserLinux
+	node Ubuntu
+	node Kubuntu
+	node Bardinux
+	node Ulteo
+	node DEFT
+	node Polippix
+	node Asturix
+	node Edubuntu
+	node Arabian
+	node nUbuntu
+	node Xubuntu
+	node Mystras_OS
+	node Xinutop
+	node Christian_Edition
+	node PUD
+	node Mint
+	node quantOS
+	node Commodore_OS
+	node gNewSense
+	node Satanic_Edition
+	node Muslim_Edition
+	node Uberyl
+	node Madbox
+	node Ubuntu_Studio
+	node Kiwi
+	node Geubuntu
+	node Greenie
+	node Ubuntulite
+	node Fluxbuntu
+	node Mythbuntu
+	node Moblin
+	node gOS
+	node Eeebuntu
+	node CrunchBang
+	node Zebuntu
+	node Ubuntu_Rescue_Remix
+	node Ultimate_Edition
+	node Ubuntu_eee
+	node Leeenux
+	node Maryan
+	node MoonOS
+	node Zorin_OS
+	node INX
+	node eBox
+	node CAINE
+	node Newtoos
+	node XBMC_Live
+	node Vibuntu
+	node A_V {
+		label "A\\V"
+	}
+	node Qimo
+	node Monomaxos
+	node Lubuntu
+	node Peppermint_OS
+	node wattOS
+	node Chromium_OS
+	node Zenix_OS
+	node Ylmf
+	node Element
+	node Netrunner
+	node GnackTrack
+	node Dax_OS
+	node Jolicloud
+	node AriOS
+	node SecUntu
+	node Tango_Studio
+	node BackBox
+	node Dream_Studio
+	node Pinguy_OS
+	node NodeZero
+	node Bodhi
+	node Blackbuntu
+	node PATxtreme {
+		label "P@xtreme"
+	}
+	node iQunix_OS
+	node Elementary_OS
+	node icefeast
+	node Sn0wL1nuX
+	node Bigtux
+	node Jeoss
+	node Redo
+	node Pear_OS
+	node Freezy
+	node Descent_OS {
+		label "Descent|OS"
+	}
+	node Arduloko_OS
+	node TorBOX
+	node Hybride
+	node Mandragora
+	node jfLinux
+	node MLIPenguin_OS {
+		label "MLIPenguin_OS"
+	}
+	node Airinux
+	node Santoku
+	node Vulnix
+	node BeatriX
+	node Arco_Debian {
+		label "Arco-Debian"
+	}
+	node MoLinux
+	node Tirwal
+	node BlankOn
+	node Voyage
+	node Trisquel
+	node LliureX
+	node VENENUX
+	node Elive
+	node Tuquito
+	node OS2005
+	node ThinClientOS
+	node NepaLinux
+	node Resulinux
+	node Epidemic
+	node Vyatta
+	node Librassoc
+	node PureOS
+	node sidux
+	node siduction
+	node BOSS
+	node Webconverger
+	node PelicanHPC
+	node GALPon_MiniNo
+	node Proxmox
+	node Estrella_Roja
+	node Inquisitor
+	node Metamorphose
+	node Nova
+	node Canaima
+	node Tails
+	node Matriux
+	node Semplice
+	node Sword_OS
+	node DoudouLinux
+	node Linux_Mint_Debian
+	node Progress
+	node GNUGuitarINUX
+	node SalineOS
+	node Conducit
+	node Liquid_Lemur
+	node Red_Ribbon
+	node Snowlinux
+	node OpenMediaVault
+	node SolusOS
+	node srvRX_live
+	node AtlasX
+	node Xamin
+	node YunoHost
+	node Cultix
+	node SprezzOS
+	node Android
+	node Ophone
+	node webOS
+	node Trans_Ameritech {
+		label "Trans-Ameritech"
+	}
+	node Monkey
+	node Mini
+	node Bogus
+	node Linux_Universe
+	node Yggdrasil
+	node DILINUX
+	node TAMU
+	node Craftworks
+	node MCC_Interim
+	node Xdenu
+	node SmoothWall_GPL
+	node IPCop
+	node IPFire
+	node Openwall
+	node OpenWRT
+	node Tinfoil_Hat
+	node Midori
+	node Devil
+	node Tiny_Core
+	node Puppy
+	node TEENpup
+	node Macpup
+	node Sage_Live_CD
+	node Saluki
+	node Quirky
+	node Mamona
+	node BluePoint
+	node Yoper
+	node Pardus
+	node EnGarde
+	node Beehive
+	node _4M {
+		label "4M"
+	}
+	node Jarro_Negro
+	node Leka_Rescue_Floppy
+	node Project_Ballantin
+	node FREESCO
+	node LinuxConsole
+	node Sorcerer
+	node Lunar
+	node Source_Mage
+	node GoboLinux
+	node GeeXboX
+	node eIT_easyLinux
+	node Paldo
+	node Dragora
+	node Qubes_OS
+	node UHU
+	node RIP
+	node NixOS
+	node SliTaz
+	node Tiny_SliTaz
+	node Ophcrack
+	node AtheOS
+	node Syllable
+	node Syllable_Server
+	node Exherbo
+	node Hadron
+	node noop
+	node OpenELEC
+	node Bedrock
+	node Ututo
+	node Ututo_e {
+		label "Ututo-e"
+	}
+	node Enoch
+	node Gentoox
+	node Jollix
+	node Navyn_OS
+	node VidaLinux
+	node Pentoo
+	node epiOS
+	node RR4
+	node Bintoo
+	node Kororaa
+	node Papug
+	node Calculate
+	node Toorox
+	node Funtoo
+	node SystemRescueCD
+	node Liberte {
+		label "Liberté"
+	}
+	node AnikOS
+	node OccupyOS
+	node SLS
+	node Slackware
+	node MNIS
+	node Burapha
+	node Stampede
+	node VectorLinux
+	node Tiny
+	node Slax
+	node DNALinux
+	node Wolvix
+	node SLAMPP
+	node Gnu_HALO {
+		label "Gnu-HALO"
+	}
+	node EvilEntity
+	node Topologilinux
+	node DeLi
+	node DeLi_cate {
+		label "DeLi(cate)"
+	}
+	node Stux
+	node Kwort
+	node DARKSTAR
+	node AUSTRUMI
+	node Minislack
+	node GoblinX
+	node Slack_390 {
+		label "Slack/390"
+	}
+	node HostGIS
+	node Kate
+	node NimbleX
+	node MOPSLinux
+	node Frugalware
+	node Slamd64
+	node NetSecL
+	node pQui
+	node Slackintosh
+	node Sauver
+	node Voltalinux
+	node How_Tux {
+		label "How-Tux"
+	}
+	node Bluewhite64
+	node Absolute
+	node Wifislax
+	node ARMedslack
+	node SL4P
+	node Draco
+	node SMS
+	node Wifiway
+	node PLATYPUX
+	node Kongoni
+	node Linvo
+	node Lin2Go
+	node Salix
+	node SlaXBMC
+	node Slackel
+	node Porteus
+	node S_u_S_E {
+		label "S_u_S_E"
+	}
+	node SLES
+	node NLD
+	node Astaro
+	node Caixa_Magica {
+		label "Caixa Mágica"
+	}
+	node Sun_JDS
+	node Linkat
+	node JOPUX
+	node Anthon
+	node Jurix
+	node Alpine
+	node openmamba
+	node QiLinux
+	node ROCK
+	node T2
+	node Linux_From_Scratch
+	node ZENIX
+	node NuTyX
+	node KaarPux
+	node Zero {
+		label "0"
+	}
+	node tomsrtbt
+	node dyne_bolic {
+		label "dyne:bolic"
+	}
+	node Ark
+	node NetStation
+	node Thinstation
+	node LPS
+	node Octoz
+	node Igelle
+	node Weaver
+	node myClinux {
+		label "µClinux"
+	}
+	node Coyote
+	node BrazilFW
+	node Zeroshell
+	node PLoP
+	node Natures_Linux
+	node ELinOS
+	node OpenEmbedded
+	node angstroem {
+		label "Ångström"
+	}
+	node KaeilOS
+	node Peanut
+	node CRUX
+	node Arch
+	node AL_AMLUG {
+		label "AL-AMLUG"
+	}
+	node Chaox
+	node Chakra
+	node LinHES
+	node FireFly
+	node KahelOS
+	node CTKarchLive
+	node Arch_Linux_ARM
+	node ArchBang
+	node Arch_Hurd
+	node Parabola
+	node LDR
+	node Manjaro
+	node Bridge
+	node Nosonja
+	node Cinnarch
+	node Specifix
+	node Foresight
+	node Oz
+	node Openfiler
+	node Everest
+	node mkLinux
+	node LST
+	node DLD
+	node Linux_FT {
+		label "Linux-FT"
+	}
+	node Unifix
+	node United_Linux
+	node Red_Hat
+	node WGS_Linux_Pro
+	node Caldera
+	node Redmond
+	node LinuxPPC
+	node UltraPenguin
+	node Conectiva
+	node Buhawi
+	node PLD
+	node Turbolinux
+	node Mandrake
+	node Demolinux
+	node Virtual
+	node ALT
+	node PCLinuxOS
+	node TinyMe
+	node Granular
+	node Garuda
+	node Phinx
+	node SAM
+	node blackPanther
+	node OpenSLS
+	node Unity
+	node ChameleonOS
+	node Mageia
+	node ROSA
+	node Eurielec
+	node Fermi
+	node KRUD
+	node e_smith {
+		label "e-smith"
+	}
+	node Eridani
+	node Yellow_Dog
+	node Vine
+	node Red_Flag
+	node Armed
+	node Immunix
+	node Kondara
+	node Linpus
+	node ELX
+	node Trustix
+	node Finnix
+	node BU
+	node Miracle
+	node Asianux
+	node Happy
+	node Pingo
+	node Best
+	node Rocks
+	node ClarkConnect
+	node ASP
+	node Aurora
+	node SuperRescue
+	node Independence
+	node HP_Secure
+	node K12
+	node Haydar
+	node Bayanihan
+	node Aurox
+	node BLAG
+	node LinuxInstall
+	node Berry
+	node AnNyung
+	node ATmission
+	node Fedora_Core
+	node NST
+	node Momonga
+	node MythDora
+	node AsianLinux
+	node FoX
+	node Ekaaty
+	node Amahi
+	node Vixta
+	node Ojuba
+	node Moblin_2
+	node MeeGo
+	node Mer
+	node Tizen
+	node VortexBox
+	node Hanthana
+	node Synergy
+	node Fusion
+	node Fuduntu
+	node Parsidora
+	node Viperr
+	node PUIAS
+	node CentOS
+	node AsteriskATHome {
+		label "Asterisk@Home"
+	}
+	node Elastix
+	node BlueOnyx
+	node OpenNode
+	node White_Box
+	node Tao
+	node BioBrew
+	node CERN
+	node Scientific
+	node StartCom
+	node Oracle_Enterprise
+	node FrameOS
+	node ServOS
+
+	edge Debian -> Libranet
+	edge Debian -> Corel
+	edge Debian -> Storm
+	edge Debian -> Omoikane
+	edge Debian -> Knoppix
+	edge Knoppix -> Kurumin
+	edge Kurumin -> Dizinha
+	edge Dizinha -> NeoDizinha
+	edge Kurumin -> Kalango
+	edge Kurumin -> Poseidon
+	edge Knoppix -> Quantian
+	edge Knoppix -> Damn_Small_Linux
+	edge Damn_Small_Linux -> Hikarunix
+	edge Damn_Small_Linux -> DSL_N
+	edge Damn_Small_Linux -> Damn_Vulnerable_Linux
+	edge Knoppix -> Morphix
+	edge Morphix -> Hiwix
+	edge Morphix -> Aquamorph
+	edge Morphix -> ZoneCD
+	edge Morphix -> Dreamlinux
+	edge Knoppix -> Danix
+	edge Knoppix -> Shabdix
+	edge Knoppix -> INSERT
+	edge Knoppix -> KnoppMyth
+	edge Knoppix -> Medialinux
+	edge Knoppix -> Kanotix
+	edge Kanotix -> Auditor_Security_Linux
+	edge Kanotix -> Parsix
+	edge Knoppix -> Feather
+	edge Knoppix -> Bioknoppix
+	edge Knoppix -> Joatha
+	edge Knoppix -> MAX
+	edge Knoppix -> B2D
+	edge Knoppix -> Kaella
+	edge Knoppix -> Whoppix
+	edge Knoppix -> Symphony_OS
+	edge Knoppix -> ParallelKnoppix
+	edge Knoppix -> Musix
+	edge Debian -> Gibraltar
+	edge Debian -> LEAF
+	edge Debian -> Progeny
+	edge Debian -> Skolelinux
+	edge Debian -> DeMuDi
+	edge DeMuDi -> _64Studio
+	edge Debian -> Lindows
+	edge Lindows -> Freespire
+	edge Debian -> gnuLiNex
+	edge gnuLiNex -> Lihuen
+	edge Debian -> Rxart
+	edge Debian -> BlackRhino
+	edge Debian -> miniwoody
+	edge Debian -> MEPIS
+	edge MEPIS -> antiX
+	edge antiX -> Swift
+	edge Debian -> ASLinux
+	edge Debian -> Impi
+	edge Debian -> Xebian
+	edge Debian -> Bluewall
+	edge Debian -> Amber
+	edge Debian -> K_DEMar
+	edge Debian -> Guadalinex
+	edge Debian -> Euronode
+	edge Debian -> DRBL
+	edge Debian -> DeadCD
+	edge Debian -> Clonezilla_Live
+	edge Debian -> Underground_Desktop
+	edge Debian -> grml
+	edge Debian -> UserLinux
+	edge Debian -> Ubuntu
+	edge Ubuntu -> Kubuntu
+	edge Kubuntu -> Bardinux
+	edge Kubuntu -> Ulteo
+	edge Kubuntu -> DEFT
+	edge Kubuntu -> Polippix
+	edge Kubuntu -> Asturix
+	edge Ubuntu -> Edubuntu
+	edge Ubuntu -> Arabian
+	edge Ubuntu -> nUbuntu
+	edge Ubuntu -> Xubuntu
+	edge Xubuntu -> Mystras_OS
+	edge Xubuntu -> Xinutop
+	edge Ubuntu -> Christian_Edition
+	edge Ubuntu -> PUD
+	edge Ubuntu -> Mint
+	edge Mint -> quantOS
+	edge Mint -> Commodore_OS
+	edge Ubuntu -> gNewSense
+	edge Ubuntu -> Satanic_Edition
+	edge Ubuntu -> Muslim_Edition
+	edge Ubuntu -> Uberyl
+	edge Ubuntu -> Madbox
+	edge Ubuntu -> Ubuntu_Studio
+	edge Ubuntu -> Kiwi
+	edge Ubuntu -> Geubuntu
+	edge Ubuntu -> Greenie
+	edge Ubuntu -> Ubuntulite
+	edge Ubuntu -> Fluxbuntu
+	edge Ubuntu -> Mythbuntu
+	edge Ubuntu -> Moblin
+	edge Ubuntu -> gOS
+	edge Ubuntu -> Eeebuntu
+	edge Ubuntu -> CrunchBang
+	edge Ubuntu -> Zebuntu
+	edge Ubuntu -> Ubuntu_Rescue_Remix
+	edge Ubuntu -> Ultimate_Edition
+	edge Ubuntu -> Ubuntu_eee
+	edge Ubuntu_eee -> Leeenux
+	edge Ubuntu -> Maryan
+	edge Ubuntu -> MoonOS
+	edge Ubuntu -> Zorin_OS
+	edge Ubuntu -> INX
+	edge Ubuntu -> eBox
+	edge Ubuntu -> CAINE
+	edge Ubuntu -> Newtoos
+	edge Ubuntu -> XBMC_Live
+	edge Ubuntu -> Vibuntu
+	edge Ubuntu -> A_V
+	edge Ubuntu -> Qimo
+	edge Ubuntu -> Monomaxos
+	edge Ubuntu -> Lubuntu
+	edge Lubuntu -> Peppermint_OS
+	edge Ubuntu -> wattOS
+	edge Ubuntu -> Chromium_OS
+	edge Ubuntu -> Zenix_OS
+	edge Ubuntu -> Ylmf
+	edge Ubuntu -> Element
+	edge Ubuntu -> Netrunner
+	edge Ubuntu -> GnackTrack
+	edge Ubuntu -> Dax_OS
+	edge Ubuntu -> Jolicloud
+	edge Ubuntu -> AriOS
+	edge Ubuntu -> SecUntu
+	edge Ubuntu -> Tango_Studio
+	edge Ubuntu -> BackBox
+	edge Ubuntu -> Dream_Studio
+	edge Ubuntu -> Pinguy_OS
+	edge Ubuntu -> NodeZero
+	edge Ubuntu -> Bodhi
+	edge Ubuntu -> Blackbuntu
+	edge Ubuntu -> PATxtreme
+	edge Ubuntu -> iQunix_OS
+	edge Ubuntu -> Elementary_OS
+	edge Ubuntu -> icefeast
+	edge Ubuntu -> Sn0wL1nuX
+	edge Ubuntu -> Bigtux
+	edge Ubuntu -> Jeoss
+	edge Ubuntu -> Redo
+	edge Ubuntu -> Pear_OS
+	edge Ubuntu -> Freezy
+	edge Ubuntu -> Descent_OS
+	edge Ubuntu -> Arduloko_OS
+	edge Ubuntu -> TorBOX
+	edge Ubuntu -> Hybride
+	edge Ubuntu -> Mandragora
+	edge Ubuntu -> jfLinux
+	edge Ubuntu -> MLIPenguin_OS
+	edge Ubuntu -> Airinux
+	edge Ubuntu -> Santoku
+	edge Ubuntu -> Vulnix
+	edge Debian -> BeatriX
+	edge Debian -> Arco_Debian
+	edge Debian -> MoLinux
+	edge MoLinux -> Tirwal
+	edge Debian -> BlankOn
+	edge Debian -> Voyage
+	edge Debian -> Trisquel
+	edge Debian -> LliureX
+	edge Debian -> VENENUX
+	edge Debian -> Elive
+	edge Debian -> Tuquito
+	edge Debian -> OS2005
+	edge Debian -> ThinClientOS
+	edge Debian -> NepaLinux
+	edge Debian -> Resulinux
+	edge Debian -> Epidemic
+	edge Debian -> Vyatta
+	edge Debian -> Librassoc
+	edge Debian -> PureOS
+	edge Debian -> sidux
+	edge sidux -> siduction
+	edge Debian -> BOSS
+	edge Debian -> Webconverger
+	edge Debian -> PelicanHPC
+	edge Debian -> GALPon_MiniNo
+	edge Debian -> Proxmox
+	edge Debian -> Estrella_Roja
+	edge Debian -> Inquisitor
+	edge Debian -> Metamorphose
+	edge Debian -> Nova
+	edge Debian -> Canaima
+	edge Debian -> Tails
+	edge Debian -> Matriux
+	edge Debian -> Semplice
+	edge Debian -> Sword_OS
+	edge Debian -> DoudouLinux
+	edge Debian -> Linux_Mint_Debian
+	edge Debian -> Progress
+	edge Debian -> GNUGuitarINUX
+	edge Debian -> SalineOS
+	edge Debian -> Conducit
+	edge Debian -> Liquid_Lemur
+	edge Debian -> Red_Ribbon
+	edge Debian -> Snowlinux
+	edge Debian -> OpenMediaVault
+	edge Debian -> SolusOS
+	edge Debian -> srvRX_live
+	edge Debian -> AtlasX
+	edge Debian -> Xamin
+	edge Debian -> YunoHost
+	edge Debian -> Cultix
+	edge Debian -> SprezzOS
+	edge Android -> Ophone
+	edge SmoothWall_GPL -> IPCop
+	edge IPCop -> IPFire
+	edge Puppy -> TEENpup
+	edge Puppy -> Macpup
+	edge Puppy -> Sage_Live_CD
+	edge Puppy -> Saluki
+	edge Project_Ballantin -> FREESCO
+	edge Sorcerer -> Lunar
+	edge Sorcerer -> Source_Mage
+	edge SliTaz -> Tiny_SliTaz
+	edge AtheOS -> Syllable
+	edge Ututo -> Ututo_e
+	edge Enoch -> Gentoox
+	edge Enoch -> Jollix
+	edge Enoch -> Navyn_OS
+	edge Enoch -> VidaLinux
+	edge Enoch -> Pentoo
+	edge Enoch -> epiOS
+	edge Enoch -> RR4
+	edge Enoch -> Bintoo
+	edge Enoch -> Kororaa
+	edge Enoch -> Papug
+	edge Enoch -> Calculate
+	edge Enoch -> Toorox
+	edge Enoch -> Funtoo
+	edge Enoch -> SystemRescueCD
+	edge Enoch -> Liberte
+	edge Enoch -> AnikOS
+	edge Enoch -> OccupyOS
+	edge SLS -> Slackware
+	edge Slackware -> MNIS
+	edge Slackware -> Burapha
+	edge Slackware -> Stampede
+	edge Slackware -> VectorLinux
+	edge Slackware -> Tiny
+	edge Slackware -> Slax
+	edge Slax -> DNALinux
+	edge Slax -> Wolvix
+	edge Slax -> SLAMPP
+	edge Slax -> Gnu_HALO
+	edge Slackware -> EvilEntity
+	edge Slackware -> Topologilinux
+	edge Slackware -> DeLi
+	edge DeLi -> DeLi_cate
+	edge Slackware -> Stux
+	edge Slackware -> Kwort
+	edge Slackware -> DARKSTAR
+	edge Slackware -> AUSTRUMI
+	edge Slackware -> Minislack
+	edge Slackware -> GoblinX
+	edge Slackware -> Slack_390
+	edge Slackware -> HostGIS
+	edge Slackware -> Kate
+	edge Slackware -> NimbleX
+	edge Slackware -> MOPSLinux
+	edge Slackware -> Frugalware
+	edge Slackware -> Slamd64
+	edge Slackware -> NetSecL
+	edge Slackware -> pQui
+	edge Slackware -> Slackintosh
+	edge Slackware -> Sauver
+	edge Slackware -> Voltalinux
+	edge Slackware -> How_Tux
+	edge Slackware -> Bluewhite64
+	edge Slackware -> Absolute
+	edge Slackware -> Wifislax
+	edge Slackware -> ARMedslack
+	edge ARMedslack -> SL4P
+	edge Slackware -> Draco
+	edge Slackware -> SMS
+	edge Slackware -> Wifiway
+	edge Slackware -> PLATYPUX
+	edge Slackware -> Kongoni
+	edge Slackware -> Linvo
+	edge Slackware -> Lin2Go
+	edge Slackware -> Salix
+	edge Slackware -> SlaXBMC
+	edge Slackware -> Slackel
+	edge Slackware -> Porteus
+	edge Slackware -> S_u_S_E
+	edge S_u_S_E -> SLES
+	edge S_u_S_E -> NLD
+	edge S_u_S_E -> Astaro
+	edge S_u_S_E -> Caixa_Magica
+	edge S_u_S_E -> Sun_JDS
+	edge S_u_S_E -> Linkat
+	edge S_u_S_E -> JOPUX
+	edge S_u_S_E -> Anthon
+	edge ROCK -> T2
+	edge Linux_From_Scratch -> ZENIX
+	edge Linux_From_Scratch -> NuTyX
+	edge Linux_From_Scratch -> KaarPux
+	edge NetStation -> Thinstation
+	edge Thinstation -> LPS
+	edge OpenEmbedded -> angstroem
+	edge Arch -> AL_AMLUG
+	edge Arch -> Chaox
+	edge Arch -> Chakra
+	edge Arch -> LinHES
+	edge Arch -> FireFly
+	edge Arch -> KahelOS
+	edge Arch -> CTKarchLive
+	edge Arch -> Arch_Linux_ARM
+	edge Arch -> ArchBang
+	edge Arch -> Arch_Hurd
+	edge Arch -> Parabola
+	edge Arch -> LDR
+	edge Arch -> Manjaro
+	edge Arch -> Bridge
+	edge Arch -> Nosonja
+	edge Arch -> Cinnarch
+	edge Specifix -> Foresight
+	edge Specifix -> Oz
+	edge Red_Hat -> WGS_Linux_Pro
+	edge Red_Hat -> Caldera
+	edge Caldera -> Redmond
+	edge Red_Hat -> LinuxPPC
+	edge Red_Hat -> UltraPenguin
+	edge Red_Hat -> Conectiva
+	edge Red_Hat -> Buhawi
+	edge Red_Hat -> PLD
+	edge Red_Hat -> Turbolinux
+	edge Red_Hat -> Mandrake
+	edge Mandrake -> Demolinux
+	edge Mandrake -> Virtual
+	edge Mandrake -> ALT
+	edge Mandrake -> PCLinuxOS
+	edge PCLinuxOS -> TinyMe
+	edge PCLinuxOS -> Granular
+	edge PCLinuxOS -> Garuda
+	edge PCLinuxOS -> Phinx
+	edge Mandrake -> SAM
+	edge Mandrake -> blackPanther
+	edge Mandrake -> OpenSLS
+	edge Mandrake -> Unity
+	edge Unity -> ChameleonOS
+	edge Mandrake -> Mageia
+	edge Mandrake -> ROSA
+	edge Red_Hat -> Eurielec
+	edge Red_Hat -> Fermi
+	edge Red_Hat -> KRUD
+	edge Red_Hat -> e_smith
+	edge Red_Hat -> Eridani
+	edge Red_Hat -> Yellow_Dog
+	edge Red_Hat -> Vine
+	edge Red_Hat -> Red_Flag
+	edge Red_Hat -> Armed
+	edge Red_Hat -> Immunix
+	edge Red_Hat -> Kondara
+	edge Red_Hat -> Linpus
+	edge Red_Hat -> ELX
+	edge Red_Hat -> Trustix
+	edge Red_Hat -> Finnix
+	edge Red_Hat -> BU
+	edge Red_Hat -> Miracle
+	edge Miracle -> Asianux
+	edge Red_Hat -> Happy
+	edge Red_Hat -> Pingo
+	edge Red_Hat -> Best
+	edge Red_Hat -> Rocks
+	edge Red_Hat -> ClarkConnect
+	edge Red_Hat -> ASP
+	edge Red_Hat -> Aurora
+	edge Red_Hat -> SuperRescue
+	edge Red_Hat -> Independence
+	edge Red_Hat -> HP_Secure
+	edge Red_Hat -> K12
+	edge Red_Hat -> Haydar
+	edge Red_Hat -> Bayanihan
+	edge Red_Hat -> Aurox
+	edge Red_Hat -> BLAG
+	edge Red_Hat -> LinuxInstall
+	edge Red_Hat -> Berry
+	edge Red_Hat -> AnNyung
+	edge Red_Hat -> ATmission
+	edge Red_Hat -> Fedora_Core
+	edge Fedora_Core -> NST
+	edge Fedora_Core -> Momonga
+	edge Fedora_Core -> MythDora
+	edge Fedora_Core -> AsianLinux
+	edge Fedora_Core -> FoX
+	edge Fedora_Core -> Ekaaty
+	edge Fedora_Core -> Amahi
+	edge Fedora_Core -> Vixta
+	edge Fedora_Core -> Ojuba
+	edge Fedora_Core -> Moblin_2
+	edge Moblin_2 -> MeeGo
+	edge MeeGo -> Mer
+	edge MeeGo -> Tizen
+	edge Fedora_Core -> VortexBox
+	edge Fedora_Core -> Hanthana
+	edge Fedora_Core -> Synergy
+	edge Fedora_Core -> Fusion
+	edge Fedora_Core -> Fuduntu
+	edge Fedora_Core -> Parsidora
+	edge Fedora_Core -> Viperr
+	edge Red_Hat -> PUIAS
+	edge Red_Hat -> CentOS
+	edge CentOS -> AsteriskATHome
+	edge CentOS -> Elastix
+	edge CentOS -> BlueOnyx
+	edge CentOS -> OpenNode
+	edge Red_Hat -> White_Box
+	edge Red_Hat -> Tao
+	edge Red_Hat -> BioBrew
+	edge Red_Hat -> CERN
+	edge Red_Hat -> Scientific
+	edge Red_Hat -> StartCom
+	edge Red_Hat -> Oracle_Enterprise
+	edge Red_Hat -> FrameOS
+	edge Red_Hat -> ServOS
+
+	node Xandros
+	node Patinho_Faminto
+	node Hiweed
+	node Mediainlinux
+	node Backtrack
+	node WHAX
+	node Linspire
+	node Bonzai
+	node SimplyMEPIS
+	node kademar
+	node Olive
+	node xPUD
+	node Sabily
+	node ComFusion
+	node OpenGEU
+	node U_lite {
+		label "U-lite"
+	}
+	node Aurora_OS
+	node ZevenOS
+	node Easy_Peasy
+	node Zentyal
+	node VINUX
+	node AV
+	node StartOS
+	node LuninuX_OS
+	node Whonix
+	node Arc_Live {
+		label "Arc-Live"
+	}
+	node Maemo
+	node aptosid
+	node Legacy_OS
+	node VLOS
+	node Sabayon
+	node ConnochaetOS
+	node STUX
+	node Zenwalk
+	node Imagineos
+	node KateOS
+	node AgiliaLinux
+	node Slackware_ARM
+	node Superb_Mini_Server
+	node SuSE
+	node SLED
+	node Archie
+	node CTKArch
+	node SCO
+	node Lycoris
+	node Mandriva
+	node SAMity
+	node Annvix
+	node SME_Server
+	node SOT
+	node ClearOS
+	node Fedora
+	node Simplis
+	node trixbox
+
+	edge Corel -> Xandros
+	edge NeoDizinha -> Patinho_Faminto
+	edge Hiwix -> Hiweed
+	edge Medialinux -> Mediainlinux
+	edge Auditor_Security_Linux -> Backtrack
+	edge Whoppix -> WHAX
+	edge Lindows -> Linspire
+	edge miniwoody -> Bonzai
+	edge MEPIS -> SimplyMEPIS
+	edge K_DEMar -> kademar
+	edge DeadCD -> Olive
+	edge PUD -> xPUD
+	edge Muslim_Edition -> Sabily
+	edge Uberyl -> ComFusion
+	edge Geubuntu -> OpenGEU
+	edge Ubuntulite -> U_lite
+	edge Eeebuntu -> Aurora_OS
+	edge Zebuntu -> ZevenOS
+	edge Ubuntu_eee -> Easy_Peasy
+	edge eBox -> Zentyal
+	edge Vibuntu -> VINUX
+	edge A_V -> AV
+	edge Ylmf -> StartOS
+	edge Sn0wL1nuX -> LuninuX_OS
+	edge TorBOX -> Whonix
+	edge Arco_Debian -> Arc_Live
+	edge OS2005 -> Maemo
+	edge sidux -> aptosid
+	edge TEENpup -> Legacy_OS
+	edge VidaLinux -> VLOS
+	edge RR4 -> Sabayon
+	edge DeLi -> ConnochaetOS
+	edge Stux -> STUX
+	edge Minislack -> Zenwalk
+	edge GoblinX -> Imagineos
+	edge Kate -> KateOS
+	edge MOPSLinux -> AgiliaLinux
+	edge ARMedslack -> Slackware_ARM
+	edge SMS -> Superb_Mini_Server
+	edge S_u_S_E -> SuSE
+	edge NLD -> SLED
+	edge AL_AMLUG -> Archie
+	edge CTKarchLive -> CTKArch
+	edge Caldera -> SCO
+	edge Redmond -> Lycoris
+	edge Mandrake -> Mandriva
+	edge SAM -> SAMity
+	edge OpenSLS -> Annvix
+	edge e_smith -> SME_Server
+	edge Best -> SOT
+	edge ClarkConnect -> ClearOS
+	edge Fedora_Core -> Fedora
+	edge Vixta -> Simplis
+	edge AsteriskATHome -> trixbox
+
+	node Deepin
+	node ArtistX
+	node Meego_Harmattan
+	node SUSE
+	node LBA
+	node Xange
+
+	edge Hiweed -> Deepin
+	edge Mediainlinux -> ArtistX
+	edge Maemo -> Meego_Harmattan
+	edge SuSE -> SUSE
+	edge SOT -> LBA
+	edge Simplis -> Xange
+
+	node openSUSE
+	edge SUSE -> openSUSE
+
+}
