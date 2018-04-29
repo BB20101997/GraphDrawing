@@ -4,12 +4,12 @@ node Figure26{
 	
 	algorithm: FruchtmanReingold
 	
-	CParameter: 0.5
+	CParameter: 1
 	
-	frameHeight: 2000
-	frameWidth: 2000
+	frameHeight: 4000
+	frameWidth: 4000
 	
-	Iterations: 500
+	Iterations: 2000
 	
 	node center
 	

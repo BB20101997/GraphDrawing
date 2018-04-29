@@ -1,0 +1,88 @@
+node Figure74 {
+	
+	algorithm: FruchtmanReingold
+	
+	CParameter: 0.5
+	
+	Iterations: 100
+	
+	//three three spiked stars
+	
+	node n11
+	node n12
+	node n13
+	node n14
+	
+	edge n11 -> n12
+	edge n11 -> n13
+	edge n11 -> n14
+	
+	node n21
+	node n22
+	node n23
+	node n24
+	
+	edge n21 -> n22
+	edge n21 -> n23
+	edge n21 -> n24
+	
+	node n31
+	node n32
+	node n33
+	node n34
+	
+	edge n31 -> n32
+	edge n31 -> n33
+	edge n31 -> n34
+	
+	//two four spoked stars
+	
+	node n41
+	node n42
+	node n43
+	node n44
+	node n45
+	
+	edge n41 -> n42
+	edge n41 -> n43
+	edge n41 -> n44
+	edge n41 -> n45
+	
+	node n51
+	node n52
+	node n53
+	node n54
+	node n55
+	
+	edge n51 -> n52
+	edge n51 -> n53
+	edge n51 -> n54
+	edge n51 -> n55
+	
+	//two five spoked starts
+	node n61
+	node n62
+	node n63
+	node n64
+	node n65
+	node n66
+	
+	edge n61 -> n62
+	edge n61 -> n63
+	edge n61 -> n64
+	edge n61 -> n65
+	edge n61 -> n66
+	
+	node n71
+	node n72
+	node n73
+	node n74
+	node n75
+	node n76
+	      
+	edge n71 -> n72
+	edge n71 -> n73
+	edge n71 -> n74
+	edge n71 -> n75
+	edge n71 -> n76
+}

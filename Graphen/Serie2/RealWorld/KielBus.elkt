@@ -8,10 +8,10 @@
 node Busplan {
 	
 	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
-	Iterations: 4000
+	Iterations: 5000
 	
-	frameWidth: 5000
-	frameHeight: 5000
+	frameWidth: 2000
+	frameHeight: 2000
 	
 	CParameter: 0.5
 	
