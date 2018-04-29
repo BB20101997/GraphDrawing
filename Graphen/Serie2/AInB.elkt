@@ -1,28 +1,44 @@
 algorithm: FruchtmanReingold
+Iterations: 1000
+frameWidth: 1200
+frameHeight: 1200
+settings.CParameter: 1
 
-Iterations: 400
-
-frameWidth: 4000
-frameHeight: 4000
-
-repulsionMode: RADIUS2K
-
-node a{
+node a {
 	algorithm: FruchtmanReingold
+	settings.CParameter: 0.5
+	frameWidth: 500
+	frameHeight: 500
+
 	node a1
 	node a2
 	node a3
-	edge a1 -> a2	
+	edge a1 -> a2
 }
 
 node b {
 	algorithm: FruchtmanReingold
+	settings.CParameter: 0.5
+	frameWidth: 500
+	frameHeight: 500
+
 	node b1
 	node b2
 	node b3
 	edge b2 -> b1
 }
 
-node c
+node c {
+	algorithm: FruchtmanReingold
+	settings.CParameter: 0.5
+	frameWidth: 500
+	frameHeight: 500
+
+	node c1
+	node c2
+	node c3
+	edge c2 -> c1
+
+}
 
 edge a -> b

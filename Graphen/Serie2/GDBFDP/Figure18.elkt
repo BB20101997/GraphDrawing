@@ -2,7 +2,7 @@ node Figure18 {
 	
 	algorithm: FruchtmanReingold
 	
-	Iterations: 100
+	Iterations: 800
 	
 	node nc1
 	node nc2

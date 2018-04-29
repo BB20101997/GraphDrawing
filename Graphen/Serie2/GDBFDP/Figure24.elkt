@@ -4,9 +4,12 @@ node Figure24 {
 	
 	algorithm: FruchtmanReingold
 	
-	CParameter: 0.5
+	CParameter: 1
 	
-	Iterations: 500
+	Iterations: 10000
+
+	settings.frameHeight: 5000
+	settings.frameWidth: 5000
 
 	node center
 
