@@ -109,7 +109,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         for (ElkNode node : layoutGraph.getChildren()) {
             if (Double.isNaN(node.getX()) || Double.isNaN(node.getY())) {
                 System.err.println("At last one Coordinat of a Node where Nan!");
-                continue; // TODO find out where NaN comes from
+                continue;
             }
             minX = Math.min(minX, node.getX());
             minY = Math.min(minY, node.getY());
