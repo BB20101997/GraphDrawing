@@ -78,7 +78,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
 
                 double temperature = coolingFunction.temperatur(layoutGraph, i);
                 layoutGraph.getChildren().stream()
-                        .forEach(n -> n.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR).reset());
+                        .forEach(n -> n.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).reset());
 
                 calculateRepulsion(layoutGraph, subTask.subTask(layoutGraph.getChildren().size()), grid, kC, kGrid);
                 calculateAttraction(layoutGraph, subTask.subTask(layoutGraph.getContainedEdges().size()), grid, kC);
@@ -164,7 +164,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     private void calculateGrid(ElkNode layoutGraph, List<ElkNode>[][] grid, double kGrid) {
         KVector p;
         for (ElkNode node : layoutGraph.getChildren()) {
-            p = node.getProperty(FruchtermanReingoldOptions.GRID_SECTION);
+            p = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_GRID_SECTION);
             grid[(int) p.x][(int) p.y].remove(node);
             grid[(int) (p.x = node.getX() / (2 * kGrid))][(int) (p.y = node.getY() / (2 * kGrid))].add(node);
         }
@@ -177,7 +177,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     private void performMovement(ElkNode layoutGraph, IElkProgressMonitor subTask, double temperature) {
         subTask.begin("Performing Movement", layoutGraph.getChildren().size());
         for (ElkNode node : layoutGraph.getChildren()) {
-            KVector disp = node.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR);
+            KVector disp = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR);
             double displacementDistance = disp.length();
 
             // limit displacement by temperature
@@ -214,8 +214,8 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                         double force = atractionForce(dist.length(), kC);
                        
                         dist.normalize().scale(force);
-                        v.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR).sub(dist);
-                        u.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR).add(dist);
+                        v.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).sub(dist);
+                        u.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).add(dist);
                     }
                 }
             }
@@ -231,7 +231,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
             double kGrid) {
         subTask.begin("Calculating Repulsion", layoutGraph.getChildren().size());
         for (ElkNode node : layoutGraph.getChildren()) {
-            KVector nodeDisp = node.getProperty(FruchtermanReingoldOptions.DISPLACEMENT_VECTOR);
+            KVector nodeDisp = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR);
             getNodesInVecinity(node, grid, kGrid).forEach(neighbour -> {
                 KVector dist = difference(node, neighbour);  
                 //act as if we have a small offset if we are at diatsnce 0
@@ -296,7 +296,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         switch (repulsionMode) {
         case RADIUS2K:
         case GRID3X3:
-            KVector gridPos = node.getProperty(FruchtermanReingoldOptions.GRID_SECTION);
+            KVector gridPos = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_GRID_SECTION);
 
             // gather all nodes in the 3x3 sections around the grid section node is in
             Stream.Builder<ElkNode> builder = Stream.builder();

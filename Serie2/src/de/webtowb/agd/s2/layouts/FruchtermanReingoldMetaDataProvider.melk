@@ -10,28 +10,31 @@ bundle{
     metadataClass options.FruchtmanReingoldMetaDataProvider
     idPrefix de.webtwob.agd.s2.layouts
 }
+group outputs{
+    //used to calculate the displacement on a Node
+    output option displacementVector : KVector{
+        label "Move Node by Vector"
+       description "The direction and distance to move this node in this iteration"
 
-//used to calculate the displacement on a Node
-output option displacementVector : KVector{
-    label "Move Node by Vector"
-    description "The direction and distance to move this node in this iteration"
+       default  = new KVector()
 
-    default  = new KVector()
+      targets nodes
 
-    targets nodes
+    }
 
+
+    //used to store a nodes current grid section
+    output option gridSection : KVector{
+       label "Grid Section"
+       description "The Grid Section a Node is in."
+
+      default  = new KVector()
+
+      targets nodes
+
+    }
 }
 
-//used to store a nodes current grid section
-output option gridSection : KVector{
-    label "Grid Section"
-    description "The Grid Section a Node is in."
-
-    default  = new KVector()
-
-    targets nodes
-
-}
 
 option repulsionMode:RepulsionEnum{
     label "Repulsion Mode"
@@ -59,31 +62,56 @@ option coolingFunction : CoolingFunctionEnum{
     targets parents
     
 }
-//TODO add label and description, to not cause null pointer exceptions in Layout view
+
 advanced option CParameter : double {
+    
+    label "C Parameter"
+    
+    description "This option controls the C Factor for the optimal distance of nodes"
+    
     default = 1
     targets parents
 }
 
 option Iterations : int {
+    
+    label "Iterations"
+    
+    description "This determines the amount of cycles to run the algorithm"
+    
     default = 50
     targets parents
     lowerBound = 0
 }
 
 option skipLayout : boolean {
+    
+    label "Skip Layout"
+    
+    description "This being true produces the same result as Iterations being Zero"
+    
     default = false
     targets parents
 }
 
 advanced option stopEarly : int {
+    
+    label "Stop early"
+    
+    description "When this is set to n and Iterations being set to m,
+                 the algorithm will stop after Iteration m-n,
+                 but use the calculations as if it would do m iterations.
+                 If n>=m will act as if Iterations where Zero."
+    
     default = 0
     targets parents
-    
-    lowerBound = 0
 }
 
 option frameWidth : double {
+    label "Frame width"
+    
+    description "The maximum width this Graph shall use"
+    
     default = 1000
     targets parents
     
@@ -91,6 +119,10 @@ option frameWidth : double {
 }
 
 option frameHeight : double {
+    label "Frame height"
+    
+    description "The maximum height this Graph shall use"
+    
     default = 1000
     targets parents
     
@@ -98,11 +130,21 @@ option frameHeight : double {
 }
 
 option seed: long{
+    
+    label "Seed"
+    
+    description "The seed used to produce deterministic Randomness"
+    
     default = 42
     targets parents
 }
 
 advanced option simmerValue: double {
+    
+    label "Simmer Value"
+    
+    description "The temperature used while simmering"
+    
     default = 10
     targets parents
     
@@ -121,8 +163,8 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       
       description "This is an implementation of the algorithm described in \"Graph Drawing by Force-directed Placement\" by Fruchterman and Reingold"
       
-      supports displacementVector
-      supports gridSection
+      supports outputs.displacementVector
+      supports outputs.gridSection
       supports repulsionMode
       supports initLayout
       supports CParameter
