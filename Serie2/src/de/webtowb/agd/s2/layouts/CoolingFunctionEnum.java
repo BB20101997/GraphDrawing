@@ -9,9 +9,9 @@ public enum CoolingFunctionEnum {
     LINEAR{
         @Override
         public double temperatur(ElkNode layoutGraph,int iteration) {
-              double width = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_WIDTH);
-              double height = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_HEIGHT);
-              int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.ITERATIONS);
+              double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
+              double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
+              int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
               return (Math.min(width, height) / 10) * (1  - iteration/iterations);
         }
     },
@@ -19,9 +19,9 @@ public enum CoolingFunctionEnum {
 
         @Override
         public double temperatur(ElkNode layoutGraph, int iteration) {
-            double width = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_WIDTH);
-            double height = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_HEIGHT);
-            int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.ITERATIONS);
+            double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
+            double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
+            int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
             //option for ratio quenching/simmer
             if(iteration < iterations/2) {
                 //quench, steady and rapidly
@@ -29,7 +29,7 @@ public enum CoolingFunctionEnum {
                 return (Math.min(width, height) / 2) * (1  - iteration/iterations*2);
             }else {
                 //simmer, constant low
-                return layoutGraph.getProperty(FruchtermanReingoldOptions.SIMMER_VALUE);
+                return layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_SIMMER_VALUE);
             }
         }
         

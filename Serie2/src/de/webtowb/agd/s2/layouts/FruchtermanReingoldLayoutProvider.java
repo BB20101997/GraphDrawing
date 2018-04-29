@@ -18,6 +18,7 @@ import de.webtwob.adg.s2.layouts.options.FruchtermanReingoldOptions;
 public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
 
     RepulsionEnum repulsionMode = RepulsionEnum.RADIUS2K;
+    ForceEnum forceFunctions = ForceEnum.DEFAULT;
     InitialLayoutEnum initLayout = InitialLayoutEnum.CIRCLE;
     double C = 1;
     int iterations = 50;
@@ -41,15 +42,16 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         progressMonitor.begin("Begin GraphLayout", iterations + 1);
 
         // load options
-        repulsionMode = layoutGraph.getProperty(FruchtermanReingoldOptions.REPULSION_MODE);
-        initLayout = layoutGraph.getProperty(FruchtermanReingoldOptions.INIT_LAYOUT);
-        C = layoutGraph.getProperty(FruchtermanReingoldOptions.C_PARAMETER);
-        iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.ITERATIONS);
-        int earlyStop = layoutGraph.getProperty(FruchtermanReingoldOptions.STOP_EARLY);
-        width = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_WIDTH);
-        height = layoutGraph.getProperty(FruchtermanReingoldOptions.FRAME_HEIGHT);
-        coolingFunction = layoutGraph.getProperty(FruchtermanReingoldOptions.COOLING_FUNCTION);
-        detRand.setSeed(layoutGraph.getProperty(FruchtermanReingoldOptions.SEED));
+        repulsionMode = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_REPULSION_MODE);
+        initLayout = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_INIT_LAYOUT);
+        C = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_C_PARAMETER);
+        iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
+        int earlyStop = layoutGraph.getProperty(FruchtermanReingoldOptions.DEBUG_STOP_EARLY);
+        width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
+        height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
+        coolingFunction = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_COOLING_FUNCTION);
+        detRand.setSeed(layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_SEED));
+        forceFunctions = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FORCE_FUNCTIONS);
 
         // k optimal vertex distance
         double k = C * Math.sqrt(getArea() / layoutGraph.getChildren().size());
@@ -66,7 +68,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
          * 
          **/
 
-        if (!layoutGraph.getProperty(FruchtermanReingoldOptions.SKIP_LAYOUT)) {
+        if (!layoutGraph.getProperty(FruchtermanReingoldOptions.DEBUG_SKIP_LAYOUT)) {
             IElkProgressMonitor subTask;
             int iterationSize = layoutGraph.getChildren().size() * 2 + layoutGraph.getContainedEdges().size();
             for (int i = 0; i < iterations - earlyStop; i++) {
@@ -208,7 +210,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                             dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                             dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                         }
-                        double force = atractionForce(dist.length(), k);
+                        double force = forceFunctions.attractionForce(dist.length(), k);
                        
                         dist.normalize().scale(force);
                         v.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR).sub(dist);
@@ -235,43 +237,13 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                     dist.x = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                     dist.y = detRand.doubles().map(d->d-0.5).filter(d->d!=0).findFirst().getAsDouble();
                 }
-                double force = repulsionForce(dist.length(), k);
+                double force = forceFunctions.repulsionForce(dist.length(), k);
                 dist.normalize().scale(force);
                 nodeDisp.add(dist);
                 subTask.worked(1);
             });
         }
         subTask.done();
-    }
-
-    /**
-     * @param distance
-     *            the distance for which to calculate the repulsion
-     * @param k
-     *            the optimal distance for which to calculate the repulsion
-     * 
-     * @return the absolute force of the repulsion based on length and k
-     */
-    private double repulsionForce(double distance, double k) {
-        // TODO option for a selection of repulsion functions
-
-        // f_r(d) = -k²/d
-        return k * k / distance;
-    }
-
-    /**
-     * @param distance
-     *            the distance for wich to calculate the attraction
-     * @param k
-     *            the optimal distance for which to calculate the attraction
-     * 
-     * @return the absolute force of the repulsion based on length and k
-     */
-    private double atractionForce(double distance, double k) {
-        // TODO option for a selection of attraction functions
-
-        // f_a(d) = d²/k
-        return distance * distance / k;
     }
 
     /**

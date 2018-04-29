@@ -5,6 +5,7 @@ import de.webtowb.agd.s2.layouts.RepulsionEnum
 import org.eclipse.elk.core.math.KVector
 import de.webtowb.agd.s2.layouts.InitialLayoutEnum
 import de.webtowb.agd.s2.layouts.CoolingFunctionEnum
+import de.webtowb.agd.s2.layouts.ForceEnum
 
 bundle{
     metadataClass options.FruchtmanReingoldMetaDataProvider
@@ -35,124 +36,142 @@ group outputs{
     }
 }
 
+group settings{
+    
+    option frameWidth : double {
+        label "Frame width"
+        
+        description "The maximum width this Graph shall use"
+        
+        default = 1000
+        targets parents
+        
+        lowerBound = 0.0
+    }
+    
+    option frameHeight : double {
+        label "Frame height"
+        
+        description "The maximum height this Graph shall use"
+        
+        default = 1000
+        targets parents
+        
+        lowerBound = 0.0
+    }
+    
+    option CParameter : double {
+    
+        label "Optimal Distance Scale"
+        
+        description "This option controls the C Factor for the optimal distance of nodes"
+        
+        default = 1
+        targets parents
+    }
+    
+    advanced option seed: long{
+    
+        label "Seed"
+        
+        description "The seed used to produce deterministic Randomness"
+        
+        default = 42
+        targets parents
+    }
 
-option repulsionMode:RepulsionEnum{
-    label "Repulsion Mode"
-    description "Changes whether a node is Repulsed by all nodes, all nodes in a 3x3 grid, all nodes in a 2k radius."
     
-    default = RepulsionEnum.RADIUS2K
+    option initLayout : InitialLayoutEnum{
+        label "Initial Layout"
+        description "Decides how to place the Nodes initially e.g. Random or on the edge of a circle."
     
-    targets parents
+        default = InitialLayoutEnum.CIRCLE
+    
+        targets parents
+    }
+    
+    option Iterations : int {
+    
+        label "Iterations"
+    
+        description "This determines the amount of cycles to run the algorithm"
+    
+        default = 50
+        targets parents
+        lowerBound = 0
+    }
+    
+    option forceFunctions : ForceEnum{
+        label "Force Functions"
+        description "Chose which pair of Force Functions to use"
+        
+        default = ForceEnum.DEFAULT
+        targets parents
+    }
+    
+    option repulsionMode : RepulsionEnum{
+        label "Repulsion Mode"
+        description "Changes whether a node is Repulsed by all nodes, all nodes in a 3x3 grid, all nodes in a 2k radius."
+    
+        default = RepulsionEnum.RADIUS2K
+    
+        targets parents
+    }
+    
+    option coolingFunction : CoolingFunctionEnum{
+        label "Cooling Function"
+        description "Changes the cooling Function used to limit the node movement"
+    
+        default = CoolingFunctionEnum.QUENCH_AND_SIMMER
+        targets parents
+    
+    }
+    
+    advanced option simmerValue: double {
+    
+        label "Simmer Value"
+        
+        description "The temperature used while simmering"
+        
+        default = 10
+        targets parents
+        
+        lowerBound = 0.0
+        
+        requires settings.coolingFunction == CoolingFunctionEnum.QUENCH_AND_SIMMER
+    
+    }
+    
 }
 
-option initLayout : InitialLayoutEnum{
-    label "Initial Layout"
-    description "Decides how to place the Nodes initially e.g. Random or on the edge of a circle."
-    
-    default = InitialLayoutEnum.CIRCLE
-    
-    targets parents
-}
+group debug{
 
-option coolingFunction : CoolingFunctionEnum{
-    label "Cooling Function"
-    description "Changes the cooling Function used to limit the node movement"
+    advanced option skipLayout : boolean {
+        
+        label "Skip Layout"
+        
+        description "This being true produces the same result as Iterations being Zero"
+        
+        default = false
+        targets parents
+    }
     
-    default = CoolingFunctionEnum.QUENCH_AND_SIMMER
-    targets parents
-    
-}
-
-advanced option CParameter : double {
-    
-    label "C Parameter"
-    
-    description "This option controls the C Factor for the optimal distance of nodes"
-    
-    default = 1
-    targets parents
-}
-
-option Iterations : int {
-    
-    label "Iterations"
-    
-    description "This determines the amount of cycles to run the algorithm"
-    
-    default = 50
-    targets parents
-    lowerBound = 0
-}
-
-option skipLayout : boolean {
-    
-    label "Skip Layout"
-    
-    description "This being true produces the same result as Iterations being Zero"
-    
-    default = false
-    targets parents
-}
-
-advanced option stopEarly : int {
-    
-    label "Stop early"
-    
-    description "When this is set to n and Iterations being set to m,
-                 the algorithm will stop after Iteration m-n,
-                 but use the calculations as if it would do m iterations.
-                 If n>=m will act as if Iterations where Zero."
-    
-    default = 0
-    targets parents
-}
-
-option frameWidth : double {
-    label "Frame width"
-    
-    description "The maximum width this Graph shall use"
-    
-    default = 1000
-    targets parents
-    
-    lowerBound = 0.0
-}
-
-option frameHeight : double {
-    label "Frame height"
-    
-    description "The maximum height this Graph shall use"
-    
-    default = 1000
-    targets parents
-    
-    lowerBound = 0.0
-}
-
-option seed: long{
-    
-    label "Seed"
-    
-    description "The seed used to produce deterministic Randomness"
-    
-    default = 42
-    targets parents
-}
-
-advanced option simmerValue: double {
-    
-    label "Simmer Value"
-    
-    description "The temperature used while simmering"
-    
-    default = 10
-    targets parents
-    
-    lowerBound = 0.0
-    
-    requires coolingFunction == CoolingFunctionEnum.QUENCH_AND_SIMMER
+    advanced option stopEarly : int {
+        
+        label "Stop early"
+        
+        description "When this is set to n and Iterations being set to m,
+                     the algorithm will stop after Iteration m-n,
+                     but use the calculations as if it would do m iterations.
+                     If n>=m will act as if Iterations where Zero."
+        
+        default = 0
+        targets parents
+    }
 
 }
+
+
     
 algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       label "Fruchterman/Reingold Force Directed Layout"
@@ -165,17 +184,20 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       
       supports outputs.displacementVector
       supports outputs.gridSection
-      supports repulsionMode
-      supports initLayout
-      supports CParameter
-      supports Iterations
-      supports skipLayout
-      supports stopEarly
-      supports frameHeight
-      supports frameWidth
-      supports coolingFunction
-      supports simmerValue
-      supports seed
+      
+      supports settings.frameHeight
+      supports settings.frameWidth
+      supports settings.CParameter
+      supports settings.seed
+      supports settings.initLayout
+      supports settings.Iterations
+      supports settings.forceFunctions
+      supports settings.repulsionMode
+      supports settings.coolingFunction
+      supports settings.simmerValue
+      
+      supports debug.skipLayout
+      supports debug.stopEarly
 
 }
 
