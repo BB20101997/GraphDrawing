@@ -230,7 +230,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         subTask.begin("Calculating Repulsion", layoutGraph.getChildren().size());
         for (ElkNode node : layoutGraph.getChildren()) {
             KVector nodeDisp = node.getProperty(FruchtermanReingoldOptions.OUTPUTS_DISPLACEMENT_VECTOR);
-            getNodesInVecinity(node, grid, k).forEach(neighbour -> {
+            getNodesInVecinity(node, grid, k).forEachOrdered(neighbour -> {
                 KVector dist = difference(node, neighbour);  
                 //act as if we have a small offset if we are at distance 0
                 if(dist.length()==0) {
