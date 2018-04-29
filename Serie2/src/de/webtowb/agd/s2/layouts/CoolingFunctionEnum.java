@@ -29,7 +29,6 @@ public enum CoolingFunctionEnum {
                 return (Math.min(width, height) / 2) * (1  - iteration/iterations*2);
             }else {
                 //simmer, constant low
-                //TODO add option
                 return layoutGraph.getProperty(FruchtermanReingoldOptions.SIMMER_VALUE);
             }
         }
