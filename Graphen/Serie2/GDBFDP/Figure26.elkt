@@ -1,0 +1,149 @@
+node Figure26{
+	
+	//same as Figure27
+	
+	algorithm: FruchtmanReingold
+	
+	CParameter: 0.5
+	
+	frameHeight: 2000
+	frameWidth: 2000
+	
+	Iterations: 500
+	
+	node center
+	
+	node n1
+	node n2
+	node n3
+	
+	node e1
+	node e2
+	node e3
+	
+	node s1
+	node s2
+	node s3
+	
+	node w1
+	node w2
+	node w3
+	
+	node ne1
+	node ne2
+	node ne3
+	node ne4
+	
+	node nw1
+	node nw2
+	node nw3
+	node nw4
+	
+	node se1
+	node se2
+	node se3 
+	node se4
+	
+	node sw1
+	node sw2
+	node sw3
+	node sw4
+	
+	node nee
+	node nne
+	node nww
+	node nnw
+	node see
+	node sse
+	node sww
+	node ssw
+	
+	edge center -> n1
+	edge n1 -> n2
+	edge n2 -> n3
+	
+	edge center -> e1
+	edge e1 -> e2
+	edge e2 -> e3
+	
+	edge center -> s1
+	edge s1 -> s2
+	edge s2 -> s3
+	
+	edge center -> w1
+	edge w1 -> w2
+	edge w2 -> w3
+	
+	edge center -> ne1
+	edge ne1 -> ne2
+	edge ne2 -> ne3
+	edge ne3 -> ne4
+	
+	edge center -> nw1
+	edge nw1 -> nw2
+	edge nw2 -> nw3
+	edge nw3 -> nw4
+	
+	edge center -> se1
+	edge se1 -> se2
+	edge se2 -> se3
+	edge se3 -> se4
+	
+	edge center -> sw1
+	edge sw1 -> sw2
+	edge sw2 -> sw3
+	edge sw3 -> sw4
+	
+	edge n1 -> ne3
+	edge ne3 -> e1
+	edge e1 -> se3
+	edge se3 -> s1
+	edge s1 -> sw3
+	edge sw3 -> w1
+	edge w1 -> nw3
+	edge nw3 -> n1
+	
+	edge n3 -> ne2
+	edge ne2 -> e3
+	edge e3 -> se2
+	edge se2 -> s3
+	edge s3 -> sw2
+	edge sw2 -> w3
+	edge w3 -> nw2
+	edge nw2 -> n3
+	
+	edge n3 -> nne
+	edge nne -> ne4
+	edge ne4 -> nee
+	edge nee -> e3
+	edge e3 -> see
+	edge see -> se4
+	edge se4 -> sse
+	edge sse -> s3
+	edge s3 -> ssw
+	edge ssw -> sw4
+	edge sw4 -> sww
+	edge sww -> w3
+	edge w3 -> nww
+	edge nww -> nw4
+	edge nw4 -> nnw
+	edge nnw -> n3
+	
+	edge nne -> ne3
+	edge nee -> ne3
+
+	edge nnw -> nw3
+	edge nww -> nw3
+	
+	edge sse -> se3
+	edge see -> se3
+	
+	edge ssw -> sw3
+	edge sww -> sw3
+	
+	
+	
+	
+	
+	//TODO
+}

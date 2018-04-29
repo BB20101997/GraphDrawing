@@ -1,0 +1,32 @@
+node Figure33 {
+	
+	algorithm: FruchtmanReingold
+	
+	CParameter: 0.5
+	
+	Iterations: 100
+	
+	node n1
+	node n2
+	node n3a
+	node n3b
+	node n4a
+	node n4b
+	node n5a
+	node n5b
+	node n6
+	node n7
+	
+	edge n1 -> n2
+	edge n2 -> n3a
+	edge n2 -> n3b
+	edge n3a -> n3b
+	edge n3a -> n4a
+	edge n3b -> n4b
+	edge n4a -> n5a
+	edge n4b -> n5b
+	edge n5a -> n6
+	edge n5b -> n6
+	edge n6 -> n7
+	
+}

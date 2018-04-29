@@ -1,0 +1,49 @@
+node Figure21 {
+	
+	//same as Figure 22/23
+	
+	algorithm: FruchtmanReingold
+	
+	Iterations: 500
+	
+	frameWidth: 2000
+	frameHeight: 2000
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node n7
+	node n8
+	node n9
+	node n10
+	node n11
+	node n12
+	node n13
+	node n14
+
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n5
+	edge n5 -> n6
+	edge n6 -> n7
+	edge n7 -> n8
+	edge n8 -> n9
+	edge n9 -> n10
+	edge n10 -> n11
+	edge n11 -> n12
+	edge n12 -> n13
+	edge n13 -> n14
+	edge n14 -> n1
+	
+	edge n1 -> n6
+	edge n2 -> n11
+	edge n3 -> n8
+	edge n4 -> n13
+	edge n5 -> n10
+	edge n7 -> n12
+	edge n9 -> n14
+}

@@ -1,0 +1,80 @@
+node Figure24 {
+	
+	//same graph as Figure25
+	
+	algorithm: FruchtmanReingold
+	
+	CParameter: 0.5
+	
+	Iterations: 500
+
+	node center
+
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node n7
+	node n8
+	node n9
+	node n10
+	node n11
+	node n12
+	node n13
+	node n14
+	node n15
+	node n16
+	node n17
+	node n18
+
+	edge center -> n1
+	edge center -> n2
+	edge center -> n3
+	edge center -> n4
+	edge center -> n5
+	edge center -> n6
+	edge center -> n7
+	edge center -> n8
+	edge center -> n9
+	edge center -> n10
+	edge center -> n11
+	edge center -> n12
+	edge center -> n13
+	edge center -> n14
+	edge center -> n15
+	edge center -> n16
+	edge center -> n17
+	edge center -> n18
+
+	edge n1 -> n2
+	edge n2 -> n3
+	edge n3 -> n4
+	edge n4 -> n5
+	edge n5 -> n6
+	edge n6 -> n7
+	edge n7 -> n8
+	edge n8 -> n9
+	edge n9 -> n10
+	edge n10 -> n11
+	edge n11 -> n12
+	edge n12 -> n13
+	edge n13 -> n14
+	edge n14 -> n15
+	edge n15 -> n16
+	edge n16 -> n17
+	edge n17 -> n18
+	edge n18 -> n1
+	              
+	edge n1 ->  n3  
+	edge n3 ->  n5  
+	edge n5 ->  n7  
+	edge n7 ->  n9  
+	edge n9 ->   n11
+	edge n11 ->  n13
+	edge n13 ->  n15
+	edge n15 ->  n17
+	edge n17 ->  n1
+	
+}
