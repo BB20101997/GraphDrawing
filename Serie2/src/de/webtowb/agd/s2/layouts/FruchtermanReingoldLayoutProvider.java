@@ -21,9 +21,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     InitialLayoutEnum initLayout = InitialLayoutEnum.CIRCLE;
     double C = 1;
     int iterations = 50;
-    // TODO find out where to get the real values from
     double width = 1000;
-    // TODO if no real values exist make these options
     double height = 1000;
 
     CoolingFunctionEnum coolingFunction = CoolingFunctionEnum.QUENCH_AND_SIMMER;
