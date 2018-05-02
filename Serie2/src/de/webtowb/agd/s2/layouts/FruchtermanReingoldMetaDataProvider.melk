@@ -12,6 +12,12 @@ bundle{
     idPrefix de.webtwob.agd.s2.layouts
 }
 group outputs{
+    
+    /**
+     * These options are for internal-use only
+     * Our algorithm uses them to store partial results for each node
+     */
+     
     //used to calculate the displacement on a Node
     output option displacementVector : KVector{
         label "Move Node by Vector"
