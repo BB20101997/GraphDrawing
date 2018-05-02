@@ -38,6 +38,14 @@ group outputs{
 
 group settings{
     
+    option parallel: boolean {
+        label "Parallel Calculations"
+        description "Should each Iteration Phase be run in series or parallel, in parallel mode determinism may not be guaranteed"
+        
+        default = false
+        targets parents
+    }
+    
     option frameWidth : double {
         label "Frame width"
         
@@ -191,6 +199,7 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       supports settings.seed
       supports settings.initLayout
       supports settings.Iterations
+      supports settings.parallel
       supports settings.forceFunctions
       supports settings.repulsionMode
       supports settings.coolingFunction

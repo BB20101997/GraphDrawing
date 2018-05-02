@@ -5,10 +5,10 @@ import org.eclipse.elk.graph.ElkNode;
 import de.webtwob.adg.s2.layouts.options.FruchtermanReingoldOptions;
 
 public enum CoolingFunctionEnum {
-    
+
     LINEAR{
         @Override
-        public double temperatur(ElkNode layoutGraph,int iteration) {
+        public double temperature(ElkNode layoutGraph, int iteration) {
               double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
               double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
               int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
@@ -18,7 +18,7 @@ public enum CoolingFunctionEnum {
     QUENCH_AND_SIMMER{
 
         @Override
-        public double temperatur(ElkNode layoutGraph, int iteration) {
+        public double temperature(ElkNode layoutGraph, int iteration) {
             double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
             double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
             int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
@@ -32,11 +32,11 @@ public enum CoolingFunctionEnum {
                 return layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_SIMMER_VALUE);
             }
         }
-        
+
     }
     ;
-    
-    abstract public double temperatur(ElkNode layoutGraph,int iteration) ;    
-    
+
+    abstract public double temperature(ElkNode layoutGraph, int iteration) ;
+
 
 }
