@@ -20,6 +20,8 @@ node Distributionen {
 	
 	settings.frameHeight: 5000
 	settings.frameWidth: 5000
+	
+	settings.parallel: true
 
 	node Debian
 	node Libranet

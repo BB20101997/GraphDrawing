@@ -13,6 +13,8 @@ node Busplan {
 	frameWidth: 4000
 	frameHeight: 4000
 	
+	settings.parallel: true
+	
 	CParameter: 0.5
 	
 	node HasseeKlonnenweg {
