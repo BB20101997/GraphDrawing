@@ -4,16 +4,22 @@ import de.webtwob.adg.s2.layouts.options.FruchtermanReingoldOptions;
 import org.eclipse.elk.core.AbstractLayoutProvider;
 import org.eclipse.elk.core.math.KVector;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
+import org.eclipse.elk.core.util.adapters.ElkGraphAdapters.ElkGraphAdapter;
 import org.eclipse.elk.graph.ElkConnectableShape;
 import org.eclipse.elk.graph.ElkEdge;
+import org.eclipse.elk.graph.ElkEdgeSection;
 import org.eclipse.elk.graph.ElkNode;
+import org.eclipse.elk.graph.util.ElkGraphUtil;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +39,8 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     private double height = 1000;
     private boolean runParallel = true;
     private CoolingFunctionEnum coolingFunction = CoolingFunctionEnum.QUENCH_AND_SIMMER;
+    
+    private ForkJoinPool pool = new ForkJoinPool();
 
     private double getArea() {
         return width * height;
@@ -78,7 +86,18 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
             int iterationSize;
 
             double temperature;
-            if (!runParallel) {
+            if (runParallel) {
+                iterationSize = layoutGraph.getChildren().size() * 4;
+                for (int i = 0; i < iterations - earlyStop; i++) {
+                    subTask = progressMonitor.subTask(1);
+                    subTask.begin(String.format("Iteration %d", i), iterationSize);
+
+                    temperature = coolingFunction.temperature(layoutGraph, i);
+                    parallelIteration(layoutGraph, subTask, temperature, grid, k, pool);
+
+                    subTask.done();
+                }
+            } else {
                 iterationSize = layoutGraph.getChildren().size() * 2 + layoutGraph.getContainedEdges().size();
 
                 for (int i = 0; i < iterations - earlyStop; i++) {
@@ -90,27 +109,62 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
 
                     subTask.done();
                 }
-            } else {
-                ForkJoinPool pool = new ForkJoinPool();
-                iterationSize = layoutGraph.getChildren().size() * 4;
-                for (int i = 0; i < iterations - earlyStop; i++) {
-                    subTask = progressMonitor.subTask(1);
-                    subTask.begin(String.format("Iteration %d", i), iterationSize);
-
-                    temperature = coolingFunction.temperature(layoutGraph, i);
-                    parallelIteration(layoutGraph, subTask, temperature, grid, k, pool);
-
-                    subTask.done();
-                }
-                pool.shutdown();
             }
         }
 
+        //set graph size and center subgraph in graph
         positionGraph(layoutGraph);
 
-        // TODO edge routing
+        if(runParallel) {
+            layoutGraph.getContainedEdges()
+                .parallelStream()
+                .map(edge->((Runnable)()->routeEdge(edge)))
+                .map(pool::submit)
+                .collect(Collectors.toList())
+                .forEach(ForkJoinTask::join);;
+        }else {
+            layoutGraph.getContainedEdges()
+            .stream()
+            .forEach(this::routeEdge);
+        }
 
         progressMonitor.done();
+    }
+
+    private void routeEdge(ElkEdge edge) {
+        //we ignore all but the first source and target
+        ElkNode source = ElkGraphUtil.connectableShapeToNode(edge.getSources().get(0));
+        ElkNode target = ElkGraphUtil.connectableShapeToNode(edge.getTargets().get(0));
+  
+        ElkEdgeSection section = ElkGraphUtil.firstEdgeSection(edge, true, true);
+        
+        KVector vector = difference(target,source);
+        
+        KVector start = calculateEdgeEndPoint(source, vector);
+        KVector end = calculateEdgeEndPoint(target, vector.scale(-1));
+        section.setStartLocation(start.x,start.y);
+        section.setEndLocation(end.x,end.y);
+        
+    }
+    
+    private KVector calculateEdgeEndPoint(ElkNode node,KVector direction) {
+        KVector end = new KVector(node.getX()+node.getWidth()/2,node.getY()+node.getHeight()/2);
+        
+        if(direction.length()==0) {
+            return end;
+        }
+        direction.normalize();
+        if(direction.x==0||direction.y==0||node.getWidth()==0||node.getHeight()==0) {
+            return end.add(node.getWidth()/2*direction.x, node.getHeight()/2*direction.y); 
+        }
+        
+        if(Math.abs(direction.x/direction.y)>Math.abs(node.getWidth()/node.getHeight())) {
+            end.add(direction.scale(Math.abs(node.getWidth()/2/direction.x)));
+        }else {
+            end.add(direction.scale(Math.abs(node.getHeight()/2/direction.y)));
+        }
+        
+        return end;
     }
 
     private void serialIteration(
@@ -408,6 +462,7 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
         return new KVector(a.getX() - b.getX(), a.getY() - b.getY());
     }
 
+    
     private void calculateGrid(ElkNode layoutGraph, List<ElkNode>[][] grid, double k) {
         KVector p;
         for (ElkNode node : layoutGraph.getChildren()) {
@@ -416,5 +471,11 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
             grid[(int) (p.x = node.getX() / (2 * k))][(int) (p.y = node.getY() / (2 * k))].add(node);
         }
     }
+
+    @Override
+    public void dispose() {
+        pool.shutdown();
+        super.dispose();
+    } 
 
 }
