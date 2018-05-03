@@ -1,0 +1,45 @@
+node Network{
+	
+	//algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+	settings.CParameter: 0.5
+	
+	node ISP
+	
+	node RaspberryPi{
+		node RadiusServer
+		node DNSServer
+		node Webserver
+	}
+	
+	node NatRouter{
+		node IntraNetOnlyWebserver
+		node DHCPServer
+		node TKAnlage
+	}
+	
+	node Smartphone
+	node Laptop
+	
+	node MainPC
+	
+	node Switch
+	
+	node WifiAccessPoint
+	
+	node Festnetztelefon
+	
+	edge ISP -> NatRouter
+	
+	edge NatRouter -> Switch
+	edge NatRouter.TKAnlage -> Festnetztelefon
+	
+	edge Switch -> RaspberryPi
+	edge Switch -> WifiAccessPoint
+	edge Switch -> MainPC
+	
+	edge NatRouter.DHCPServer -> RaspberryPi.DNSServer
+	
+	edge Network.WifiAccessPoint -> RaspberryPi.RadiusServer
+	edge WifiAccessPoint -> Smartphone
+	edge WifiAccessPoint -> Laptop
+}
