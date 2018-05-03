@@ -22,7 +22,7 @@ public enum CoolingFunctionEnum {
             double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
             double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
             int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
-            //option for ratio quenching/simmer
+            //TODO option for ratio quenching/simmer
             if(iteration < iterations/2) {
                 //quench, steady and rapidly
                 //TODO option for constant 2
