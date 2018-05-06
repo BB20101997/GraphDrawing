@@ -1,6 +1,11 @@
 node Figure21 {
 	
-	//same as Figure 22/23
+	//same graph as Figure 22/23
+	
+	/**
+	 * TODO insert comment why this looks horrible no matter what settings are used
+	 * actually I don't think this looks really that horrible as I have seen worse
+	 * */
 	
 	algorithm: FruchtmanReingold
 	

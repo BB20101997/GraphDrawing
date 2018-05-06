@@ -2,6 +2,12 @@ node Figure24 {
 	
 	//same graph as Figure25
 	
+	/*
+	 * best result would be either all even numbered nodes closer to the center than the odd ones 
+	 * ore the other way around, the result here is some (one) are closer, some are further 
+	 * since both best case senarios would be stable it's up to luck to find the right parameter combination 
+	 * **/
+	
 	algorithm: FruchtmanReingold
 	
 	CParameter: 1

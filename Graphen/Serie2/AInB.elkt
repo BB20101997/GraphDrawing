@@ -1,14 +1,10 @@
 algorithm: FruchtmanReingold
-Iterations: 1000
-frameWidth: 1200
-frameHeight: 1200
-settings.CParameter: 1
 
 node a {
 	algorithm: FruchtmanReingold
 	settings.CParameter: 0.5
-	frameWidth: 500
-	frameHeight: 500
+	frameWidth: 180
+	frameHeight: 180
 
 	node a1
 	node a2
@@ -19,8 +15,8 @@ node a {
 node b {
 	algorithm: FruchtmanReingold
 	settings.CParameter: 0.5
-	frameWidth: 500
-	frameHeight: 500
+	frameWidth: 180
+	frameHeight: 180
 
 	node b1
 	node b2
@@ -31,8 +27,8 @@ node b {
 node c {
 	algorithm: FruchtmanReingold
 	settings.CParameter: 0.5
-	frameWidth: 500
-	frameHeight: 500
+	frameWidth: 180
+	frameHeight: 180
 
 	node c1
 	node c2
