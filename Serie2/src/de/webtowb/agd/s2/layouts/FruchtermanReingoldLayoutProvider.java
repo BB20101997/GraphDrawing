@@ -1,27 +1,24 @@
 package de.webtowb.agd.s2.layouts;
 
-import de.webtwob.adg.s2.layouts.options.FruchtermanReingoldOptions;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.eclipse.elk.core.AbstractLayoutProvider;
 import org.eclipse.elk.core.math.KVector;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
-import org.eclipse.elk.core.util.adapters.ElkGraphAdapters.ElkGraphAdapter;
 import org.eclipse.elk.graph.ElkConnectableShape;
 import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkEdgeSection;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.util.ElkGraphUtil;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.Vector;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinTask;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import de.webtwob.adg.s2.layouts.options.FruchtermanReingoldOptions;
 
 public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
 
@@ -347,7 +344,9 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
                 .forEach(disp::add);
     }
 
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings("ConstantConditions") /**
+     * The resulting Vector points from node to neighbor
+     * */
     private KVector calculateAttraction(ElkNode node, ElkNode neighbour, double k) {
         KVector dist = difference(neighbour, node);
         // act as if we have a small offset if we are at distance 0
@@ -386,8 +385,11 @@ public class FruchtermanReingoldLayoutProvider extends AbstractLayoutProvider {
     }
 
     @SuppressWarnings("ConstantConditions")
-    private KVector calculateRepulsion(ElkNode node, ElkNode neighbour, double k) {
-        KVector dist = difference(node, neighbour);
+    /**
+     * The resulting Vector points from neighbor to node 
+     * */
+    private KVector calculateRepulsion(ElkNode node, ElkNode neighbor, double k) {
+        KVector dist = difference(node, neighbor);
         // act as if we have a small offset if we are at distance 0
         if (dist.length() == 0) {
             dist.x = detRand.doubles().map(d -> d - 0.5).filter(d -> d != 0).findFirst().getAsDouble();

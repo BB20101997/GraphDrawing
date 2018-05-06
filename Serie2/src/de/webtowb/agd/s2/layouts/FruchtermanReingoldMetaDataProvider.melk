@@ -132,6 +132,18 @@ group settings{
         targets parents
     }
     
+    option compensateNodeSize : double {
+        label "Compensate for Node Size"
+        
+        description "How much should the Node Size be taken into account when calculating forces/optimal distances"
+    
+        targets parents
+    
+        default = 0
+        
+        lowerBound = 0.0
+    }
+    
     option coolingFunction : CoolingFunctionEnum{
         label "Cooling Function"
         description "Changes the cooling Function used to limit the node movement"
@@ -154,6 +166,36 @@ group settings{
         
         requires settings.coolingFunction == CoolingFunctionEnum.QUENCH_AND_SIMMER
     
+    }
+    
+    advanced option quenchSimmerRatio : double {
+        label "Quench Simmer Ratio"
+        
+        description "The Ratio of Iterations spend Quenching to Iterations Simmering, Quenching/Simmering"
+        
+        default = 0.5
+        
+        lowerBound = 0.0
+        
+        upperBound = 1.0
+        
+        targets parents
+        
+        requires settings.coolingFunction == CoolingFunctionEnum.QUENCH_AND_SIMMER
+    }
+    
+    option temperatureScale : double{
+        
+        label "Temperature Scale"
+        
+        description "How to scale the temperature"
+        
+        default = 0.5
+        
+        lowerBound  = 0.0
+        
+        targets parents
+        
     }
     
 }
@@ -208,11 +250,17 @@ algorithm FruchtmanReingold(FruchtermanReingoldLayoutProvider) {
       supports settings.parallel
       supports settings.forceFunctions
       supports settings.repulsionMode
+      supports settings.compensateNodeSize
       supports settings.coolingFunction
       supports settings.simmerValue
+      supports settings.temperatureScale
+      supports settings.quenchSimmerRatio
       
       supports debug.skipLayout
       supports debug.stopEarly
+      
+      
+      supports org.eclipse.elk.spacing.nodeNode = 10
 
 }
 

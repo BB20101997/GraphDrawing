@@ -12,7 +12,8 @@ public enum CoolingFunctionEnum {
               double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
               double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
               int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
-              return (Math.min(width, height) / 10) * (1  - iteration/iterations);
+              double scale = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_TEMPERATURE_SCALE);
+              return scale * Math.min(width, height) * (1  - iteration/iterations);
         }
     },
     QUENCH_AND_SIMMER{
@@ -22,11 +23,12 @@ public enum CoolingFunctionEnum {
             double width = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_WIDTH);
             double height = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_FRAME_HEIGHT);
             int iterations = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_ITERATIONS);
-            //TODO option for ratio quenching/simmer
-            if(iteration < iterations/2) {
+            double scale = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_TEMPERATURE_SCALE);
+            double ratio = layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_QUENCH_SIMMER_RATIO);
+            if(iteration < iterations * ratio) {
                 //quench, steady and rapidly
-                //TODO option for constant 2
-                return (Math.min(width, height) / 2) * (1  - iteration/iterations*2);
+                //if ratio is 0 we will never enter this case therefore it's save to divide by ratio
+                return scale * Math.min(width, height)  * (1  - iteration/iterations/ratio);
             }else {
                 //simmer, constant low
                 return layoutGraph.getProperty(FruchtermanReingoldOptions.SETTINGS_SIMMER_VALUE);
