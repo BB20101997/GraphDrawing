@@ -2,8 +2,6 @@ package de.webtowb.agd.s2.layouts;
 
 public enum ForceEnum {
     
-    //TODO compensate for node size, probably on call side but here this comment fits better context wise
-    
     DEFAULT{
         public double attractionForce(double distanced, double k){
             return distanced*distanced/k;
