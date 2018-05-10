@@ -1,0 +1,44 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+
+\begin{document}
+
+a)
+
+$v^{\prime}_{x} = P_{x}$
+
+$v^{\prime}_{y} = P_{y}$
+
+b)
+$c$ sei left-alignement constant 
+
+$v^{\prime}_{x} = c$
+
+$u^{\prime}_{x} = c$
+c)
+
+$\forall v \in V:  tl_{x} \geq v^{\prime}_{x} \geq br_{x}$
+
+$\forall v \in V:  tl_{y} \geq v^{\prime}_{y} \geq br_{y}$
+
+d)
+$mxd$ sei Constante für minimale x-Differenz $>0$ um als nach Rechts gehende Kannte zu Zählen
+
+$\forall (s,t) \in E :  t^{\prime}_{x} \geq s^{\prime}_{x} + mxd$
+
+e)
+
+$md$ minimale Differenz um als unterschiedliche Koordinate zu zählen
+
+$\forall v \in V \forall u \in V\setminus{v} : v_{x} > u_{x} => v_{x}^{\prime} \geq u_{x}^{\prime} + md$
+
+$\forall v \in V \forall u \in V\setminus{v} : v_{y} < u_{y} => v_{y}^{\prime} \leq u_{y}^{\prime} + md$
+
+f)
+
+$\forall i \in \mathbb{N}_{>0}, i \leq m:\forall v \in P_{i} : 150*(i-1) \leq v_{y}^{\prime} \leq 50 + 150*(i-1)$
+\end{document}
