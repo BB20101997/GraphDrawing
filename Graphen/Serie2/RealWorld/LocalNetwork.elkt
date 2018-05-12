@@ -1,21 +1,27 @@
+node ISP
+	
 node Network{
 	
-	//algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
+	algorithm: de.webtwob.agd.s2.layouts.FruchtmanReingold
 	settings.CParameter: 0.5
+	settings.parallel: true
+	settings.Iterations: 5000
 	
-	node ISP
 	
 	node RaspberryPi{
+		
 		node RadiusServer
 		node DNSServer
 		node Webserver
 	}
 	
 	node NatRouter{
+		
 		node IntraNetOnlyWebserver
 		node DHCPServer
 		node TKAnlage
 	}
+	
 	
 	node Smartphone
 	node Laptop
@@ -28,7 +34,6 @@ node Network{
 	
 	node Festnetztelefon
 	
-	edge ISP -> NatRouter
 	
 	edge NatRouter -> Switch
 	edge NatRouter.TKAnlage -> Festnetztelefon
@@ -43,3 +48,6 @@ node Network{
 	edge WifiAccessPoint -> Smartphone
 	edge WifiAccessPoint -> Laptop
 }
+
+
+edge ISP -> Network.NatRouter
