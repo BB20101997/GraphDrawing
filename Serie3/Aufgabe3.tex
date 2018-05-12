@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section{3a)}
+
+Sei $K: Graph \to \mathbb{N}_{0}$ die Anzahl der Kreise.
+
+Sein $S$, $S^{\prime}$  Mengen von Kanten.
+
+Sei $G-S$ der Graph $G$ ohne die Kanten in $S$.
+
+Sei $G+S$ der Graph $G$ um die Kanten in $S$ erweitert.
+
+Dann ist $K(G) \geq K(G-S)$ und $K(G) \leq K(G+S)$.
+
+Dann entspricht das Anwenden eines Feedback Sets $F$ dem entfernen von einer Kanten Menge $S$
+und dem hinzufügen einer Kanten Menge $S^{\prime}$.
+
+Wobei $S^{\prime} = \{(e,f)|(f,e) \in S\}$.
+
+Dann gilt:
+
+$K(G) \geq K(G-S) \leq K(G-S+S^{\prime}) = 0$
+$\Rightarrow K(G-S) = 0$
+
+$K(G-S) = 0$ ist Kreiszahl nach der Anwendung von $F$ als Feedback Arc Set, somit F auch Feedback Arc Set.
+
+\section{3b)}
+
+Sei G gerichter Graph.
+
+Sei FS minimal Feedback Set.
+
+\subsection{Behauptung}
+
+FS ist minimales Feedback Arc Set.
+
+\subsection{Beweis}
+
+
+
+\end{document}
