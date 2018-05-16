@@ -6,3 +6,10 @@
 /Serie3/Aufgabe 1.pdf
 /Serie3/Aufgabe 1.synctex.gz
 /Serie3/Aufgabe 1.tex.bak
+*.toc
+*.tex.bak
+*.pdf
+*.log
+*.idx
+*.aux
+*.synctex.gz
