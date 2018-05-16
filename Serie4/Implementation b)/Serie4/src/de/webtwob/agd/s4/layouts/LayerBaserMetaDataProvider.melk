@@ -1,0 +1,30 @@
+package de.webtwob.adg.s4.layouts
+
+import de.webtwob.agd.s4.layouts.LayerBasedLayoutProvider
+
+bundle{
+    metadataClass options.LayerBasedMetaDataProvider
+    idPrefix de.webtwob.agd.s4.layouts
+}
+
+group outputs{
+    //internal options
+}
+
+group settings{
+    //user options
+    
+}
+
+group debug{
+    //debug options
+
+}
+
+
+    
+algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
+      
+
+}
+
