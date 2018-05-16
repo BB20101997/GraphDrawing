@@ -1,0 +1,30 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{ucs}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\author{Bennet Bleßmann, Sven Korfmann}
+\title{Layerbased Algorithm Specification}
+
+\makeindex
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+%master file for generating the Specs
+
+\include{parts/Phases}
+\include{parts/Interfaces}
+\include{parts/Classes}
+\include{parts/Options}
+\include{parts/MVP} % Minimum Viable Product
+\include{parts/NTH} % Nice To Have
+
+\end{document}

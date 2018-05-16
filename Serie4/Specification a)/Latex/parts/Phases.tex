@@ -1,0 +1,54 @@
+\section{Phases}
+
+\newcommand{\phase}[4]{
+\subsection{Phase #1}
+\subsubsection*{Input}#2
+\subsubsection*{Task}#3
+\ifx&#4&%
+\else
+\subsubsection*{Output}#4
+\fi
+}
+
+
+
+All Phases get one Parameter, the Parameter 
+will have to provide Inforamtion based on the input section
+this will correspond to a list of implemented interfaces
+or requirements on the form of the Input.
+
+Examples:
+
+Graph $\to$ parameter implements IGraphInfo
+
+\phase{Init}				{Graph}
+{Load Options}
+{Options}
+
+\phase{CycleBreak}			{Graph}					
+{Break Cycles by revercing edges.}
+{Acyclic}
+
+\phase{LayerAssignement}	{Acyclic, Graph}				
+{Assigne Nodes to Layers}
+{Layered}
+
+\phase{UndoCycleBreak}		{Layered, Acyclic, Graph}		
+{Load Options}
+{invalidats Acyclic}
+
+\phase{DummyNodePlacement}	{Layered, Graph}				
+{Break Edges spanning multiple Layers into multiple smaller edges by inserting dummy Nodes}
+{Dummy}
+
+\phase{CrossingMinimization}{Layered, Graph}		
+{Minimize Crossing of edges by swaping the order of nodes in a layer.}
+{Ordered}
+
+\phase{NodePlacement}		{Ordered, Layered, Graph}					
+{Place Nodes in Graph}
+{}
+
+\phase{EdgeRoute}			{Dummy, Graph}					
+{Rout Edges through Graph and remove DummyNodes}
+{}
