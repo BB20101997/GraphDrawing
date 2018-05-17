@@ -7,6 +7,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
+\usepackage{hyperref}
+
 \author{Bennet Bleßmann, Sven Korfmann}
 \title{Layerbased Algorithm Specification}
 
@@ -20,12 +22,22 @@
 
 %master file for generating the Specs
 
+%order of chapters not yet final
+% where to put which file and what to do and not to do
 \include{parts/Guidlines}
+% why are we doing what we are doing
+\include{parts/Reasoning}
+% which phases do we have, what does it need/do/produce
 \include{parts/Phases}
 \include{parts/Interfaces}
 \include{parts/Classes}
+% which options do we have and what do they do
 \include{parts/Options}
+% This needs to be done
 \include{parts/MVP} % Minimum Viable Product
+% If we have time we can do this
 \include{parts/NTH} % Nice To Have
+% We won't do this unless we have copiouse amounts of spare time (e.g. Ports)
+\include{parts/OOS} % Out of Scope
 
 \end{document}
