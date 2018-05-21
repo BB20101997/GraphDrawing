@@ -1,54 +1,30 @@
-\section{Phases}
+\section{Phases \& Processors}
 
-\newcommand{\phase}[4]{
-\subsection{Phase #1}
-\subsubsection*{Input}#2
-\subsubsection*{Task}#3
-\ifx&#4&%
-\else
-\subsubsection*{Output}#4
-\fi
-}
+Phases will be implemented based on the Description that can be found \underline{
+\href{https://www.eclipse.org/elk/documentation/algorithmdevelopers/algorithmimplementation/algorithmstructure.html}{here}}.
+
+The follwing Phases and Processors will be defined:
+
+\subsection{Phases}
+\begin{enumerate}
+\item Cycle Break
+\item Layer Assignement
+\item Crossing Minimization
+\item Node Placement
+\item Edge Routing
+\end{enumerate}
+
+\subsection{Processors}
+\begin{list}{-}{}
+\item Init, prepares the Graph
+\item Undo Cycle Break, undos the cycle breaking
+\item Dummy Placement, places dummy nodes
+\item Undo Dummy Placement, undos dummy placement
+\end{list}
+
+Phases will have an LayoutPhaseEnum instance and will be implemented 
+in a sub-package of \textit{impl}.
+
+Processors will be implemented in the ProcessorsEnum.
 
 
-
-All Phases get one Parameter, the Parameter 
-will have to provide Inforamtion based on the input section
-this will correspond to a list of implemented interfaces
-or requirements on the form of the Input.
-
-Examples:
-
-Graph $\to$ parameter implements IGraphInfo
-
-\phase{Init}				{Graph}
-{Load Options}
-{Options}
-
-\phase{CycleBreak}			{Graph}					
-{Break Cycles by revercing edges.}
-{Acyclic}
-
-\phase{LayerAssignement}	{Acyclic, Graph}				
-{Assigne Nodes to Layers}
-{Layered}
-
-\phase{UndoCycleBreak}		{Layered, Acyclic, Graph}		
-{Load Options}
-{invalidats Acyclic}
-
-\phase{DummyNodePlacement}	{Layered, Graph}				
-{Break Edges spanning multiple Layers into multiple smaller edges by inserting dummy Nodes}
-{Dummy}
-
-\phase{CrossingMinimization}{Layered, Graph}		
-{Minimize Crossing of edges by swaping the order of nodes in a layer.}
-{Ordered}
-
-\phase{NodePlacement}		{Ordered, Layered, Graph}					
-{Place Nodes in Graph}
-{}
-
-\phase{EdgeRoute}			{Dummy, Graph}					
-{Rout Edges through Graph and remove DummyNodes}
-{}

@@ -8,7 +8,19 @@ bundle{
 }
 
 group outputs{
-    //internal options
+
+    output option IsDummy : boolean {
+        default = false
+        
+        targets nodes
+    }
+    
+    output option EdgeReversed : boolean {
+        default = false
+        
+        targets nodes
+    }
+
 }
 
 group settings{
