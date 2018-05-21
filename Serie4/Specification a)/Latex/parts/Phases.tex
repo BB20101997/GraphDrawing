@@ -22,8 +22,17 @@ The follwing Phases and Processors will be defined:
 \item Undo Dummy Placement, undos dummy placement
 \end{list}
 
-Phases will have an LayoutPhaseEnum instance and will be implemented 
-in a sub-package of \textit{impl}.
+Each Phases will have an LayoutPhaseEnum instance.
+
+Cycle Break Phase will be implemented in the \textit{impl.cycle} package.
+
+Layer Assignment Phase will be implemented in the \textit{impl.layer} package.
+
+Crossing Minimization Phase will be implemented in the \textit{impl.cycle} package.
+
+Node Placement Phase will be implemented in the \textit{impl.cycle} package.
+
+Edge Routing Phase will be implemented in the \textit{impl.cycle} package.
 
 Processors will be implemented in the ProcessorsEnum.
 
