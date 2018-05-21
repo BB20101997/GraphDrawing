@@ -20,6 +20,18 @@ group outputs{
         
         targets nodes
     }
+    
+    output option InLayer : int {
+        default = Integer.getInteger("-1") //because -1 is an error?
+        
+        targets nodes
+    }
+    
+    output option LayerCount : int {
+        default = 0
+        
+        targets parents
+    }
 
 }
 
