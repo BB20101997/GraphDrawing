@@ -8,7 +8,7 @@ import org.eclipse.elk.graph.ElkNode;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
 
-public class GreedzCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
+public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
