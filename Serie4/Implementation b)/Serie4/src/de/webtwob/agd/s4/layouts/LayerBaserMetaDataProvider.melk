@@ -1,4 +1,4 @@
-package de.webtwob.adg.s4.layouts
+package de.webtwob.agd.s4.layouts
 
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutProvider
 
@@ -22,7 +22,7 @@ group outputs{
     }
     
     output option InLayer : int {
-        default = Integer.getInteger("-1") //because -1 is an error?
+        default = Integer.valueOf("-1")
         
         targets nodes
     }
@@ -49,6 +49,10 @@ group debug{
     
 algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
       
+      supports outputs.IsDummy
+      supports outputs.EdgeReversed
+      supports outputs.InLayer
+      supports outputs.LayerCount
 
 }
 

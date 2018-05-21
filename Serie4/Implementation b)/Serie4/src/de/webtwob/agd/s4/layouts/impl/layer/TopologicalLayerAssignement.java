@@ -7,9 +7,10 @@ import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
-import de.webtwob.adg.s4.layouts.options.LayerBasedMetaDataProvider;
+
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
+import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 

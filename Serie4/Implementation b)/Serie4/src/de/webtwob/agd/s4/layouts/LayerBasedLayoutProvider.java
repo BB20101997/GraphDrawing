@@ -9,6 +9,8 @@ import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
 
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
+import de.webtwob.agd.s4.layouts.impl.cycle.GreedyCycleBreakPhase;
+import de.webtwob.agd.s4.layouts.impl.layer.TopologicalLayerAssignement;
 import de.webtwob.agd.s4.layouts.impl.noop.NoopPhase;
 
 public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
@@ -35,8 +37,8 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
 
         //Config Phases
         //TODO replace NoopPhase with actuall implementation
-        algAssembler.setPhase(LayoutPhasesEnum.CYCLE_BREAK,NoopPhase::new);
-        algAssembler.setPhase(LayoutPhasesEnum.LAYER_ASSIGNEMENT,NoopPhase::new);
+        algAssembler.setPhase(LayoutPhasesEnum.CYCLE_BREAK,GreedyCycleBreakPhase::new);
+        algAssembler.setPhase(LayoutPhasesEnum.LAYER_ASSIGNEMENT,TopologicalLayerAssignement::new);
         algAssembler.setPhase(LayoutPhasesEnum.CROSSING_MINIMIZATION,NoopPhase::new);
         algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,NoopPhase::new);
         algAssembler.setPhase(LayoutPhasesEnum.EDGE_ROUTING,NoopPhase::new);

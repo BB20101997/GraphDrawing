@@ -7,7 +7,7 @@ import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.util.ElkGraphUtil;
 
-import de.webtwob.adg.s4.layouts.options.LayerBasedMetaDataProvider;
+import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode>{
     

@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.elk.core.layoutProviders">
       <provider
-            class="de.webtwob.adg.s4.layouts.options.LayerBasedMetaDataProvider">
+            class="de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider">
       </provider>
    </extension>
 
