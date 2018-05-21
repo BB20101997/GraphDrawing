@@ -12,6 +12,7 @@ import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.impl.cycle.GreedyCycleBreakPhase;
 import de.webtwob.agd.s4.layouts.impl.layer.TopologicalLayerAssignement;
 import de.webtwob.agd.s4.layouts.impl.noop.NoopPhase;
+import de.webtwob.agd.s4.layouts.impl.place.WorkingNodePlacementPhase;
 
 public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
     
@@ -40,7 +41,7 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
         algAssembler.setPhase(LayoutPhasesEnum.CYCLE_BREAK,GreedyCycleBreakPhase::new);
         algAssembler.setPhase(LayoutPhasesEnum.LAYER_ASSIGNEMENT,TopologicalLayerAssignement::new);
         algAssembler.setPhase(LayoutPhasesEnum.CROSSING_MINIMIZATION,NoopPhase::new);
-        algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,NoopPhase::new);
+        algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,WorkingNodePlacementPhase::new);
         algAssembler.setPhase(LayoutPhasesEnum.EDGE_ROUTING,NoopPhase::new);
         
         return algAssembler.build(layoutGraph);

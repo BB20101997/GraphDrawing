@@ -6,6 +6,7 @@ import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.emf.common.util.EList;
 
+import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
 
@@ -18,7 +19,7 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
         children.stream().flatMap(n->n.getOutgoingEdges().stream()).forEach(e->{
             if(children.indexOf(e.getSources().get(0))>children.indexOf(e.getTargets().get(0))) {
                 //TODO editing edges while iterating over them may obset the Iterator
-                ProcessorEnum.reverseEdge(e);
+                Util.reverseEdge(e);
             }
         });
         

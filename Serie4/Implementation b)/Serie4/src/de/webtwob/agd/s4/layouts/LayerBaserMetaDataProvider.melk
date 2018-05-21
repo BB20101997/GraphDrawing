@@ -27,6 +27,12 @@ group outputs{
         targets nodes
     }
     
+    output option PosInLayer : int {
+        default = Integer.valueOf("-1")
+        
+        targets nodes
+    }
+    
     output option LayerCount : int {
         default = 0
         
@@ -53,6 +59,7 @@ algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
       supports outputs.EdgeReversed
       supports outputs.InLayer
       supports outputs.LayerCount
+      supports outputs.PosInLayer
 
 }
 
