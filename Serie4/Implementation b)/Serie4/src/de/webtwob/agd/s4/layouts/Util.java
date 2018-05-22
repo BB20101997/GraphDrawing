@@ -24,9 +24,9 @@ public class Util {
     public static void reverseEdge(ElkEdge edge) {
         //get info for new edge
         ElkNode container = edge.getContainingNode();
-        ElkNode source = (ElkNode) edge.getTargets().get(0);
-        ElkNode target = (ElkNode) edge.getSources().get(0);
-                
+        ElkNode source = Util.getSource(edge);
+        ElkNode target = Util.getTarget(edge);
+        
         //create new edge
         ElkEdge nEdge = ElkGraphUtil.createEdge(edge.getContainingNode());
         nEdge.getSources().add(source);
@@ -37,23 +37,33 @@ public class Util {
         nEdge.setProperty(LayerBasedMetaDataProvider.OUTPUTS_EDGE_REVERSED,!edge.getProperty(LayerBasedMetaDataProvider.OUTPUTS_EDGE_REVERSED));
         
         //update graph
-        container.getContainedEdges().add(nEdge);
         container.getContainedEdges().remove(edge);
-        edge.getSections().clear();
+        edge.getSources().clear();
         edge.getTargets().clear();
     }
     
     /**
      * Assumes Simple Edges
      * 
-     * Returns true iff the source of all incoming edges have an assigned layer
+     * Returns true iff the source with the same parent of all incoming edges have an assigned layer
      * */
     public static boolean allPredecessorsHaveAnAssignedLayer(ElkNode n) {
         return n.getIncomingEdges()
                 .stream()
                 .flatMap(e->e.getSources().stream())
-                .noneMatch(s->(s.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER)==-1)&&(n.getParent()==ElkGraphUtil.connectableShapeToNode(s).getParent()));
+                .map(ElkGraphUtil::connectableShapeToNode)
+                .noneMatch(s->isLayerAssigned(s)&&(n.getParent().equals(s.getParent())));
     }
+    
+    /**
+     * @return true if s has been assigned to a Layer
+     * */
+    public static boolean isLayerAssigned(ElkNode s) {
+        return s.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IN_LAYER) ==  LayerBasedLayoutMetadata.OUTPUTS_IN_LAYER.getDefault();
+    
+    }
+    
+    
     
     /**
      * Assumes Layers to be Assigned
