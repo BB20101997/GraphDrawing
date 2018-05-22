@@ -29,14 +29,19 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
         giveValuesFirst(layers.get(0));
         // More than 1 Sweep
         for (int j = 0; j < ITERATIONS; j++) {
-            // Forwards
-            downSweep(layers);
-            // Backwards
-            upSweep(layers);
+           if (j%1==0) {
+               // Forwards
+               downSweep(layers);
+           } else {
+               // Backwards
+               upSweep(layers);
+           }
         }
-        //TODO an Iteration should only consist of either a forward or a backward sweep not both
     }
-
+    /**Sweeps from top to bottom
+     * 
+     * @param layers The Layers of the Graph
+     */
     private void downSweep(Map<Integer, List<ElkNode>> layers) {
         for (int i = 1; i < layers.size() - 2; i++) {
             List<ElkNode> lower = layers.get(i);
@@ -65,6 +70,10 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
         }
     }
 
+    /**Sweeps from bottom to top
+     * 
+     * @param layers The Layers of the Graph
+     */
     private void upSweep(Map<Integer, List<ElkNode>> layers) {
         for (int i = layers.size() - 2; i >= 0; i--) {
             List<ElkNode> upper = layers.get(i);
