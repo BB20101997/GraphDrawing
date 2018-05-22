@@ -2,6 +2,7 @@ package de.webtwob.agd.s4.layouts.impl.layer;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
@@ -19,17 +20,28 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         List<ElkNode> notAssigned = new LinkedList<>(graph.getChildren());
         
+        LinkedList<ElkNode> candidates 
+        = notAssigned.stream().filter(Util::allPredecessorsHaveAnAssignedLayer).collect(Collectors.toCollection(LinkedList::new));
+        
         int currentLayer = 0;
         while(!notAssigned.isEmpty()) {
-            ElkNode next = notAssigned.stream()
-                    //only take those with all incoming edge sources assigned
-                .filter(Util::allPredecessorsHaveAnAssignedLayer)
-                    //should always exists since the graph is acyclic and we still have un assigned nodes
-                .findFirst().get();
             
-            next.setProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER, currentLayer++);
-            notAssigned.remove(next);
-        }
+            ElkNode node = candidates.poll();
+            
+            if(node!=null) {
+                node.setProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER, currentLayer++);
+                notAssigned.remove(node);
+                candidates.addAll(
+                    node.getOutgoingEdges().stream()
+                        .map(Util::getTarget)
+                        .filter(Util::allPredecessorsHaveAnAssignedLayer)
+                        .filter(n->!candidates.contains(n))
+                        .collect(Collectors.toList())
+                );
+            }else {
+                throw new IllegalStateException("Assumed Acyclic Graph, but no Source found!");
+            }
+       }
         
         graph.setProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT, currentLayer);
         
