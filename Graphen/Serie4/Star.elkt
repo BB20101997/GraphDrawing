@@ -1,0 +1,19 @@
+node Star {
+
+	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
+	
+	node center
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+
+	edge center -> n1
+	edge center -> n2
+	edge center -> n3
+	edge center -> n4
+	edge center -> n5
+	edge center -> n6
+}
