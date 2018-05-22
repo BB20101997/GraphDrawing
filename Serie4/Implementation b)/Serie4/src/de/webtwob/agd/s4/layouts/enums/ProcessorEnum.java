@@ -22,8 +22,11 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode>{
     //before Crossing Minimization
     DUMMY_PLACEMENT(ProcessorEnum::placeDummyNode),
     
-    //after Edge Rout Phase
-    UNDO_DUMMY_PLACEMENT(ProcessorEnum::undoDummyNodes);
+    //after Edge Route Phase
+    UNDO_DUMMY_PLACEMENT(ProcessorEnum::undoDummyNodes),
+    
+    //after Edge Route Phase
+    POST(ProcessorEnum::postProcess);
 
     private final ILayoutProcessor<ElkNode> processor;
     
@@ -77,6 +80,25 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode>{
     
     private static void undoDummyNodes(ElkNode graph,IElkProgressMonitor monitor) {
         //TODO remove Dummy Nodes and re-route edges to/between/from dummy nodes
+    }
+    
+    private static void postProcess(ElkNode graph, IElkProgressMonitor monitor) {
+        double minX = 0,minY = 0,maxX = 0,maxY = 0;
+        for(ElkNode node:graph.getChildren()) {
+            //TODO make margin configurable (and take labels into account)
+            minX = Math.min(minX, node.getX()-20);
+            minY = Math.min(minY, node.getY()-20);
+            maxX = Math.max(maxX, node.getX()+node.getWidth()+20);
+            maxY = Math.max(maxY, node.getY()+node.getHeight()+20);
+        }
+        
+        for(ElkNode node:graph.getChildren()) {
+            node.setX(node.getX()-minX);
+            node.setY(node.getY()-minY);
+        }
+        
+        graph.setDimensions(maxX-minX, maxY-minY);
+        
     }
     
 }
