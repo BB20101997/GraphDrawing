@@ -64,7 +64,7 @@ group settings{
     }
     
     option CrossingMinimizationPhase : CrossingMinimizationEnum {
-        default = CrossingMinimizationEnum.KEED_ORDER //TODO update to MVP once implemented
+        default = CrossingMinimizationEnum.BARYCENTER
         
         targets parents
     }

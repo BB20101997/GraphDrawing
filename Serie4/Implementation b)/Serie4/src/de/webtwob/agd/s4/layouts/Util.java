@@ -75,5 +75,29 @@ public class Util {
     public static int getLayer(ElkNode node){
            return node.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER);
     }
+    
+    /**
+     * A version of ElkGraphUtil.getTargetNode which doesn't throw if more than one Target is present
+     * */
+    public static ElkNode getTarget(ElkEdge edge) {
+        if(edge.getTargets().size()<1) {
+            throw new IllegalArgumentException("Passed Egde does not have any Targets!");
+        }
+        
+        return ElkGraphUtil.connectableShapeToNode(edge.getTargets().get(0));
+        
+    }
+    
+    /**
+     * A version of ElkGraphUtil.getSourceNode which doesn't throw if more than one Target is present
+     * */
+    public static ElkNode getSource(ElkEdge edge) {
+        if(edge.getSources().size()<1) {
+            throw new IllegalArgumentException("Passed Egde does not have any Sources!");
+        }
+        
+        return ElkGraphUtil.connectableShapeToNode(edge.getSources().get(0));
+        
+    }
 
 }
