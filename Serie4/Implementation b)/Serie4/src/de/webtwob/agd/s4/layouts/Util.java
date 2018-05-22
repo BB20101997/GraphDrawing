@@ -52,7 +52,7 @@ public class Util {
         return n.getIncomingEdges()
                 .stream()
                 .flatMap(e->e.getSources().stream())
-                .noneMatch(s->s.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER)==-1);
+                .noneMatch(s->(s.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER)==-1)&&(n.getParent()==ElkGraphUtil.connectableShapeToNode(s).getParent()));
     }
     
     /**
