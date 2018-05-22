@@ -1,5 +1,7 @@
 package de.webtwob.agd.s4.layouts.enums;
 
+import java.util.LinkedList;
+
 import org.eclipse.elk.core.alg.ILayoutProcessor;
 import org.eclipse.elk.core.alg.ILayoutProcessorFactory;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
@@ -42,9 +44,8 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode>{
     }
     
     private static void undoCycleBreak(ElkNode graph,IElkProgressMonitor monitor) {
-        for(ElkEdge edge : graph.getContainedEdges()) {
+        for(ElkEdge edge : new LinkedList<>(graph.getContainedEdges())) {
             if(edge.getProperty(LayerBasedMetaDataProvider.OUTPUTS_EDGE_REVERSED)) {
-                //TODO check if iterator complains
                Util.reverseEdge(edge);
             }
         }
