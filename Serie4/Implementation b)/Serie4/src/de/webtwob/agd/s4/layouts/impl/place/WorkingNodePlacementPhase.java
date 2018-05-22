@@ -3,6 +3,7 @@ package de.webtwob.agd.s4.layouts.impl.place;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;

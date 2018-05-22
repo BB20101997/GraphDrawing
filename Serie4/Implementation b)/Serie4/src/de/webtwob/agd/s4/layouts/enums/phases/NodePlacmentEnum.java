@@ -8,12 +8,15 @@ import org.eclipse.elk.graph.properties.AdvancedPropertyValue;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.impl.noop.NoopPhase;
 import de.webtwob.agd.s4.layouts.impl.place.WorkingNodePlacementPhase;
+import de.webtwob.agd.s4.layouts.impl.place.WorkingDummyNodePlacementPhase;
 
 public enum NodePlacmentEnum implements ILayoutPhaseFactory<LayoutPhasesEnum, ElkNode>{
     
     @AdvancedPropertyValue
     NOOP(NoopPhase::new),
-    WORKING(WorkingNodePlacementPhase::new);
+    WORKING(WorkingNodePlacementPhase::new),
+    WORKINGDUMMY(WorkingDummyNodePlacementPhase::new);
+
 
     private final ILayoutPhaseFactory<LayoutPhasesEnum, ElkNode> factory;
     

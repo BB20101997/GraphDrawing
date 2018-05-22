@@ -64,13 +64,12 @@ group settings{
     }
     
     option CrossingMinimizationPhase : CrossingMinimizationEnum {
-        default = CrossingMinimizationEnum.BARYCENTER
-        
+        default = CrossingMinimizationEnum.BARYCENTER        
         targets parents
     }
     
     option NodePlacementPhase : NodePlacmentEnum {
-        default = NodePlacmentEnum.WORKING //TODO update to MVP once implemented
+        default = NodePlacmentEnum.WORKINGDUMMY //TODO update to MVP once implemented
         
         targets parents
     }
