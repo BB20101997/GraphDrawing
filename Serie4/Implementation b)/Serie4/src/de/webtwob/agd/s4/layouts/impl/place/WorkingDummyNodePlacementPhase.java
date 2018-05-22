@@ -33,7 +33,9 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
             maxY = 0;
             maxWidth = 0;
             List<ElkNode> layer = layers.getOrDefault(i, Collections.<ElkNode> emptyList());
+            
             layer.sort(Util.COMPARE_POS_IN_LAYER);
+            
             for (ElkNode node : layer) {
                 // Special case for dummy nodes
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {

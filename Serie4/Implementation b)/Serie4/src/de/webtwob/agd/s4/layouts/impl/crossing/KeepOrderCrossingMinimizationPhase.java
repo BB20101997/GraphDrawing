@@ -5,10 +5,10 @@ import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
 
+import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
-import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public class KeepOrderCrossingMinimizationPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
@@ -20,7 +20,7 @@ public class KeepOrderCrossingMinimizationPhase implements ILayoutPhase<LayoutPh
         Util.getLayers(graph).values().forEach(v -> {
             int i = 0;
             for(ElkNode node : v) {
-                node.setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, i++);
+                node.setProperty(LayerBasedLayoutMetadata.OUTPUTS_POS_IN_LAYER, i++);
             }
         });
     }

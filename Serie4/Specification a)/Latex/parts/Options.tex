@@ -1,33 +1,50 @@
 \section{Options}
 
-
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
+\subsection{Settings}
+\begin{tabular}{|c|c|c|c|}
 \hline 
-Name & Java Type & on & Type & Function \\ 
+Name & Java Type & on & Function \\ 
 \hline 
-CycleBreakPhase & Enum & Parent & setting & Select Phase implementation \\ 
+CycleBreakPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-LayerAssignementPhase & Enum & Parent & setting & Select Phase implementation \\ 
+LayerAssignementPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-CrossingMinimizationPhase & Enum & Parent & setting & Select Phase implementation \\ 
+CrossingMinimizationPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-NodePlacementPhase & Enum & Parent & setting & Select Phase implementation \\ 
+NodePlacementPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-EdgeRoutingPhase & Enum & Parent & setting & Select Phase implementation \\ 
+EdgeRoutingPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-EdgeReversed & boolean & Edge & internal & True iff edge is reversed \\ 
-\hline 
-IsDummy & boolean & Node & internal & True iff node is a dummy node \\ 
-\hline 
-LayerCount & int & Parent & internal & default to 0 \\ 
-\hline 
-InLayer & int & Node & internal & default to -1 (not set) \\ 
-\hline 
-• & • & • & • & • \\ 
+• & • & • & • \\ 
 \hline 
 \end{tabular} 
-\end{center}
+
+\subsection{Debug}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Name & Java Type & on & Function \\ 
+\hline 
+• & • & • & • \\ 
+\hline 
+\end{tabular} 
+
+\subsection{Internal}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+Name & Java Type & on & Function \\  
+\hline 
+EdgeReversed & boolean & Edge & True iff edge is reversed \\ 
+\hline 
+IsDummy & boolean & Node, Edge & True iff Target is a dummy \\ 
+\hline 
+LayerCount & int & Parent & default to 0 \\ 
+\hline 
+InLayer & int & Node & default to -1 (not set) \\ 
+\hline 
+• & • & • & • \\ 
+\hline 
+\end{tabular} 
+
 
 EdgeReversed provides Acyclic information.
 

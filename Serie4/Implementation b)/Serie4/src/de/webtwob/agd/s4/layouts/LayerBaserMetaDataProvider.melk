@@ -19,7 +19,7 @@ group outputs{
     output option IsDummy : boolean {
         default = false
         
-        targets nodes
+        targets nodes, edges
     }
     
     output option EdgeReversed : boolean {
