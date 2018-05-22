@@ -1,14 +1,23 @@
 package de.webtwob.agd.s4.layouts
 
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutProvider
+import de.webtwob.agd.s4.layouts.enums.phases.CycleBreakEnum
+import de.webtwob.agd.s4.layouts.enums.phases.LayerAssignementEnum
+import de.webtwob.agd.s4.layouts.enums.phases.CrossingMinimizationEnum
+import de.webtwob.agd.s4.layouts.enums.phases.NodePlacmentEnum
+import de.webtwob.agd.s4.layouts.enums.phases.EdgeRouteEnum
+import org.eclipse.elk.core.options.EdgeRouting
 
 bundle{
     metadataClass options.LayerBasedMetaDataProvider
     idPrefix de.webtwob.agd.s4.layouts
 }
 
-group outputs{
+//TODO add labels and descriptions for each option
 
+group outputs{
+    //internal options
+    
     output option IsDummy : boolean {
         default = false
         
@@ -44,6 +53,36 @@ group outputs{
 group settings{
     //user options
     
+    option CycleBreakPhase : CycleBreakEnum {
+        default = CycleBreakEnum.GREEDY
+        
+        targets parents
+    }
+    
+    option LayerAssignementPhase : LayerAssignementEnum {
+        default = LayerAssignementEnum.TOPOLOGICAL
+        
+        targets parents
+    }
+    
+    option CrossingMinimizationPhase : CrossingMinimizationEnum {
+        default = CrossingMinimizationEnum.KEED_ORDER //TODO
+        
+        targets parents
+    }
+    
+    option NodePlacementPhase : NodePlacmentEnum {
+        default = NodePlacmentEnum.WORKING //TODO
+        
+        targets parents
+    }
+    
+    option EdgeRoutingPhase : EdgeRouteEnum {
+        default = EdgeRouteEnum.NOOP //TODO
+        
+        targets parents
+    }
+    
 }
 
 group debug{
@@ -55,11 +94,18 @@ group debug{
     
 algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
       
-      supports outputs.IsDummy
-      supports outputs.EdgeReversed
-      supports outputs.InLayer
-      supports outputs.LayerCount
-      supports outputs.PosInLayer
-
+    //user
+        supports settings.CycleBreakPhase
+        supports settings.LayerAssignementPhase
+        supports settings.CrossingMinimizationPhase
+        supports settings.NodePlacementPhase
+        supports settings.EdgeRoutingPhase
+     
+    //internal 
+        supports outputs.IsDummy
+        supports outputs.EdgeReversed
+        supports outputs.InLayer
+        supports outputs.LayerCount
+        supports outputs.PosInLayer
 }
 

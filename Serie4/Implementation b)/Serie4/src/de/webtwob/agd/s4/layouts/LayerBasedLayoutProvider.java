@@ -9,10 +9,6 @@ import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
 
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
-import de.webtwob.agd.s4.layouts.impl.cycle.GreedyCycleBreakPhase;
-import de.webtwob.agd.s4.layouts.impl.layer.TopologicalLayerAssignement;
-import de.webtwob.agd.s4.layouts.impl.noop.NoopPhase;
-import de.webtwob.agd.s4.layouts.impl.place.WorkingNodePlacementPhase;
 
 public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
     
@@ -36,13 +32,12 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
     private List<ILayoutProcessor<ElkNode>> assemleAlgorithm(ElkNode layoutGraph) {
         algAssembler.reset();
 
-        //Config Phases
-        //TODO replace NoopPhase with actuall implementation
-        algAssembler.setPhase(LayoutPhasesEnum.CYCLE_BREAK,GreedyCycleBreakPhase::new);
-        algAssembler.setPhase(LayoutPhasesEnum.LAYER_ASSIGNEMENT,TopologicalLayerAssignement::new);
-        algAssembler.setPhase(LayoutPhasesEnum.CROSSING_MINIMIZATION,NoopPhase::new);
-        algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,WorkingNodePlacementPhase::new);
-        algAssembler.setPhase(LayoutPhasesEnum.EDGE_ROUTING,NoopPhase::new);
+        //Configure Phases
+        algAssembler.setPhase(LayoutPhasesEnum.CYCLE_BREAK,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_CYCLE_BREAK_PHASE));
+        algAssembler.setPhase(LayoutPhasesEnum.LAYER_ASSIGNEMENT,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_LAYER_ASSIGNEMENT_PHASE));
+        algAssembler.setPhase(LayoutPhasesEnum.CROSSING_MINIMIZATION,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_CROSSING_MINIMIZATION_PHASE));
+        algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_NODE_PLACEMENT_PHASE));
+        algAssembler.setPhase(LayoutPhasesEnum.EDGE_ROUTING,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_EDGE_ROUTING_PHASE));
         
         return algAssembler.build(layoutGraph);
     }
