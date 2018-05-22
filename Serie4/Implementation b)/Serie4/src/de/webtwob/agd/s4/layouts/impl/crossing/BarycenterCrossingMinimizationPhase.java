@@ -7,11 +7,8 @@ import java.util.TreeMap;
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
-import org.eclipse.elk.graph.ElkConnectableShape;
-import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkNode;
-import org.eclipse.elk.graph.util.ElkGraphUtil;
-
+import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
 import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
@@ -28,6 +25,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
+        
         giveValuesFirst(layers.get(0));
         // More than 1 Sweep
         for (int j = 0; j < ITERATIONS; j++) {
@@ -36,29 +34,33 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
             // Backwards
             upSweep(layers);
         }
+        //TODO an Iteration should only consist of either a forward or a backward sweep not both
     }
 
     private void downSweep(Map<Integer, List<ElkNode>> layers) {
         for (int i = 1; i < layers.size() - 2; i++) {
             List<ElkNode> lower = layers.get(i);
             TreeMap<Double, ElkNode> barycenter = new TreeMap<Double, ElkNode>();
+            
+            double max = 1;
+            
             for (ElkNode n : lower) {
-                double max = 1;
-                int connectedNodes = 0;
-                int sumOfNodes = 0;
-                for (ElkEdge e : n.getIncomingEdges()) {
-                    sumOfNodes +=
-                            ElkGraphUtil.getSourceNode(e).getProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER);
-                    connectedNodes++;
-                }
-                double barycenterOfNode = (connectedNodes != 0 ? sumOfNodes / connectedNodes : max);
+                
+                //calculate barycenter of current node
+                double barycenterOfNode = n.getIncomingEdges().stream()
+                    .map(e->Util.getSource(e))
+                    .mapToInt(node -> node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_POS_IN_LAYER))
+                    .average()
+                    .orElse(max);
+               
                 barycenter.put(barycenterOfNode, n);
-                max += connectedNodes != 0 ? barycenterOfNode : 1;
+                //TODO is it correct that max should normally be increased by the Nodes barycenter and not set to it?
+                max += n.getIncomingEdges().isEmpty() ? 1 : barycenterOfNode;
             }
+            
             int pos = 0;
             while (!barycenter.isEmpty()) {
-                barycenter.firstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
-                barycenter.remove(barycenter.firstEntry().getKey(), barycenter.firstEntry().getValue());
+                barycenter.pollFirstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
             }
         }
     }
@@ -67,23 +69,25 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
         for (int i = layers.size() - 2; i >= 0; i--) {
             List<ElkNode> upper = layers.get(i);
             TreeMap<Double, ElkNode> barycenter = new TreeMap<Double, ElkNode>();
+            
+            double max = 1;
+            
             for (ElkNode n : upper) {
-                double max = 1;
-                int connectedNodes = 0;
-                int sumOfNodes = 0;
-                for (ElkEdge e : n.getIncomingEdges()) {
-                    sumOfNodes +=
-                            ElkGraphUtil.getSourceNode(e).getProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER);
-                    connectedNodes++;
-                }
-                double barycenterOfNode = (connectedNodes != 0 ? sumOfNodes / connectedNodes : max);
+                
+                //calculate barycenter of current node
+                double barycenterOfNode = n.getOutgoingEdges().stream()
+                    .map(e->Util.getTarget(e))
+                    .mapToInt(node -> node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_POS_IN_LAYER))
+                    .average()
+                    .orElse(max);
+                
                 barycenter.put(barycenterOfNode, n);
-                max += connectedNodes != 0 ? barycenterOfNode : 1;
+                max += n.getOutgoingEdges().isEmpty() ? 1 :  barycenterOfNode;
             }
+            
             int pos = 0;
             while (!barycenter.isEmpty()) {
-                barycenter.firstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
-                barycenter.remove(barycenter.firstEntry().getKey(), barycenter.firstEntry().getValue());
+                barycenter.pollFirstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
             }
         }
     }
