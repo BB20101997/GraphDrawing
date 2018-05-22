@@ -1,12 +1,10 @@
 package de.webtwob.agd.s4.layouts
 
-import de.webtwob.agd.s4.layouts.LayerBasedLayoutProvider
-import de.webtwob.agd.s4.layouts.enums.phases.CycleBreakEnum
-import de.webtwob.agd.s4.layouts.enums.phases.LayerAssignementEnum
 import de.webtwob.agd.s4.layouts.enums.phases.CrossingMinimizationEnum
-import de.webtwob.agd.s4.layouts.enums.phases.NodePlacmentEnum
+import de.webtwob.agd.s4.layouts.enums.phases.CycleBreakEnum
 import de.webtwob.agd.s4.layouts.enums.phases.EdgeRouteEnum
-import org.eclipse.elk.core.options.EdgeRouting
+import de.webtwob.agd.s4.layouts.enums.phases.LayerAssignementEnum
+import de.webtwob.agd.s4.layouts.enums.phases.NodePlacmentEnum
 
 bundle{
     metadataClass options.LayerBasedMetaDataProvider
@@ -66,19 +64,19 @@ group settings{
     }
     
     option CrossingMinimizationPhase : CrossingMinimizationEnum {
-        default = CrossingMinimizationEnum.KEED_ORDER //TODO
+        default = CrossingMinimizationEnum.KEED_ORDER //TODO update to MVP once implemented
         
         targets parents
     }
     
     option NodePlacementPhase : NodePlacmentEnum {
-        default = NodePlacmentEnum.WORKING //TODO
+        default = NodePlacmentEnum.WORKING //TODO update to MVP once implemented
         
         targets parents
     }
     
     option EdgeRoutingPhase : EdgeRouteEnum {
-        default = EdgeRouteEnum.NOOP //TODO
+        default = EdgeRouteEnum.NOOP //TODO update to MVP once implemented
         
         targets parents
     }
