@@ -1,5 +1,7 @@
 package de.webtwob.agd.s4.layouts.impl.cycle;
 
+import java.util.LinkedList;
+
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
@@ -15,26 +17,27 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         EList<ElkNode> children = graph.getChildren();
-        
-        children.stream().flatMap(n->n.getOutgoingEdges().stream()).forEach(e->{
-            if(children.indexOf(e.getSources().get(0))>children.indexOf(e.getTargets().get(0))) {
-                //TODO editing edges while iterating over them may obset the Iterator
+
+        new LinkedList<>(graph.getContainedEdges()).stream().forEach(e -> {
+            // reverse all edges where the source Node index is higher than the target node index
+            if (children.indexOf(Util.getSource(e)) > children.indexOf(Util.getTarget(e))) {
                 Util.reverseEdge(e);
             }
         });
-        
+
     }
 
     @Override
     public LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> getLayoutProcessorConfiguration(ElkNode graph) {
-        LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> conf = 
-                LayoutProcessorConfiguration.<LayoutPhasesEnum, ElkNode>create()
-                .before(LayoutPhasesEnum.CYCLE_BREAK)
-                .add(ProcessorEnum.INIT) //run init first
-                .after(LayoutPhasesEnum.CROSSING_MINIMIZATION)
-                .add(ProcessorEnum.UNDO_CYCLE_BREAK) //undo cycle break after layers are assigned
-                .after(LayoutPhasesEnum.EDGE_ROUTING)
-                .add(ProcessorEnum.POST); //TODO move to Edge Routing Implementation once implemented
+        LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> conf = LayoutProcessorConfiguration
+                .<LayoutPhasesEnum, ElkNode> create().before(LayoutPhasesEnum.CYCLE_BREAK).add(ProcessorEnum.INIT) // run
+                                                                                                                   // init
+                                                                                                                   // first
+                .after(LayoutPhasesEnum.CROSSING_MINIMIZATION).add(ProcessorEnum.UNDO_CYCLE_BREAK) // undo cycle break
+                                                                                                   // after layers are
+                                                                                                   // assigned
+                .after(LayoutPhasesEnum.EDGE_ROUTING).add(ProcessorEnum.POST); // TODO move to Edge Routing
+                                                                               // Implementation once implemented
         return conf;
     }
 

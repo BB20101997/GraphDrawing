@@ -50,7 +50,7 @@ public class Util {
     public static boolean allPredecessorsHaveAnAssignedLayer(ElkNode n) {
         return n.getIncomingEdges()
                 .stream()
-                .flatMap(e->e.getSources().stream())
+                .map(Util::getSource)
                 .map(ElkGraphUtil::connectableShapeToNode)
                 .noneMatch(s->isLayerAssigned(s)&&(n.getParent().equals(s.getParent())));
     }
@@ -108,6 +108,12 @@ public class Util {
         
         return ElkGraphUtil.connectableShapeToNode(edge.getSources().get(0));
         
+    }
+    
+    public static void deleteEdge(ElkEdge edge) {
+        edge.setContainingNode(null);
+        edge.getTargets().clear();
+        edge.getSources().clear();
     }
 
 }
