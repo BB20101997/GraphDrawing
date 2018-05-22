@@ -21,6 +21,8 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
         progressMonitor.begin("LayerBased Layout", alg.size());
         
         for(ILayoutProcessor<ElkNode> proc: alg) {
+            if(progressMonitor.isCanceled())
+                return;
             if(proc!=null)
             proc.process(layoutGraph, progressMonitor.subTask(1));
         }
