@@ -104,5 +104,7 @@ algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
         supports outputs.InLayer
         supports outputs.LayerCount
         supports outputs.PosInLayer
+        
+        supports org.eclipse.elk.padding
 }
 

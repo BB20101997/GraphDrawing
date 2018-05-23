@@ -7,6 +7,13 @@ node n2
 node n3
 node n4
 
+node n5
+node n6
+
+edge c -> n6
+
+edge c -> n5
+
 edge c -> n1
 
 edge n1 -> n2
