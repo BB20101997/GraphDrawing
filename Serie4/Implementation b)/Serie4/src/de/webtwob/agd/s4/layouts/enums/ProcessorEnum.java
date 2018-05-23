@@ -1,9 +1,6 @@
 package de.webtwob.agd.s4.layouts.enums;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.eclipse.elk.core.alg.ILayoutProcessor;
 import org.eclipse.elk.core.alg.ILayoutProcessorFactory;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
@@ -89,15 +86,7 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
     private static void undoDummyNodes(ElkNode graph, IElkProgressMonitor monitor) {
         monitor.begin("RemoveDummyNodesProcessor", 1);
         
-        // create re-route Edges that previously routed over dummy nodes
-        List<ElkEdge> origEdges =
-                graph.getChildren().stream()
-                        .filter(n -> !n.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) //only consider none Dummy Nodes
-                        .flatMap(n -> n.getOutgoingEdges().stream()) //look at all OutgoingEdges
-                        .filter(e -> Util.getTarget(e).getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) //which target Dummy Nodes
-                        .collect(Collectors.toList());
-        
-        origEdges.forEach(Util::restoreBrokenEdge);
+        new LinkedList<>(graph.getContainedEdges()).forEach(Util::restoreBrokenEdge);
 
         // remove dummy nodes and edges from graph 
         graph.getChildren().forEach(n->{
