@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 import org.eclipse.elk.core.alg.ILayoutProcessor;
 import org.eclipse.elk.core.alg.ILayoutProcessorFactory;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
+import org.eclipse.elk.graph.ElkBendPoint;
 import org.eclipse.elk.graph.ElkEdge;
+import org.eclipse.elk.graph.ElkEdgeSection;
 import org.eclipse.elk.graph.ElkNode;
+
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
@@ -122,10 +125,43 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
             maxX = Math.max(maxX, node.getX() + node.getWidth() + 20);
             maxY = Math.max(maxY, node.getY() + node.getHeight() + 20);
         }
+        
+        for(ElkEdge edge : graph.getContainedEdges()) {
+            for(ElkEdgeSection sect: edge.getSections()) {
+                minX = Math.min(minX, sect.getStartX() - 20);
+                minY = Math.min(minY, sect.getStartY() - 20);
+                maxX = Math.max(maxX, sect.getStartX() + 20);
+                maxY = Math.max(maxY, sect.getStartY() + 20);
+                minX = Math.min(minX, sect.getEndX() - 20);
+                minY = Math.min(minY, sect.getEndY() - 20);
+                maxX = Math.max(maxX, sect.getEndX() + 20);
+                maxY = Math.max(maxY, sect.getEndY() + 20);
+                
+                for(ElkBendPoint bp: sect.getBendPoints()) {
+                    minX = Math.min(minX, bp.getX() - 20);
+                    minY = Math.min(minY, bp.getY() - 20);
+                    maxX = Math.max(maxX, bp.getX() + 20);
+                    maxY = Math.max(maxY, bp.getY() + 20);
+                }
+            }
+        }
 
         for (ElkNode node : graph.getChildren()) {
             node.setX(node.getX() - minX);
             node.setY(node.getY() - minY);
+        }
+        
+        final double fminX = minX;
+        final double fminY = minY;
+        
+        for(ElkEdge edge : graph.getContainedEdges()) {
+            edge.getSections().forEach(sect->{
+                sect.setStartLocation(sect.getStartX()-fminX, sect.getStartY()-fminY);
+                sect.setEndLocation(sect.getEndX()-fminX, sect.getEndY()-fminY);
+                sect.getBendPoints().forEach(bend->{
+                    bend.set(bend.getX()-fminX, bend.getY()-fminY);
+                });
+            });
         }
 
         graph.setDimensions(maxX - minX, maxY - minY);

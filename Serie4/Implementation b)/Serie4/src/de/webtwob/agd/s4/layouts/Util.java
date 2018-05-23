@@ -76,6 +76,9 @@ public class Util {
         replaceEnds(createDummyVersion(origEdge), dummy, origTarget);
     }
 
+    /**
+     * Undoes BreakUpEdge
+     * */
     public static void restoreBrokenEdge(ElkEdge origEdge) {
         if(origEdge.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
             //dummy edge is the wrong starting point
@@ -113,7 +116,7 @@ public class Util {
         if (sections.isEmpty()) {
             chain.add(next.getX(),next.getY());
         } else {
-            chain.add(sections.get(sections.size() - 1).getStartX(), sections.get(sections.size() - 1).getStartY());
+            chain.add(sections.get(sections.size() - 1).getEndX(), sections.get(sections.size() - 1).getEndY());
 
         }
 

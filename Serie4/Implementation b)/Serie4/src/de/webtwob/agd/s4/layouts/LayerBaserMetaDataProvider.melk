@@ -75,7 +75,7 @@ group settings{
     }
     
     option EdgeRoutingPhase : EdgeRouteEnum {
-        default = EdgeRouteEnum.NOOP //TODO update to MVP once implemented
+        default = EdgeRouteEnum.POLY
         
         targets parents
     }
