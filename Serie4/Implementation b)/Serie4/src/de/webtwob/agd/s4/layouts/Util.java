@@ -26,16 +26,14 @@ public class Util {
      *            This method expects a simple Edge and will swap source and target
      */
     public static void reverseEdge(ElkEdge edge) {
-
-        if (!isSimpleEdge(edge)) {
-            System.err.println("Expected Simple Edge, information will be lost!");
-        }
-        
         replaceEnds(edge, getTarget(edge), getSource(edge));
 
         edge.setProperty(LayerBasedLayoutMetadata.OUTPUTS_EDGE_REVERSED, !edge.getProperty(LayerBasedLayoutMetadata.OUTPUTS_EDGE_REVERSED));
     }
 
+    /**
+     * Breaks up edges spanning more than one layer up, by inserting dummy nodes and edges
+     * */
     public static void breakUpEdge(ElkEdge origEdge) {
 
         final ElkNode origSource = Util.getSource(origEdge);
@@ -106,6 +104,7 @@ public class Util {
         // add intermediate points
         while (next.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
             chain.add(next.getX(), next.getY());
+            chain.add(next.getX()+next.getWidth(),next.getY());
             currentDummyEdge = next.getOutgoingEdges().get(0);
             next = Util.getTarget(currentDummyEdge);
         }
