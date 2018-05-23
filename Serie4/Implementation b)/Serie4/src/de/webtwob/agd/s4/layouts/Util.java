@@ -86,9 +86,10 @@ public class Util {
         // Chain of points to route the edge over
         KVectorChain chain = new KVectorChain();
 
-        ElkNode next = Util.getTarget(origEdge);
-        
+
         final ElkNode source = Util.getSource(origEdge);
+        
+        ElkNode next = Util.getTarget(origEdge);
 
         List<ElkEdgeSection> sections = origEdge.getSections();
 
@@ -120,7 +121,7 @@ public class Util {
         }
 
         //update original Edge
-        Util.replaceEnds(origEdge, source, next);
+        replaceEnds(origEdge, source, next);
         ElkUtil.applyVectorChain(chain, ElkGraphUtil.firstEdgeSection(origEdge, false, true));
     }
     

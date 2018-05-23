@@ -20,6 +20,8 @@ public class PolyEdgeRoutingPhase implements ILayoutPhase<de.webtwob.agd.s4.layo
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        progressMonitor.begin("PolyEdgeRoutingPhase", 1);
+        
         Map<ElkNode,Integer> inEdgeCount = new HashMap<>();
         Map<ElkNode,Integer> outEdgeCount = new HashMap<>();
         
@@ -41,6 +43,7 @@ public class PolyEdgeRoutingPhase implements ILayoutPhase<de.webtwob.agd.s4.layo
             
         }
         
+        progressMonitor.done();
     }
 
     @Override
