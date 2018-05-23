@@ -49,9 +49,7 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
 
     @Override
     public LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> getLayoutProcessorConfiguration(ElkNode graph) {
-        return LayoutProcessorConfiguration.<LayoutPhasesEnum,ElkNode>create()
-                .after(LayoutPhasesEnum.LAYER_ASSIGNEMENT)
-                .add(ProcessorEnum.UNDO_CYCLE_BREAK);
+        return LayoutProcessorConfiguration.<LayoutPhasesEnum,ElkNode>create();
     }
 
 }
