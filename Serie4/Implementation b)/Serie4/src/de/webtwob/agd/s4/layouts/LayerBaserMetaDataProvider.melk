@@ -104,6 +104,7 @@ algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
         supports settings.CrossingMinimizationPhase
         supports settings.NodePlacementPhase
         supports settings.EdgeRoutingPhase
+        supports settings.CrossingMinimizationIterations
      
     //internal 
         supports outputs.IsDummy
