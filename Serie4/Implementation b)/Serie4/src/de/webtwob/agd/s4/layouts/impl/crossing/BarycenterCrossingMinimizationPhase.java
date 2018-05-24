@@ -1,18 +1,19 @@
 package de.webtwob.agd.s4.layouts.impl.crossing;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.TreeMap;
+import java.util.Random;
 import java.util.function.Function;
 
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
+
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
@@ -35,9 +36,14 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
      */
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
-        Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
+        Random r = new Random(42007); //Seed
         
-        giveValuesFirst(layers.get(0));
+        Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
+        ArrayList<List<ElkNode>> permutations = new ArrayList<List<ElkNode>>();  // TODO Option for how many permutations 
+        
+        
+        for (int i = 0; i< 10; i++) { // TODO Option for how many permutations 
+        giveValuesFirst(layers.get(0), r);
         // More than 1 Sweep
         for (int j = 0; j < ITERATIONS; j++) {
            if (j%1==0) {
@@ -47,6 +53,8 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
                // Backwards
                upSweep(layers);
            }
+        }
+        
         }
     }
     /**Sweeps from top to bottom
@@ -117,8 +125,10 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
             
         }
     }
+    
 
-    private Map<ElkNode, Integer> giveValuesFirst(List<ElkNode> first) {
+    private Map<ElkNode, Integer> giveValuesFirst(List<ElkNode> first, Random r) {
+        Collections.shuffle(first, r);
         int i = 1;
         for (ElkNode node : first) {
             node.setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, i++);
