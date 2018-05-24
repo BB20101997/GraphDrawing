@@ -43,7 +43,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
             giveValuesFirst(layers.get(0), r);
             // More than 1 Sweep
             for (int j = 0; j < iterations; j++) {
-                if (j % 1 == 0) {
+                if (j % 2 == 0) {
                     // Forwards
                     downSweep(layers);
                 } else {
