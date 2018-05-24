@@ -24,11 +24,11 @@ edge n3 -> n4
 
 edge n4 -> c
 
-edge n4 -> n1
-
-edge n3 -> n1
+//edge n3 -> n1
 
 edge n3 -> c
 
-//edge c -> n2
-//edge n3 -> n2
+edge n4 -> n1
+
+edge c -> n2
+edge n3 -> n2

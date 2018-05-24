@@ -1,8 +1,13 @@
 package de.webtwob.agd.s4.layouts.impl.crossing;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
+import java.util.function.Function;
 
 import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
@@ -18,6 +23,12 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
 
     // TODO Option for iterations
     private static int ITERATIONS = 50;
+    
+    private static Function<Map<ElkNode,Double>,Comparator<ElkNode>> comparatorFactory = map ->{
+        return Comparator
+                .<ElkNode>comparingDouble(map::get)
+                .thenComparingDouble(n->n.getProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER));
+                };
 
     /**
      * assigns their Position in their layer based on their barycenter in the list.
@@ -45,7 +56,8 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
     private void downSweep(Map<Integer, List<ElkNode>> layers) {
         for (int i = 1; i < layers.size() - 2; i++) {
             List<ElkNode> lower = layers.get(i);
-            TreeMap<Double, ElkNode> barycenter = new TreeMap<Double, ElkNode>();
+
+            Map<ElkNode,Double> barycenterMap = new HashMap<>();
             
             double max = 1;
             
@@ -57,16 +69,17 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
                     .mapToInt(node -> node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_POS_IN_LAYER))
                     .average()
                     .orElse(max);
-               
-                barycenter.put(barycenterOfNode, n);
+
+                barycenterMap.put(n, barycenterOfNode);
                 //TODO is it correct that max should normally be increased by the Nodes barycenter and not set to it?
                 max += n.getIncomingEdges().isEmpty() ? 1 : barycenterOfNode;
             }
             
-            int pos = 0;
-            while (!barycenter.isEmpty()) {
-                barycenter.pollFirstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
-            }
+            List<ElkNode> tmp = new ArrayList<>(lower);
+            tmp.sort(comparatorFactory.apply(barycenterMap));
+            
+            lower.forEach(n->n.setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, tmp.indexOf(n)));
+       
         }
     }
 
@@ -76,8 +89,10 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
      */
     private void upSweep(Map<Integer, List<ElkNode>> layers) {
         for (int i = layers.size() - 2; i >= 0; i--) {
+            
             List<ElkNode> upper = layers.get(i);
-            TreeMap<Double, ElkNode> barycenter = new TreeMap<Double, ElkNode>();
+            
+            Map<ElkNode,Double> barycenterMap = new HashMap<>();
             
             double max = 1;
             
@@ -90,14 +105,16 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
                     .average()
                     .orElse(max);
                 
-                barycenter.put(barycenterOfNode, n);
+                barycenterMap.put(n, barycenterOfNode);
+                
                 max += n.getOutgoingEdges().isEmpty() ? 1 :  barycenterOfNode;
             }
             
-            int pos = 0;
-            while (!barycenter.isEmpty()) {
-                barycenter.pollFirstEntry().getValue().setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, pos++);
-            }
+            List<ElkNode> tmp = new ArrayList<>(upper);
+            tmp.sort(comparatorFactory.apply(barycenterMap));
+            
+            upper.forEach(n->n.setProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER, tmp.indexOf(n)));
+            
         }
     }
 
