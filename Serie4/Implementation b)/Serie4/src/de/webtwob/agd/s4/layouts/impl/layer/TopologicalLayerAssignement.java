@@ -9,7 +9,6 @@ import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
-import org.eclipse.emf.common.util.UniqueEList;
 
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
@@ -38,7 +37,7 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
                         .map(Util::getTarget)
                         .filter(Util::allPredecessorsHaveAnAssignedLayer)
                         .filter(n->!candidates.contains(n))
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toCollection(LinkedHashSet::new))
                 );
             }else {
                 throw new IllegalStateException("Assumed Acyclic Graph, but no Source found!");
