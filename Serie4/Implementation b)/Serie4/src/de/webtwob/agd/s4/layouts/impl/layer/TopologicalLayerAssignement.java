@@ -1,5 +1,6 @@
 package de.webtwob.agd.s4.layouts.impl.layer;
 
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,6 +9,7 @@ import org.eclipse.elk.core.alg.ILayoutPhase;
 import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
+import org.eclipse.emf.common.util.UniqueEList;
 
 import de.webtwob.agd.s4.layouts.Util;
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
@@ -19,7 +21,8 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         List<ElkNode> notAssigned = new LinkedList<>(graph.getChildren());
         
-        LinkedList<ElkNode> candidates 
+        
+        LinkedList<ElkNode> candidates
         = notAssigned.stream().filter(Util::allPredecessorsHaveAnAssignedLayer).collect(Collectors.toCollection(LinkedList::new));
         
         int currentLayer = 0;
@@ -35,7 +38,7 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
                         .map(Util::getTarget)
                         .filter(Util::allPredecessorsHaveAnAssignedLayer)
                         .filter(n->!candidates.contains(n))
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toSet())
                 );
             }else {
                 throw new IllegalStateException("Assumed Acyclic Graph, but no Source found!");
