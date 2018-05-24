@@ -65,7 +65,7 @@ group settings{
     }
     
     option LayerAssignementPhase : LayerAssignementEnum {
-        default = LayerAssignementEnum.TOPOLOGICAL
+        default = LayerAssignementEnum.LONGESTPATH
         
         targets parents
     }
