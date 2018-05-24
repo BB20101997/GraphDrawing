@@ -65,7 +65,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
         Map<ElkNode, Double> barycenterMap = new HashMap<>();
         Comparator<ElkNode> cmp = getComparator(barycenterMap);
         
-        for (int i = 1; i < layers.size() - 2; i++) {
+        for (int i = 1; i < layers.size() - 1; i++) {
             List<ElkNode> lower = layers.get(i);
 
             double max = 1;
@@ -84,7 +84,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
                 max += n.getIncomingEdges().isEmpty() ? 1 : barycenterOfNode;
             }
 
-            //make a 
+            //make a copy we can sort
             List<ElkNode> tmp = new ArrayList<>(lower);
             tmp.sort(cmp);
 
