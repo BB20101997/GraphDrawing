@@ -22,6 +22,7 @@ public class PolyEdgeRoutingPhase implements ILayoutPhase<de.webtwob.agd.s4.layo
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         progressMonitor.begin("PolyEdgeRoutingPhase", 1);
         
+        //TODO each incoming/outgoing edge end/start point sould start at a diffenent possition on the nodes side
         Map<ElkNode,Integer> inEdgeCount = new HashMap<>();
         Map<ElkNode,Integer> outEdgeCount = new HashMap<>();
         

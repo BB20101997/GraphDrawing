@@ -6,6 +6,7 @@ import org.eclipse.elk.graph.ElkNode;
 import org.eclipse.elk.graph.properties.AdvancedPropertyValue;
 
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
+import de.webtwob.agd.s4.layouts.impl.layer.LongestPathLayerAssignement;
 import de.webtwob.agd.s4.layouts.impl.layer.TopologicalLayerAssignement;
 import de.webtwob.agd.s4.layouts.impl.noop.NoopPhase;
 
@@ -13,7 +14,8 @@ public enum LayerAssignementEnum implements ILayoutPhaseFactory<LayoutPhasesEnum
     
     @AdvancedPropertyValue
     NOOP(NoopPhase::new),
-    TOPOLOGICAL(TopologicalLayerAssignement::new);
+    TOPOLOGICAL(TopologicalLayerAssignement::new),
+    LONGESTPATH(LongestPathLayerAssignement::new);
     
     private final ILayoutPhaseFactory<LayoutPhasesEnum, ElkNode> factory;
 

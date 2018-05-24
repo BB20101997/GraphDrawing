@@ -2,6 +2,8 @@ node Star {
 
 	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
 	
+	//settings.LayerAssignementPhase: LONGESTPATH
+	
 	node center
 	node n1
 	node n2

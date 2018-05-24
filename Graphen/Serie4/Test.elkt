@@ -1,5 +1,7 @@
 algorithm: LayerBasedLayout
 
+//settings.LayerAssignementPhase: LONGESTPATH
+
 node c
 
 node n1
