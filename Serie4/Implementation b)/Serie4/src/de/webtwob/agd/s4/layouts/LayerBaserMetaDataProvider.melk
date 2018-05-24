@@ -17,7 +17,7 @@ group outputs{
     //internal options
     
     output option IsDummy : boolean {
-        default = false
+        default = false 
         
         targets nodes, edges
     }
@@ -54,6 +54,13 @@ group settings{
     option CycleBreakPhase : CycleBreakEnum {
         default = CycleBreakEnum.GREEDY
         
+        targets parents
+    }
+    
+     option CrossingMinimizationIterations : Integer {
+        default = 50
+        
+        lowerBound = 1 
         targets parents
     }
     

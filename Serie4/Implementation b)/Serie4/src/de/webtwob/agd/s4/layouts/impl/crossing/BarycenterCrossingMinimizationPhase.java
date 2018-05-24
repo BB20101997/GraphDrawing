@@ -21,8 +21,7 @@ import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
-    // TODO Option for iterations
-    private static int ITERATIONS = 51;
+
     
     private static Comparator<ElkNode> getComparator(Map<ElkNode,Double> map) {
         return Comparator.<ElkNode> comparingDouble(map::get)
@@ -34,6 +33,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
      */
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        int iterations = graph.getProperty(LayerBasedMetaDataProvider.SETTINGS_CROSSING_MINIMIZATION_ITERATIONS);
         Random r = new Random(42007); // Seed
 
         Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
@@ -42,7 +42,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
         for (int i = 0; i < 10; i++) { // TODO Option for how many permutations
             giveValuesFirst(layers.get(0), r);
             // More than 1 Sweep
-            for (int j = 0; j < ITERATIONS; j++) {
+            for (int j = 0; j < iterations; j++) {
                 if (j % 1 == 0) {
                     // Forwards
                     downSweep(layers);
