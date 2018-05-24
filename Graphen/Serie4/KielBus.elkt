@@ -8,6 +8,7 @@
 node Busplan {
 	
 	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
+	elk.padding: "[top=20.0,left=12.0,bottom=12.0,right=12.0]"
 	
 	node HasseeKlonnenweg {
 		label "Hasse, Klonnenweg"

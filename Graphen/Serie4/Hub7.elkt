@@ -1,0 +1,27 @@
+node hub7 {
+	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
+	
+	settings.CrossingMinimizationIterations: 50
+	
+	node n1
+	node n2
+	node n3
+	node n4
+	node n5
+	node n6
+	node center
+
+	edge n1 -> n6
+	edge n2 -> n1
+	edge n3 -> n2
+	edge n4 -> n3
+	edge n5 -> n4
+	edge n6 -> n5
+
+	edge center -> n1
+	edge center -> n2
+	edge center -> n3
+	edge center -> n4
+	edge center -> n5
+	edge center -> n6
+}
