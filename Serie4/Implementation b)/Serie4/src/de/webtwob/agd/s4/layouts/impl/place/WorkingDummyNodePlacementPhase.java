@@ -37,16 +37,19 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
             maxY = 0;
             maxWidth = 0;
             List<ElkNode> layer = layers.getOrDefault(i, Collections.<ElkNode> emptyList());
+            ArrayList<LinkedList<ElkNode>> dummyNodePositionsInLayer = new ArrayList<LinkedList<ElkNode>>();
+            
 
             layer.sort(Util.COMPARE_POS_IN_LAYER);
-            ArrayList<LinkedList<ElkNode>> dummyNodePositionsinLayer = new ArrayList<LinkedList<ElkNode>>();
 
             for (ElkNode node : layer) {
                 // Special case for dummy nodes
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     Boolean set = false;
+
                     for (ElkEdge e : node.getIncomingEdges()) {
                         if (Util.getSource(e).getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
+
                             // Has to be at the same Y as the last Dummy connected to
                             if (Util.getSource(e).getY() < maxY) {
                                 node.setY(maxY);
@@ -58,16 +61,24 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
                                 maxY += node.getHeight() + 20;
                             } else {
                                 node.setY(Util.getSource(e).getY());
-                                maxY = node.getY() + 20; // TODO make the margin an option
+                                maxY = node.getY() + 20; // TODO make the margin an optiopn
                             }
                             set = true;
+                            for (LinkedList<ElkNode> dummylines : dummyNodeConnections) {
+                                if (dummylines.peekLast() == Util.getSource(e)) {
+                                    dummylines.add(node);
+                                }
+                            }
                         }
                     }
                     if (!set) {
                         node.setY(maxY);
                         maxY += node.getHeight() + 20; // TODO make the margin an option
+                        LinkedList<ElkNode> l = new LinkedList<ElkNode>();
+                        l.add(node);
+                        dummyNodeConnections.add(l);
                     }
-                    dummyNodePositionsinLayer.add(new LinkedList<ElkNode>());
+                    dummyNodePositionsInLayer.add(new LinkedList<ElkNode>());
 
                 } else {
                     node.setY(maxY);
@@ -75,17 +86,17 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
                 }
                 node.setX(maxX);
                 maxWidth = Math.max(maxWidth, node.getWidth());
-                for (LinkedList<ElkNode> following : dummyNodePositionsinLayer) {
+                for (LinkedList<ElkNode> following : dummyNodePositionsInLayer) {
                     following.add(node);
                 }
             }
-            
+
             for (ElkNode node : layer) {
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     node.setWidth(maxWidth);
                 }
             }
-
+            dummyNodePositions.addAll(dummyNodePositionsInLayer);
             maxX += maxWidth + 20; // TODO make the margin an option
 
         }
@@ -93,29 +104,37 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
     }
 
     /**
-     * Go every connected dummynode
+     * Go every connected node of the dummynode that has already been places once and move them
      * 
      * @param dummylines
+     *            The dummy nodes that make up one connection from two nodes
      * @param dummyNodePositions
+     *            List of a list of dummy nodes and the nodes that come in the same layer afterwards
      * @param dummyNodeConnetions
+     *            List of all connections that are made of dummy nodes
      * @param maxY
      */
     private void changeAllBefore(LinkedList<ElkNode> dummylines, ArrayList<LinkedList<ElkNode>> dummyNodePositions,
             ArrayList<LinkedList<ElkNode>> dummyNodeConnetions, double maxY) {
-        
+
+        // Look at all nodes from the dummyline from the end to the beginning
         for (int i = dummylines.size() - 1; i >= 0; i--) {
+
+            // If another dummy node hasn't already moved that node move it
+            if (dummylines.get(i).getY() < maxY) {
+                dummylines.get(i).setY(maxY);
             
-            // Falls eine andere Dummyline diese bereits nach oben geschoben hat.
-            if (dummylines.get(i).getY()<maxY) {
-            dummylines.get(i).setY(maxY);
-            } 
-        
-        for (LinkedList<ElkNode> dummyAndAfter : dummyNodePositions) {
-            if (dummyAndAfter.peekFirst() == dummylines.get(i)) {
-                changeLowerOfTheNode(dummylines.get(i), dummyAndAfter, dummyNodePositions, dummyNodeConnetions, maxY);
+
+            // Find the List that shows what is behind the current dummynode
+            for (LinkedList<ElkNode> dummyAndAfter : dummyNodePositions) {
+                if (dummyAndAfter.peekFirst() == dummylines.get(i)) {
+                    // Change the nodes in the layer of the dummynode
+                    changeLowerOfTheNode(dummylines.get(i), dummyAndAfter, dummyNodePositions, dummyNodeConnetions,
+                            maxY);
+                }
+            }
             }
         }
-    }
     }
 
     private void changeLowerOfTheNode(ElkNode elkNode, LinkedList<ElkNode> dummyAndAfter,
@@ -124,15 +143,15 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
         for (ElkNode node : dummyAndAfter) {
             // Change the first node and the normal nodes normal
             if (!node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY) || node == dummyAndAfter.peekFirst()) {
-                if (node.getY()<maxY) {
-                node.setY(maxY);
-                maxY += node.getHeight() + 20; // TODO make the margin an option
+                if (node.getY() < maxY) {
+                    node.setY(maxY);
+                    maxY += node.getHeight() + 20; // TODO make the margin an option
                 } else {
                     // If another dummyline has changed the Y already
-                    maxY = node.getY() + node.getHeight() + 20;
+                    maxY = node.getY() + node.getHeight() + 20; // TODO make the margin an option
                 }
             } else {
-                //If it is part of a Dummyline change the Line 
+                // If it is part of a Dummyline change the Line
                 for (LinkedList<ElkNode> l : dummyNodeConnetions) {
                     if (l.peekLast() == node) {
                         changeAllBefore(l, dummyNodePositions, dummyNodeConnetions, maxY);
