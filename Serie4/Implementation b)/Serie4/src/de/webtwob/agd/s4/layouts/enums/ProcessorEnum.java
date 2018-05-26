@@ -108,7 +108,7 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
 
         double minX = 0, minY = 0, maxX = 0, maxY = 0;
         for (ElkNode node : graph.getChildren()) {
-            // TODO make padding configurable (and take labels into account)
+           
             minX = Math.min(minX, node.getX());
             minY = Math.min(minY, node.getY());
             maxX = Math.max(maxX, node.getX() + node.getWidth());
@@ -135,6 +135,7 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
             }
         }
         
+        // TODO maybe account for labels
         final double offsetX = pad.left-minX;
         final double offsetY = pad.top-minY;
         
