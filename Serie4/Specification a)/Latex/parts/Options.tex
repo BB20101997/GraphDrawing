@@ -1,6 +1,8 @@
 \section{Options}
 
 \subsection{Settings}
+
+\adjustbox{max width=\columnwidth}{
 \begin{tabular}{|c|c|c|c|}
 \hline 
 Name & Java Type & on & Function \\ 
@@ -15,20 +17,25 @@ NodePlacementPhase & Enum & Parent & Select Phase implementation \\
 \hline 
 EdgeRoutingPhase & Enum & Parent & Select Phase implementation \\ 
 \hline 
-• & • & • & • \\ 
+CrossingMinimizationIterations & int & Parent & Iterations done by Crossing Minimization Phase \\ 
 \hline 
+% • & • & • & • \\ 
+% \hline 
 \end{tabular} 
+}
 
-\subsection{Debug}
-\begin{tabular}{|c|c|c|c|}
-\hline 
-Name & Java Type & on & Function \\ 
-\hline 
-• & • & • & • \\ 
-\hline 
-\end{tabular} 
+% \subsection{Debug}
+% \begin{tabular}{|c|c|c|c|}
+% \hline 
+% Name & Java Type & on & Function \\ 
+% \hline 
+% • & • & • & • \\ 
+% \hline 
+% \end{tabular} 
 
 \subsection{Internal}
+
+\adjustbox{max width=\columnwidth}{
 \begin{tabular}{|c|c|c|c|}
 \hline 
 Name & Java Type & on & Function \\  
@@ -41,11 +48,15 @@ LayerCount & int & Parent & default to 0 \\
 \hline 
 InLayer & int & Node & default to -1 (not set) \\ 
 \hline 
-• & • & • & • \\ 
+PosInLayer & int & Node & default to -1 (not set) \\ 
 \hline 
-\end{tabular} 
+% • & • & • & • \\ 
+% \hline 
+\end{tabular}
+}
 
+\subsection{Other supported}
+\begin{list}{-}{}
+\item org.eclipse.elk.padding
+\end{list}
 
-EdgeReversed provides Acyclic information.
-
-IsDummy provides the dummy information.

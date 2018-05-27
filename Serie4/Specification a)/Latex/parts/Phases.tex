@@ -14,15 +14,7 @@ The follwing Phases and Processors will be defined:
 \item Edge Routing
 \end{enumerate}
 
-\subsection{Processors}
-\begin{list}{-}{}
-\item Init, prepares the Graph
-\item Undo Cycle Break, undos the cycle breaking
-\item Dummy Placement, places dummy nodes
-\item Undo Dummy Placement, undos dummy placement
-\end{list}
-
-Each Phases will have an LayoutPhaseEnum instance.
+Each Phases will have an LayoutPhasesEnum instance.
 
 Cycle Break Phase will be implemented in the \textit{impl.cycle} package.
 
@@ -34,6 +26,16 @@ Node Placement Phase will be implemented in the \textit{impl.place} package.
 
 Edge Routing Phase will be implemented in the \textit{impl.route} package.
 
-Processors will be implemented in the ProcessorsEnum.
+\subsection{Processors}
+\begin{list}{-}{}
+\item Init, prepares the Graph (currently NOOP)
+\item Undo Cycle Break, undos the cycle breaking
+\item Dummy Placement, places dummy nodes
+\item Undo Dummy Placement, undos dummy placement
+\item Post, center Graph in Parent
+\end{list}
+
+
+Processors will be implemented in the ProcessorEnum.
 
 

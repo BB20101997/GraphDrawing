@@ -4,9 +4,13 @@ Enums will be defined in the \textit{enums} package.
 
 The LayoutPhasesEnum will define an Instance per Phase
 
-The ProcessorEnum will define an Instance per Processor and provide a Factory.
+The ProcessorEnum will implement ILayoutProcessorFactory$<$ElkNode$>$ and define an Instance per Processor.
 
 The Package \textit{enums.phases} will contain an Enum per Phase with one
-instance for each implementation for that Phase and NoopPhase for all marked as Advanced.
+instance for each implementation of that Phase.
 
+Each Phase Enum will contain a $NOOP$ implementation annotated with \textit{@AdvancedPropertyValue}.
 
+Using NOOP might result in a not working algorithm e.g. when using $NOOP$ for Cycle Break on a Graph containing Cycles.
+
+Non deterministic implementations have to be annotated with \textit{@AdvancedPropertyValue}
