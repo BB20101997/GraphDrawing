@@ -15,7 +15,7 @@ node Distributionen {
 	 
 	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
 	
-	//settings.LayerAssignementPhase: TOPOLOGICAL
+	settings.LayerAssignementPhase: TOPOLOGICAL
 
 	node Debian
 	node Libranet
