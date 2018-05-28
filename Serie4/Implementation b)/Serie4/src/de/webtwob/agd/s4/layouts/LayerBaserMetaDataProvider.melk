@@ -11,8 +11,6 @@ bundle{
     idPrefix de.webtwob.agd.s4.layouts
 }
 
-//TODO add labels and descriptions for each option
-
 group outputs{
     //internal options
     
@@ -51,6 +49,8 @@ group outputs{
 group settings{
     //user options
     
+    //TODO add labels and descriptions for each option
+    
     option CycleBreakPhase : CycleBreakEnum {
         default = CycleBreakEnum.GREEDY
         
@@ -76,7 +76,7 @@ group settings{
     }
     
     option NodePlacementPhase : NodePlacmentEnum {
-        default = NodePlacmentEnum.WORKINGDUMMY //TODO update to MVP once implemented
+        default = NodePlacmentEnum.CONSTRAINT
         
         targets parents
     }
@@ -89,12 +89,12 @@ group settings{
     
 }
 
-group debug{
-    //debug options
-
-}
-
-
+/*
+ * group debug{     
+ *   //debug options
+ *                  
+ * }
+ */                
     
 algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
       
