@@ -17,7 +17,7 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
-        
+        progressMonitor.begin("GreedyCycleBreakPhase", graph.getChildren().size()+graph.getContainedEdges().size());
         //order nodes
         
         //copy childlist so we can remove already sorted ones
@@ -41,6 +41,7 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
                         sourceList.addLast(node);
                         iter.remove(); //avoid ConcurrentModificationException
                         found = true;
+                        progressMonitor.worked(1);
                     }
                     
                 }
@@ -58,6 +59,7 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
                         sinkList.addFirst(node);
                         iter.remove(); //avoid ConcurrentModificationException
                         found = true;
+                        progressMonitor.worked(1);
                     }
                     
                 }
@@ -80,6 +82,7 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
             if(maxNode!=null) {
                 sourceList.addFirst(maxNode);
                 children.remove(maxNode);
+                progressMonitor.worked(1);
             }
             
         }
@@ -94,8 +97,10 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
             if (combinedList.indexOf(Util.getSource(e)) > combinedList.indexOf(Util.getTarget(e))) {
                 Util.reverseEdge(e);
             }
+            progressMonitor.worked(1);
         });
-
+        
+        progressMonitor.done();
     }
 
     @Override
