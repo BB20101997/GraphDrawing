@@ -2,6 +2,8 @@ algorithm: LayerBasedLayout
 
 //settings.LayerAssignementPhase: LONGESTPATH
 
+//settings.EdgeRoutingPhase: NOOP
+
 node c
 
 node n1

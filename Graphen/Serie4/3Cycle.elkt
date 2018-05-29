@@ -1,5 +1,7 @@
 algorithm: LayerBasedLayout
 
+//settings.EdgeRoutingPhase: NOOP
+
 node n1
 node n2
 node n3
