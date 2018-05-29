@@ -17,9 +17,11 @@ import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 public class WorkingNodePlacementPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
     //This does not accommodate for dummy's being on the same y-Level!
+    //First NodePlacementPhase implementation just to get it running
     
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        progressMonitor.begin("WorkingNodePlacementPhase", graph.getChildren().size());
 
         Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
         
@@ -38,11 +40,14 @@ public class WorkingNodePlacementPhase implements ILayoutPhase<LayoutPhasesEnum,
                 
                 maxY += node.getHeight() +20; //TODO make the margin an option
                 maxWidth = Math.max(maxWidth, node.getWidth());
+                progressMonitor.worked(1);
             }
             
             maxX += maxWidth + 20; //TODO make the margin an option
             
         }
+        
+        progressMonitor.done();
         
     }
 
