@@ -3,11 +3,13 @@ package de.webtwob.agd.s4.layouts.enums;
 import java.util.LinkedList;
 import org.eclipse.elk.core.alg.ILayoutProcessor;
 import org.eclipse.elk.core.alg.ILayoutProcessorFactory;
+import org.eclipse.elk.core.comments.ElkGraphDataProvider;
 import org.eclipse.elk.core.math.ElkPadding;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkBendPoint;
 import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkEdgeSection;
+import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
@@ -47,7 +49,8 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
         monitor.begin("InitProcessor", 1);
 
         // TODO e.g. convert hyper-edges to multiple simple-edges
-        if (graph.getContainedEdges().stream().anyMatch(e -> (e.getSources().size() != 1) || (e.getTargets().size() != 1))) {
+        if (graph.getContainedEdges().stream()
+                .anyMatch(e -> (e.getSources().size() != 1) || (e.getTargets().size() != 1))) {
             System.err.println("None Simple Edge!");
         }
 
@@ -104,57 +107,70 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
     private static void postProcess(ElkNode graph, IElkProgressMonitor monitor) {
         monitor.begin("PostPhase", 1);
 
-        ElkPadding pad = graph.getProperty(LayerBasedLayoutMetadata.PADDING);
+        if (!graph.getChildren().isEmpty()) {
 
-        double minX = 0, minY = 0, maxX = 0, maxY = 0;
-        for (ElkNode node : graph.getChildren()) {
-           
-            minX = Math.min(minX, node.getX());
-            minY = Math.min(minY, node.getY());
-            maxX = Math.max(maxX, node.getX() + node.getWidth());
-            maxY = Math.max(maxY, node.getY() + node.getHeight());
-        }
+            ElkPadding pad = graph.getProperty(LayerBasedLayoutMetadata.PADDING);
 
-        for (ElkEdge edge : graph.getContainedEdges()) {
-            for (ElkEdgeSection sect : edge.getSections()) {
-                minX = Math.min(minX, sect.getStartX());
-                minY = Math.min(minY, sect.getStartY());
-                maxX = Math.max(maxX, sect.getStartX());
-                maxY = Math.max(maxY, sect.getStartY());
-                minX = Math.min(minX, sect.getEndX());
-                minY = Math.min(minY, sect.getEndY());
-                maxX = Math.max(maxX, sect.getEndX());
-                maxY = Math.max(maxY, sect.getEndY());
+            double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE, maxX = Double.MIN_VALUE, maxY = Double.MIN_VALUE;
+            for (ElkNode node : graph.getChildren()) {
 
-                for (ElkBendPoint bp : sect.getBendPoints()) {
-                    minX = Math.min(minX, bp.getX());
-                    minY = Math.min(minY, bp.getY());
-                    maxX = Math.max(maxX, bp.getX());
-                    maxY = Math.max(maxY, bp.getY());
+                minX = Math.min(minX, node.getX());
+                minY = Math.min(minY, node.getY());
+                maxX = Math.max(maxX, node.getX() + node.getWidth());
+                maxY = Math.max(maxY, node.getY() + node.getHeight());
+            }
+
+            for (ElkEdge edge : graph.getContainedEdges()) {
+                for (ElkEdgeSection sect : edge.getSections()) {
+                    minX = Math.min(minX, sect.getStartX());
+                    minY = Math.min(minY, sect.getStartY());
+                    maxX = Math.max(maxX, sect.getStartX());
+                    maxY = Math.max(maxY, sect.getStartY());
+                    minX = Math.min(minX, sect.getEndX());
+                    minY = Math.min(minY, sect.getEndY());
+                    maxX = Math.max(maxX, sect.getEndX());
+                    maxY = Math.max(maxY, sect.getEndY());
+
+                    for (ElkBendPoint bp : sect.getBendPoints()) {
+                        minX = Math.min(minX, bp.getX());
+                        minY = Math.min(minY, bp.getY());
+                        maxX = Math.max(maxX, bp.getX());
+                        maxY = Math.max(maxY, bp.getY());
+                    }
                 }
             }
-        }
-        
-        // TODO maybe account for labels
-        final double offsetX = pad.left-minX;
-        final double offsetY = pad.top-minY;
-        
-        for (ElkNode node : graph.getChildren()) {
-            node.setX(node.getX() + offsetX);
-            node.setY(node.getY() + offsetY);
-        }
 
-        for (ElkEdge edge : graph.getContainedEdges()) {
-            edge.getSections().forEach(sect -> {
-                sect.setStartLocation(sect.getStartX() + offsetX, sect.getStartY() +offsetY);
-                sect.setEndLocation(sect.getEndX() + offsetX, sect.getEndY() + offsetY);
-                sect.getBendPoints().forEach(bend -> {
-                    bend.set(bend.getX() +offsetX, bend.getY() + offsetY);
+            /*
+             * // TODO maybe account for labels
+             * 
+             * double minLabelX = Double.MAX_VALUE; 
+             * double minLabelY = Double.MAX_VALUE; 
+             * double maxlabelX = Double.MIN_VALUE; 
+             * double maxlabelY = Double.MIN_VALUE;
+             * 
+             * for (ElkLabel label : graph.getLabels()) { // label.getProperty()//TODO }
+             */
+
+            final double offsetX = pad.left - minX;
+            final double offsetY = pad.top - minY;
+
+            for (ElkNode node : graph.getChildren()) {
+                node.setX(node.getX() + offsetX);
+                node.setY(node.getY() + offsetY);
+            }
+
+            for (ElkEdge edge : graph.getContainedEdges()) {
+                edge.getSections().forEach(sect -> {
+                    sect.setStartLocation(sect.getStartX() + offsetX, sect.getStartY() + offsetY);
+                    sect.setEndLocation(sect.getEndX() + offsetX, sect.getEndY() + offsetY);
+                    sect.getBendPoints().forEach(bend -> {
+                        bend.set(bend.getX() + offsetX, bend.getY() + offsetY);
+                    });
                 });
-            });
-        }
+            }
 
-        graph.setDimensions(maxX - minX+pad.getHorizontal(), maxY - minY+pad.getVertical());
+            graph.setDimensions(maxX - minX + pad.getHorizontal(), maxY - minY + pad.getVertical());
+        }
 
         monitor.done();
     }
