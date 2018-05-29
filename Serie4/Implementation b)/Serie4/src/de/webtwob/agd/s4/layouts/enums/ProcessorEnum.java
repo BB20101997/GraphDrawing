@@ -154,7 +154,7 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
              * double minLabelX = Double.MAX_VALUE; double minLabelY = Double.MAX_VALUE; double maxlabelX = Double.MIN_VALUE; double
              * maxlabelY = Double.MIN_VALUE;
              * 
-             * for (ElkLabel label : graph.getLabels()) { // label.getProperty()//TODO }
+             * for (ElkLabel label : graph.getLabels()) {  label.getProperty(...) }
              */
 
             final double offsetX = pad.left - minX;
