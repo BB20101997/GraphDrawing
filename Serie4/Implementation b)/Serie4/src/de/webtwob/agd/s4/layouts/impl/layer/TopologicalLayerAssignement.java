@@ -18,6 +18,8 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        progressMonitor.begin("TopologicalLayerAssignement", graph.getChildren().size());
+        
         List<ElkNode> notAssigned = new LinkedList<>(graph.getChildren());
         
         
@@ -39,13 +41,14 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
                         .filter(n->!candidates.contains(n))
                         .collect(Collectors.toCollection(LinkedHashSet::new))
                 );
+                progressMonitor.worked(1);
             }else {
                 throw new IllegalStateException("Assumed Acyclic Graph, but no Source found!");
             }
        }
         
         graph.setProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT, currentLayer);
-        
+        progressMonitor.done();
     } 
 
     @Override
