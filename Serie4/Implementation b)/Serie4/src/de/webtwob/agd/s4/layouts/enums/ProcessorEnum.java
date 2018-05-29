@@ -1,15 +1,16 @@
 package de.webtwob.agd.s4.layouts.enums;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.elk.core.alg.ILayoutProcessor;
 import org.eclipse.elk.core.alg.ILayoutProcessorFactory;
-import org.eclipse.elk.core.comments.ElkGraphDataProvider;
 import org.eclipse.elk.core.math.ElkPadding;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkBendPoint;
 import org.eclipse.elk.graph.ElkEdge;
 import org.eclipse.elk.graph.ElkEdgeSection;
-import org.eclipse.elk.graph.ElkLabel;
 import org.eclipse.elk.graph.ElkNode;
 
 import de.webtwob.agd.s4.layouts.LayerBasedLayoutMetadata;
@@ -49,8 +50,7 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
         monitor.begin("InitProcessor", 1);
 
         // TODO e.g. convert hyper-edges to multiple simple-edges
-        if (graph.getContainedEdges().stream()
-                .anyMatch(e -> (e.getSources().size() != 1) || (e.getTargets().size() != 1))) {
+        if (graph.getContainedEdges().stream().anyMatch(e -> (e.getSources().size() != 1) || (e.getTargets().size() != 1))) {
             System.err.println("None Simple Edge!");
         }
 
@@ -87,18 +87,26 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
     }
 
     private static void undoDummyNodes(ElkNode graph, IElkProgressMonitor monitor) {
-        monitor.begin("RemoveDummyNodesProcessor", 1);
+        monitor.begin("RemoveDummyNodesProcessor", graph.getContainedEdges().size() * 2 + graph.getChildren().size() * 2);
 
-        new LinkedList<>(graph.getContainedEdges()).forEach(Util::restoreBrokenEdge);
+        IElkProgressMonitor sub = monitor.subTask(graph.getContainedEdges().size());
+        List<ElkEdge> dummyEdges = new ArrayList<>(graph.getContainedEdges().size());
 
-        // remove dummy nodes and edges from graph
-        graph.getChildren().forEach(n -> {
-            n.getOutgoingEdges().removeIf(e -> e.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY));
-            n.getIncomingEdges().removeIf(e -> e.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY));
-        });
+        sub.begin("UnbreakDummyEdges", graph.getContainedEdges().size());
 
-        graph.getChildren().removeIf(n -> n.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY));
-        graph.getContainedEdges().removeIf(e -> e.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY));
+        for (ElkEdge edge : graph.getContainedEdges()) {
+            if (edge.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
+                dummyEdges.add(edge);
+            } else {
+                Util.restoreBrokenEdge(edge);
+            }
+            sub.worked(1);
+        }
+
+        sub.done();
+
+        dummyEdges.forEach(e -> graph.getContainedEdges().remove(e));
+        graph.getChildren().removeIf(e -> e.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY));
 
         monitor.done();
 
@@ -143,10 +151,8 @@ public enum ProcessorEnum implements ILayoutProcessorFactory<ElkNode> {
             /*
              * // TODO maybe account for labels
              * 
-             * double minLabelX = Double.MAX_VALUE; 
-             * double minLabelY = Double.MAX_VALUE; 
-             * double maxlabelX = Double.MIN_VALUE; 
-             * double maxlabelY = Double.MIN_VALUE;
+             * double minLabelX = Double.MAX_VALUE; double minLabelY = Double.MAX_VALUE; double maxlabelX = Double.MIN_VALUE; double
+             * maxlabelY = Double.MIN_VALUE;
              * 
              * for (ElkLabel label : graph.getLabels()) { // label.getProperty()//TODO }
              */
