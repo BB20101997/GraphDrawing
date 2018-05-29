@@ -107,6 +107,17 @@ group settings{
         targets parents
     }
     
+    option CrossingMinimizationPermutations : Integer {
+        label "Crossing Minimization Permutations"
+        
+        description "How many Permutations of the first Layer should the Crossing Minimization Phase be testing" 
+         
+        default = 10
+        
+        lowerBound = 1
+        targets parents
+    }
+    
     option NodePlacementPhase : NodePlacmentEnum {
         label "Node Placement Phase"
         
