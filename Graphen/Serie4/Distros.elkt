@@ -13,6 +13,8 @@ node Distributionen {
 	 *   with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 	 */	
 	 
+	//terrible time usually 1 min. with all default but Topological Layer Assignement
+	 
 	algorithm: de.webtwob.agd.s4.layouts.LayerBasedLayout
 	
 	settings.LayerAssignementPhase: TOPOLOGICAL
