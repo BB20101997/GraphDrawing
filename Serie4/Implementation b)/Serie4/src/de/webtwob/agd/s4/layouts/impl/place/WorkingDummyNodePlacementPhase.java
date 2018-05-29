@@ -20,11 +20,11 @@ import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
-    // This does not accommodate for dummy's being on the same y-Level!
-
+    //our second NodePlacementPhase Implementation
+    
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
-
+        progressMonitor.begin("WorkingDummyNodePlacementPhase", graph.getChildren().size());
         Map<Integer, List<ElkNode>> layers = Util.getLayers(graph);
 
         double maxX = 0;
@@ -95,11 +95,14 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     node.setWidth(maxWidth);
                 }
+                progressMonitor.worked(1);
             }
             dummyNodePositions.addAll(dummyNodePositionsInLayer);
             maxX += maxWidth + 20; // TODO make the margin an option
 
         }
+        
+        progressMonitor.done();
 
     }
 
