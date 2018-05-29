@@ -144,6 +144,9 @@ algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
         supports settings.NodePlacementPhase
         supports settings.EdgeRoutingPhase
         supports settings.CrossingMinimizationIterations
+        
+        supports org.eclipse.elk.padding
+        supports org.eclipse.elk.edge.thickness
      
     //internal 
         supports outputs.IsDummy
@@ -152,6 +155,5 @@ algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
         supports outputs.LayerCount
         supports outputs.PosInLayer
         
-        supports org.eclipse.elk.padding
 }
 

@@ -111,8 +111,8 @@ public class Util {
 
                 // add intermediate points
                 while (next.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
-                    chain.addFirst(next.getX(), next.getY());
-                    chain.addFirst(next.getX() + next.getWidth(), next.getY());
+                    chain.addFirst(next.getX(), next.getY()+next.getHeight()/2);
+                    chain.addFirst(next.getX() + next.getWidth(), next.getY()+next.getHeight()/2);
                     
                     currentDummyEdge = next.getIncomingEdges().get(0);
 
@@ -129,8 +129,8 @@ public class Util {
 
                 // add intermediate points
                 while (next.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
-                    chain.addLast(next.getX(), next.getY());
-                    chain.addLast(next.getX() + next.getWidth(), next.getY());
+                    chain.addLast(next.getX(), next.getY()+next.getHeight()/2);
+                    chain.addLast(next.getX() + next.getWidth(), next.getY()+next.getHeight()/2);
 
                     currentDummyEdge = next.getOutgoingEdges().get(0);
 

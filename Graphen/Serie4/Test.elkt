@@ -28,7 +28,9 @@ edge n1 -> n2
 
 edge n2 -> n3
 
-edge n3 -> n4
+edge n3 -> n4{
+	elk.^edge.thickness:1
+}
 
 edge n4 -> c
 
