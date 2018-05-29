@@ -11,8 +11,9 @@ public class NoopPhase implements ILayoutPhase<LayoutPhasesEnum, ElkNode> {
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        progressMonitor.begin("NoopPhase", 0);
         // NOOP
-        
+        progressMonitor.done();
     }
 
     @Override
