@@ -15,31 +15,48 @@ group outputs{
     //internal options
     
     output option IsDummy : boolean {
+        
+        description "True if a Node or Edge is a dummy"
+        
         default = false 
         
         targets nodes, edges
     }
     
     output option EdgeReversed : boolean {
+        
+        description "True if the times an edge has been reversed is odd"
+        
         default = false
         
         targets nodes
     }
     
     output option InLayer : int {
+        
+        description "The index of the Layer a Node is assigned to"
+        
         default = Integer.valueOf("-1")
         
         targets nodes
     }
     
     output option PosInLayer : int {
+        
+        description "The Index-Position a Node has in its Layer"
+        
         default = Integer.valueOf("-1")
         
         targets nodes
     }
     
     output option LayerCount : int {
+        
+        description "The Layer Count of the contained Graph"
+        
         default = 0
+        
+        lowerBound = 0
         
         targets parents
     }
@@ -49,33 +66,51 @@ group outputs{
 group settings{
     //user options
     
-    //TODO add labels and descriptions for each option
-    
     option CycleBreakPhase : CycleBreakEnum {
+        label "Cycle Break Phase"
+        description "Select an Implementation of the Cycle Break Phase"
+        
         default = CycleBreakEnum.GREEDY
         
         targets parents
     }
-    
-     option CrossingMinimizationIterations : Integer {
-        default = 50
-        
-        lowerBound = 1 
-        targets parents
-    }
+   
     
     option LayerAssignementPhase : LayerAssignementEnum {
+        label "Layer Assignment Phase"
+        
+        description "Select an Implementation of the Layer Assignment Phase" 
+        
         default = LayerAssignementEnum.LONGESTPATH
         
         targets parents
     }
     
     option CrossingMinimizationPhase : CrossingMinimizationEnum {
+        label "Crossing Minimization Phase"
+        
+        description "Select an Implementation of the Crossing Minimization Phase" 
+        
         default = CrossingMinimizationEnum.BARYCENTER        
+        targets parents
+    } 
+    
+    option CrossingMinimizationIterations : Integer {
+        label "Crossing Minimization Iterations"
+        
+        description "How many sweeps should the Crossing Minimization Phase do" 
+         
+        default = 50
+        
+        lowerBound = 1
         targets parents
     }
     
     option NodePlacementPhase : NodePlacmentEnum {
+        label "Node Placement Phase"
+        
+        description "Select an Implementation of the Node Placement" 
+        
         default = NodePlacmentEnum.CONSTRAINT
         
         targets parents
@@ -86,6 +121,9 @@ group settings{
         
         targets parents
     }
+    
+    
+    //TO-DO add labels and descriptions for each option
     
 }
 
