@@ -46,7 +46,7 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
         //add mandatory Processors
         LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> procConf;
         procConf = LayoutProcessorConfiguration.<LayoutPhasesEnum,ElkNode>create()
-                .addBefore(LayoutPhasesEnum.CROSSING_MINIMIZATION, ProcessorEnum.INIT)
+                .addBefore(LayoutPhasesEnum.CYCLE_BREAK, ProcessorEnum.INIT)
                 .addAfter(LayoutPhasesEnum.EDGE_ROUTING, ProcessorEnum.POST);
         
         algAssembler.addProcessorConfiguration(procConf);
