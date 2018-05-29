@@ -19,7 +19,7 @@ public class LongestPathLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
 
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
-        progressMonitor.begin("LongestPathLayerAssignement", 0);//TODO
+        progressMonitor.begin("LongestPathLayerAssignement", graph.getChildren().size());
         
         /*
          * we start at the sources so we can skip finding the longest path which we would need to know the index of the last
