@@ -17,12 +17,17 @@ public class KeepOrderCrossingMinimizationPhase implements ILayoutPhase<LayoutPh
      */
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
+        progressMonitor.begin("KeepOrderCrossingMinimizationPhase", graph.getChildren().size());
+        
         Util.getLayers(graph).values().forEach(v -> {
             int i = 0;
             for(ElkNode node : v) {
                 node.setProperty(LayerBasedLayoutMetadata.OUTPUTS_POS_IN_LAYER, i++);
+                progressMonitor.worked(1);
             }
         });
+        
+        progressMonitor.done();
     }
 
     @Override
