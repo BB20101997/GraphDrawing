@@ -30,11 +30,19 @@ public class WorkingNodePlacementPhase implements ILayoutPhase<LayoutPhasesEnum,
         double maxWidth = 0;
         
         for(int i = 0 ;i<graph.getProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT);i++) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             maxY = 0;
             maxWidth = 0;
             List<ElkNode> layer = layers.getOrDefault(i, Collections.<ElkNode>emptyList());
             layer.sort(Util.COMPARE_POS_IN_LAYER);
             for(ElkNode node: layer) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 node.setX(maxX);
                 node.setY(maxY);
                 

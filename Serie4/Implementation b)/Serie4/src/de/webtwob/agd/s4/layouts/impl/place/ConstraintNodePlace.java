@@ -36,12 +36,20 @@ public class ConstraintNodePlace implements ILayoutPhase<LayoutPhasesEnum, ElkNo
         double maxWidth;
 
         for (int i = 0; i < graph.getProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT); i++) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             maxWidth = 0;
             List<ElkNode> layer = layers.getOrDefault(i, Collections.<ElkNode> emptyList());
 
             layer.sort(Util.COMPARE_POS_IN_LAYER);
 
             for (int l = 0; l < layer.size(); l++) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 ElkNode node = layer.get(l);
 
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
@@ -78,6 +86,10 @@ public class ConstraintNodePlace implements ILayoutPhase<LayoutPhasesEnum, ElkNo
            
 
             for (ElkNode node : layer) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     node.setWidth(maxWidth);
                 }
@@ -88,6 +100,10 @@ public class ConstraintNodePlace implements ILayoutPhase<LayoutPhasesEnum, ElkNo
         
         int size;
         while (!yConstrained.isEmpty()) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             size = yConstrained.size();
             yConstrained.entrySet().removeIf(e -> e.getValue().solve());
             if(size == yConstrained.size()) {

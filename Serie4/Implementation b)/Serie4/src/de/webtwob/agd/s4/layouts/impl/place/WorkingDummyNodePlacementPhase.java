@@ -34,6 +34,10 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
         ArrayList<LinkedList<ElkNode>> dummyNodeConnections = new ArrayList<LinkedList<ElkNode>>();
 
         for (int i = 0; i < graph.getProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT); i++) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             maxY = 0;
             maxWidth = 0;
             List<ElkNode> layer = layers.getOrDefault(i, Collections.<ElkNode> emptyList());
@@ -43,11 +47,19 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
             layer.sort(Util.COMPARE_POS_IN_LAYER);
 
             for (ElkNode node : layer) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 // Special case for dummy nodes
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     Boolean set = false;
 
                     for (ElkEdge e : node.getIncomingEdges()) {
+                        if (progressMonitor.isCanceled()) {
+                            progressMonitor.done();
+                            return;
+                        }
                         if (Util.getSource(e).getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
 
                             // Has to be at the same Y as the last Dummy connected to
@@ -65,6 +77,10 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
                             }
                             set = true;
                             for (LinkedList<ElkNode> dummylines : dummyNodeConnections) {
+                                if (progressMonitor.isCanceled()) {
+                                    progressMonitor.done();
+                                    return;
+                                }
                                 if (dummylines.peekLast() == Util.getSource(e)) {
                                     dummylines.add(node);
                                 }
@@ -87,11 +103,19 @@ public class WorkingDummyNodePlacementPhase implements ILayoutPhase<LayoutPhases
                 node.setX(maxX);
                 maxWidth = Math.max(maxWidth, node.getWidth());
                 for (LinkedList<ElkNode> following : dummyNodePositionsInLayer) {
+                    if (progressMonitor.isCanceled()) {
+                        progressMonitor.done();
+                        return;
+                    }
                     following.add(node);
                 }
             }
 
             for (ElkNode node : layer) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 if (node.getProperty(LayerBasedLayoutMetadata.OUTPUTS_IS_DUMMY)) {
                     node.setWidth(maxWidth);
                 }

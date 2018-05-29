@@ -32,6 +32,10 @@ public class LongestPathLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
 
         // Assign all sources to layer 0
         for (Iterator<ElkNode> iter = notAssigned.iterator(); iter.hasNext();) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             ElkNode cur = iter.next();
             if (cur.getIncomingEdges().isEmpty()) {
                 iter.remove();
@@ -43,10 +47,18 @@ public class LongestPathLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
         // Assign all Nodes who's predecessor have been assigned a layer to the max + 1
         while (!notAssigned.isEmpty()) { // continue till all nodes have a layer
             out: for (Iterator<ElkNode> iter = notAssigned.iterator(); iter.hasNext();) {
+                if (progressMonitor.isCanceled()) {
+                    progressMonitor.done();
+                    return;
+                }
                 ElkNode cur = iter.next();
                 int maxLayer = 0;
                 // find the max layer of all predecessors
                 for (ElkEdge e : cur.getIncomingEdges()) {
+                    if (progressMonitor.isCanceled()) {
+                        progressMonitor.done();
+                        return;
+                    }
                     ElkNode n = Util.getSource(e);
                     int curLayer = n.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER);
                     if (curLayer == Util.UNASSIGNED) {

@@ -29,6 +29,10 @@ public class PolyEdgeRoutingPhase implements ILayoutPhase<de.webtwob.agd.s4.layo
          */
         
         for(ElkEdge edge:graph.getContainedEdges()) {
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             
             ElkNode source = ElkGraphUtil.connectableShapeToNode(Util.getSource(edge));            
             ElkNode target = ElkGraphUtil.connectableShapeToNode(Util.getTarget(edge));

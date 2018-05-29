@@ -28,7 +28,10 @@ public class TopologicalLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
         
         int currentLayer = 0;
         while(!notAssigned.isEmpty()) {
-            
+            if (progressMonitor.isCanceled()) {
+                progressMonitor.done();
+                return;
+            }
             ElkNode node = candidates.poll();
             
             if(node!=null) {
