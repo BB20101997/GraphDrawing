@@ -5,6 +5,7 @@ import de.webtwob.agd.s4.layouts.enums.phases.CycleBreakEnum
 import de.webtwob.agd.s4.layouts.enums.phases.EdgeRouteEnum
 import de.webtwob.agd.s4.layouts.enums.phases.LayerAssignementEnum
 import de.webtwob.agd.s4.layouts.enums.phases.NodePlacmentEnum
+import de.webtwob.agd.s4.layouts.Util
 
 bundle{
     metadataClass options.LayerBasedMetaDataProvider
@@ -36,7 +37,7 @@ group outputs{
         
         description "The index of the Layer a Node is assigned to"
         
-        default = Integer.valueOf("-1")
+        default = Util.UNASSIGNED
         
         targets nodes
     }
@@ -45,7 +46,7 @@ group outputs{
         
         description "The Index-Position a Node has in its Layer"
         
-        default = Integer.valueOf("-1")
+        default = Util.UNASSIGNED
         
         targets nodes
     }

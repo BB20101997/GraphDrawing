@@ -16,6 +16,8 @@ import org.eclipse.elk.graph.util.ElkGraphUtil;
 import de.webtwob.agd.s4.layouts.options.LayerBasedMetaDataProvider;
 
 public class Util {
+    
+    public static final int UNASSIGNED = -1;
 
     public static final Comparator<ElkNode> COMPARE_POS_IN_LAYER = Comparator
             .<ElkNode> comparingInt((ElkNode n) -> n.getProperty(LayerBasedMetaDataProvider.OUTPUTS_POS_IN_LAYER));
