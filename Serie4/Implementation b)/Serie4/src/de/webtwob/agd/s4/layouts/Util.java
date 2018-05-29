@@ -54,6 +54,7 @@ public class Util {
         ElkNode previous = origSource;
         ElkNode dummy = createDummyVersion(previous);
         dummy.setProperty(LayerBasedLayoutMetadata.OUTPUTS_IN_LAYER, sourceLayer + 1);
+        dummy.setHeight(origEdge.getProperty(LayerBasedLayoutMetadata.EDGE_THICKNESS));
 
         // use origEdge as first new Edge
         replaceEnds(origEdge, origSource, dummy);
@@ -66,6 +67,7 @@ public class Util {
             // create dummy
             dummy = createDummyVersion(previous);
             dummy.setProperty(LayerBasedLayoutMetadata.OUTPUTS_IN_LAYER, layer);
+            dummy.setHeight(origEdge.getProperty(LayerBasedLayoutMetadata.EDGE_THICKNESS));
 
             // create dummy edge between previous and dummy
             replaceEnds(createDummyVersion(origEdge), previous, dummy);
