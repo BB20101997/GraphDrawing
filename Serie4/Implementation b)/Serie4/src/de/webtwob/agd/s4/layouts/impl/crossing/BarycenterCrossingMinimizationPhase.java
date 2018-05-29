@@ -33,7 +33,7 @@ public class BarycenterCrossingMinimizationPhase implements ILayoutPhase<LayoutP
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         int iterations = graph.getProperty(LayerBasedMetaDataProvider.SETTINGS_CROSSING_MINIMIZATION_ITERATIONS);
-        int permutationCount = graph.getProperty(LayerBasedMetaDataProvider.SETTINGS_CROSSING_MINIMIZATION_PERMUTATIONS); // TODO Option for how many permutations
+        int permutationCount = graph.getProperty(LayerBasedMetaDataProvider.SETTINGS_CROSSING_MINIMIZATION_PERMUTATIONS);
         progressMonitor.begin("BarycenterCrossingMinimizationPhase", permutationCount * iterations);
 
         Random r = new Random(42007); // Seed

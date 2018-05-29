@@ -149,13 +149,16 @@ group settings{
 algorithm LayerBasedLayout(LayerBasedLayoutProvider) {
       
     //user
+        //phase implementation selection
         supports settings.CycleBreakPhase
         supports settings.LayerAssignementPhase
         supports settings.CrossingMinimizationPhase
         supports settings.NodePlacementPhase
         supports settings.EdgeRoutingPhase
+        //phase options
         supports settings.CrossingMinimizationIterations
-        
+        supports settings.CrossingMinimizationPermutations
+        //elk options
         supports org.eclipse.elk.padding
         supports org.eclipse.elk.edge.thickness
      
