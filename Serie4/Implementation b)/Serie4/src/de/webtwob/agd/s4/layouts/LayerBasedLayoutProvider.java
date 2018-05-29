@@ -5,10 +5,12 @@ import java.util.List;
 import org.eclipse.elk.core.AbstractLayoutProvider;
 import org.eclipse.elk.core.alg.AlgorithmAssembler;
 import org.eclipse.elk.core.alg.ILayoutProcessor;
+import org.eclipse.elk.core.alg.LayoutProcessorConfiguration;
 import org.eclipse.elk.core.util.IElkProgressMonitor;
 import org.eclipse.elk.graph.ElkNode;
 
 import de.webtwob.agd.s4.layouts.enums.LayoutPhasesEnum;
+import de.webtwob.agd.s4.layouts.enums.ProcessorEnum;
 
 public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
     
@@ -40,6 +42,14 @@ public class LayerBasedLayoutProvider extends AbstractLayoutProvider {
         algAssembler.setPhase(LayoutPhasesEnum.CROSSING_MINIMIZATION,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_CROSSING_MINIMIZATION_PHASE));
         algAssembler.setPhase(LayoutPhasesEnum.NODE_PLACEMENT,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_NODE_PLACEMENT_PHASE));
         algAssembler.setPhase(LayoutPhasesEnum.EDGE_ROUTING,layoutGraph.getProperty(LayerBasedLayoutMetadata.SETTINGS_EDGE_ROUTING_PHASE));
+        
+        //add mandatory Processors
+        LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> procConf;
+        procConf = LayoutProcessorConfiguration.<LayoutPhasesEnum,ElkNode>create()
+                .addBefore(LayoutPhasesEnum.CROSSING_MINIMIZATION, ProcessorEnum.INIT)
+                .addAfter(LayoutPhasesEnum.EDGE_ROUTING, ProcessorEnum.POST);
+        
+        algAssembler.addProcessorConfiguration(procConf);
         
         return algAssembler.build(layoutGraph);
     }

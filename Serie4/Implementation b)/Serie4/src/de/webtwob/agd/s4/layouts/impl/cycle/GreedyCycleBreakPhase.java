@@ -106,9 +106,9 @@ public class GreedyCycleBreakPhase implements ILayoutPhase<LayoutPhasesEnum, Elk
     @Override
     public LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> getLayoutProcessorConfiguration(ElkNode graph) {
         LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> conf =
-                LayoutProcessorConfiguration.<LayoutPhasesEnum, ElkNode> create().before(LayoutPhasesEnum.CYCLE_BREAK).add(ProcessorEnum.INIT) // run init first
-                        .before(LayoutPhasesEnum.EDGE_ROUTING)
-                        .add(ProcessorEnum.UNDO_CYCLE_BREAK);
+                LayoutProcessorConfiguration.<LayoutPhasesEnum, ElkNode> create()
+                .before(LayoutPhasesEnum.EDGE_ROUTING)
+                    .add(ProcessorEnum.UNDO_CYCLE_BREAK);
         return conf;
     }
 

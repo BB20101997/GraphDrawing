@@ -53,9 +53,7 @@ public class PolyEdgeRoutingPhase implements ILayoutPhase<de.webtwob.agd.s4.layo
     public LayoutProcessorConfiguration<LayoutPhasesEnum, ElkNode> getLayoutProcessorConfiguration(ElkNode graph) {
         return LayoutProcessorConfiguration.<LayoutPhasesEnum, ElkNode> create()// run init first
                 .before(LayoutPhasesEnum.EDGE_ROUTING)
-                .add(ProcessorEnum.UNDO_CYCLE_BREAK)
-                .after(LayoutPhasesEnum.EDGE_ROUTING)
-                .add(ProcessorEnum.POST);
+                .add(ProcessorEnum.UNDO_CYCLE_BREAK);
     }
 
 }
