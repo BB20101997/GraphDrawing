@@ -20,10 +20,10 @@ public class LongestPathLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
     @Override
     public void process(ElkNode graph, IElkProgressMonitor progressMonitor) {
         progressMonitor.begin("LongestPathLayerAssignement", graph.getChildren().size());
-        
+
         /*
-         * we start at the sources so we can skip finding the longest path which we would need to know the index of the last
-         * layer
+         * we start at the sources so we can skip finding the longest path which we would need to know the index of the
+         * last layer
          */
 
         List<ElkNode> notAssigned = new LinkedList<>(graph.getChildren());
@@ -49,25 +49,25 @@ public class LongestPathLayerAssignement implements ILayoutPhase<LayoutPhasesEnu
                 for (ElkEdge e : cur.getIncomingEdges()) {
                     ElkNode n = Util.getSource(e);
                     int curLayer = n.getProperty(LayerBasedMetaDataProvider.OUTPUTS_IN_LAYER);
-                    if (curLayer == -1) {
-                        // a predessecor was unassigned try next node
+                    if (curLayer == Util.UNASSIGNED) {
+                        // a predecessor was unassigned try next node
                         continue out;
                     } else {
                         maxLayer = Math.max(maxLayer, curLayer);
                     }
                 }
-                
+
                 iter.remove(); // we don't want no ConcurrentModificationException
-                
+
                 cur.setProperty(LayerBasedLayoutMetadata.OUTPUTS_IN_LAYER, maxLayer + 1);
-                
+
                 layerCount = Math.max(layerCount, maxLayer + 2);
                 progressMonitor.worked(1);
             }
         }
 
         graph.setProperty(LayerBasedMetaDataProvider.OUTPUTS_LAYER_COUNT, layerCount);
-        
+
         progressMonitor.done();
 
     }
